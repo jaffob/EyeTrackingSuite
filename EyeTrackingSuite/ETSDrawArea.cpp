@@ -16,7 +16,7 @@ bool ETSDrawArea::loadBaseImage(QString filename)
 {
 	// Read the image from the filename specified.
 	QImageReader imgReader(filename);
-	imgReader.setScaledSize(size());
+	//imgReader.setScaledSize(size());
 	baseImg = imgReader.read();
 	
 	imgLoaded = !baseImg.isNull();
@@ -30,4 +30,5 @@ void ETSDrawArea::repaintDrawArea()
 
 	img = QImage(baseImg);
 	setPixmap(QPixmap::fromImage(img));
+	repaint();
 }
