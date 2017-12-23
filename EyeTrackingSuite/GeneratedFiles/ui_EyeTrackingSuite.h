@@ -16,8 +16,10 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -35,6 +37,8 @@ public:
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QGroupBox *groupBox;
+    QPushButton *tobiiReconnect;
+    QLabel *tobiiLabel;
     QGroupBox *groupBox_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -73,7 +77,21 @@ public:
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 248, 651));
         groupBox = new QGroupBox(scrollAreaWidgetContents);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(20, 20, 211, 161));
+        groupBox->setGeometry(QRect(20, 20, 211, 81));
+        tobiiReconnect = new QPushButton(groupBox);
+        tobiiReconnect->setObjectName(QStringLiteral("tobiiReconnect"));
+        tobiiReconnect->setGeometry(QRect(120, 30, 81, 31));
+        tobiiLabel = new QLabel(groupBox);
+        tobiiLabel->setObjectName(QStringLiteral("tobiiLabel"));
+        tobiiLabel->setGeometry(QRect(10, 30, 101, 31));
+        QFont font;
+        font.setPointSize(10);
+        font.setBold(true);
+        font.setWeight(75);
+        tobiiLabel->setFont(font);
+        tobiiLabel->setAlignment(Qt::AlignCenter);
+        tobiiLabel->raise();
+        tobiiReconnect->raise();
         groupBox_2 = new QGroupBox(scrollAreaWidgetContents);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(20, 200, 211, 161));
@@ -94,6 +112,7 @@ public:
         EyeTrackingSuiteClass->setStatusBar(statusBar);
 
         retranslateUi(EyeTrackingSuiteClass);
+        QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);
     } // setupUi
@@ -102,7 +121,9 @@ public:
     {
         EyeTrackingSuiteClass->setWindowTitle(QApplication::translate("EyeTrackingSuiteClass", "EyeTrackingSuite", nullptr));
         mainDrawArea->setText(QApplication::translate("EyeTrackingSuiteClass", "TextLabel", nullptr));
-        groupBox->setTitle(QApplication::translate("EyeTrackingSuiteClass", "GroupBox", nullptr));
+        groupBox->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Tobii", nullptr));
+        tobiiReconnect->setText(QApplication::translate("EyeTrackingSuiteClass", "Reconnect", nullptr));
+        tobiiLabel->setText(QApplication::translate("EyeTrackingSuiteClass", "Disconnected", nullptr));
         groupBox_2->setTitle(QApplication::translate("EyeTrackingSuiteClass", "GroupBox", nullptr));
     } // retranslateUi
 

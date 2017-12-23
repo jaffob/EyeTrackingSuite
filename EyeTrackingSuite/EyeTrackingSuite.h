@@ -27,4 +27,10 @@ protected:
 
 	static void onGazePointReceived(float alpha, float beta, void * context);
 
+	void reconnectToTobii();
+
+public slots:
+
+	void onTobiiReconnectClicked();
+
 };

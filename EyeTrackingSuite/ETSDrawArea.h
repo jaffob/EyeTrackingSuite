@@ -11,6 +11,7 @@ private:
 	QImage baseImg;
 	QImage img;
 	bool imgLoaded;
+	QPoint gazeLocalPos;
 
 public:
 	ETSDrawArea(QWidget *parent);
@@ -18,4 +19,6 @@ public:
 
 	bool loadBaseImage(QString filename);
 	void repaintDrawArea();
+	void setGazeScreenPosition(QPoint pos);
+
 };

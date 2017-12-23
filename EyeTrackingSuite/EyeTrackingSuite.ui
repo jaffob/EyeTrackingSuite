@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>EyeTrackingSuite</string>
+   <string>Eye Tracking Suite</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="layoutDirection">
@@ -66,12 +66,50 @@
           <x>20</x>
           <y>20</y>
           <width>211</width>
-          <height>161</height>
+          <height>81</height>
          </rect>
         </property>
         <property name="title">
-         <string>GroupBox</string>
+         <string>Tobii</string>
         </property>
+        <widget class="QPushButton" name="tobiiReconnect">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>30</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Reconnect</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="tobiiLabel">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>101</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Disconnected</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <zorder>tobiiLabel</zorder>
+        <zorder>tobiiReconnect</zorder>
        </widget>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="geometry">
@@ -122,5 +160,25 @@
  <resources>
   <include location="EyeTrackingSuite.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>tobiiReconnect</sender>
+   <signal>clicked()</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onTobiiReconnectClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>836</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onTobiiReconnectClicked()</slot>
+ </slots>
 </ui>

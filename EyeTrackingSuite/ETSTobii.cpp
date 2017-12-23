@@ -25,6 +25,7 @@ bool ETSTobii::init()
 bool ETSTobii::shutdown()
 {
 	mError = tobii_api_destroy(mApi);
+	mApi = nullptr;
 	return mError == TOBII_ERROR_NO_ERROR;
 }
 
@@ -48,13 +49,22 @@ bool ETSTobii::disconnectDevice()
 	if (mDevice)
 	{
 		mError = tobii_device_destroy(mDevice);
+		mDevice = nullptr;
 		return mError == TOBII_ERROR_NO_ERROR;
 	}
 	return true;
 }
 
+bool ETSTobii::isConnected()
+{
+	return mApi && mDevice;
+}
+
 bool ETSTobii::processEyeData(bool waitUntilData)
 {
+	if (!mDevice)
+		return false;
+
 	// Call this function. If waitUntilData is true, we want to keep calling it
 	// until it doesn't time out.
 	do
@@ -63,7 +73,9 @@ bool ETSTobii::processEyeData(bool waitUntilData)
 	} while (waitUntilData && mError == TOBII_ERROR_TIMED_OUT);
 
 	if (mError != TOBII_ERROR_NO_ERROR)
+	{
 		return false;
+	}
 
 	mError = tobii_device_process_callbacks(mDevice);
 	return mError == TOBII_ERROR_NO_ERROR;

@@ -13,11 +13,14 @@ typedef struct
 class ETSTobii
 {
 
+public:
+
+	tobii_error_t mError;
+
 private:
 
 	tobii_api_t * mApi;
 	tobii_device_t * mDevice;
-	tobii_error_t mError;
 	char mUrl [256];
 	ETSTobiiCallbackInfo mCallbackInfo;
 
@@ -46,6 +49,8 @@ public:
 	 * Disconnects the currently connected Tobii.
 	 */
 	bool disconnectDevice();
+
+	bool isConnected();
 
 	/**
 	 * Process data and call any registered callbacks. Calling this every
