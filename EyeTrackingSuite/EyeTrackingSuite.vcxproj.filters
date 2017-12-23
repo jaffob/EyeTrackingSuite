@@ -39,6 +39,9 @@
       <Extensions>ui</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
+    <Filter Include="Header Files\tobii">
+      <UniqueIdentifier>{b87e96be-a154-4c20-8567-6b92197cb2a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +59,18 @@
     <ClCompile Include="GeneratedFiles\qrc_EyeTrackingSuite.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="ETSTobii.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ETSDrawArea.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ETSDrawArea.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="ETSDrawArea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="EyeTrackingSuite.h">
@@ -67,10 +82,28 @@
     <CustomBuild Include="EyeTrackingSuite.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="ETSDrawArea.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_EyeTrackingSuite.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tobii\tobii.h">
+      <Filter>Header Files\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="tobii\tobii_engine.h">
+      <Filter>Header Files\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="tobii\tobii_streams.h">
+      <Filter>Header Files\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="tobii\tobii_wearable.h">
+      <Filter>Header Files\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="ETSTobii.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
