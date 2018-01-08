@@ -1,12 +1,16 @@
 #include "ETSDrawArea.h"
+
+#include "EyeTrackingSuite.h"
+#include "ETSScotoma.h"
+
 #include <QImageReader>
 #include <QImage>
 #include <QPainter>
-#include "EyeTrackingSuite.h"
 
 ETSDrawArea::ETSDrawArea(QWidget *parent)
 	: QLabel(parent)
 	, imgLoaded(false)
+	, scotoma()
 {
 }
 
@@ -38,6 +42,12 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	QPainter painter(&img);
 	painter.setBrush(Qt::black);
 
+	// Remake the scotoma if the options have changed.
+	if (ets->consumeScotomaDrawChangedFlag())
+	{
+		scotoma.makeScotoma(&ets->optScotoma);
+	}
+
 	// Draw the scotoma.
 	if (ets->optScotomaEnabled)
 	{
@@ -45,7 +55,10 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 		QPointF scotomaDrawPos = QPointF(gazeLocalPos.x() + ets->optCalibrationHoriz, gazeLocalPos.y() + ets->optCalibrationVert);
 
 		// Draw it.
-		painter.drawEllipse(scotomaDrawPos, ets->optScotomaRadius, ets->optScotomaRadius);
+		painter.drawEllipse(scotomaDrawPos, ets->optScotoma.radius, ets->optScotoma.radius);
+		
+		// For when we implement drawing the ETSScotoma.
+		//painter.drawImage(scotomaDrawPos, scotoma.getImage());
 	}
 
 	painter.end();

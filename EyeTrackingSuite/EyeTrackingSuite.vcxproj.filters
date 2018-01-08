@@ -71,6 +71,9 @@
     <ClCompile Include="ETSDrawArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ETSScotoma.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="EyeTrackingSuite.h">
@@ -103,6 +106,9 @@
       <Filter>Header Files\tobii</Filter>
     </ClInclude>
     <ClInclude Include="ETSTobii.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ETSScotoma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

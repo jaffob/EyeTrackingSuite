@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QLabel>
+#include "ETSScotoma.h"
 
 class ETSDrawArea : public QLabel
 {
@@ -12,6 +13,7 @@ private:
 	QImage img;
 	bool imgLoaded;
 	QPoint gazeLocalPos;
+	ETSScotoma scotoma;
 
 public:
 	ETSDrawArea(QWidget *parent);

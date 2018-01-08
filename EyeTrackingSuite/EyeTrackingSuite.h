@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_EyeTrackingSuite.h"
 #include "ETSTobii.h"
+#include "ETSScotoma.h"
 
 class EyeTrackingSuite : public QMainWindow
 {
@@ -16,6 +17,8 @@ private:
 	ETSTobii * tobii;
 	ETSDrawArea * drawArea;
 	int timerId;
+
+	bool scotomaDrawChangedFlag;
 	
 public:
 
@@ -23,10 +26,7 @@ public:
 	int optCalibrationHoriz;
 	int optCalibrationVert;
 	bool optScotomaEnabled;
-	int optScotomaRadius;
-	bool optProsthesisEnabled;
-	int optProsthesisSizePercent;
-	int optProsthesisGrayLevel;
+	ETSScotomaDrawOptions optScotoma;
 
 public:
     EyeTrackingSuite(QWidget *parent = Q_NULLPTR);
@@ -39,6 +39,14 @@ protected:
 	static void onGazePointReceived(float alpha, float beta, void * context);
 
 	void reconnectToTobii();
+
+public:
+
+	/**
+	 * Returns whether the scotoma visual options have changed, and
+	 * resets the flag to false.
+	 */
+	bool consumeScotomaDrawChangedFlag();
 
 public slots:
 
