@@ -16,6 +16,17 @@ private:
 	ETSTobii * tobii;
 	ETSDrawArea * drawArea;
 	int timerId;
+	
+public:
+
+	// Options.
+	int optCalibrationHoriz;
+	int optCalibrationVert;
+	bool optScotomaEnabled;
+	int optScotomaRadius;
+	bool optProsthesisEnabled;
+	int optProsthesisSizePercent;
+	int optProsthesisGrayLevel;
 
 public:
     EyeTrackingSuite(QWidget *parent = Q_NULLPTR);
@@ -32,5 +43,12 @@ protected:
 public slots:
 
 	void onTobiiReconnectClicked();
+	void onCalibrationHorizChanged(int newValue);
+	void onCalibrationVertChanged(int newValue);
+	void onScotomaEnabled(int enabled);
+	void onScotomaRadiusChanged(int newValue);
+	void onProsthesisEnabled(int enabled);
+	void onProsthesisSizeChanged(int newValue);
+	void onProsthesisGrayLevelChanged(int newValue);
 
 };

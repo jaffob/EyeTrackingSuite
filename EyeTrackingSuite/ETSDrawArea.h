@@ -18,7 +18,9 @@ public:
 	~ETSDrawArea();
 
 	bool loadBaseImage(QString filename);
-	void repaintDrawArea();
+	void repaintDrawArea(class EyeTrackingSuite * ets);
+
+	void setGazeLocalPosition(QPoint pos);
 	void setGazeScreenPosition(QPoint pos);
 
 };

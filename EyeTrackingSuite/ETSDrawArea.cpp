@@ -2,6 +2,7 @@
 #include <QImageReader>
 #include <QImage>
 #include <QPainter>
+#include "EyeTrackingSuite.h"
 
 ETSDrawArea::ETSDrawArea(QWidget *parent)
 	: QLabel(parent)
@@ -24,18 +25,29 @@ bool ETSDrawArea::loadBaseImage(QString filename)
 	return imgLoaded;
 }
 
-void ETSDrawArea::repaintDrawArea()
+void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 {
 	if (!imgLoaded)
 		return;
 
-	// Copy the base image into the image buffer.
+	// Copy the base image into the image buffer. That is, overwrite the last
+	// frame's drawing with just the base image.
 	img = QImage(baseImg);
 
-	// Draw a basic scotoma.
+	// Initialize drawing.
 	QPainter painter(&img);
 	painter.setBrush(Qt::black);
-	painter.drawEllipse(QPointF(gazeLocalPos), 50, 50);
+
+	// Draw the scotoma.
+	if (ets->optScotomaEnabled)
+	{
+		// Draw the scotoma at the stored local position, accounting for the user's calibration.
+		QPointF scotomaDrawPos = QPointF(gazeLocalPos.x() + ets->optCalibrationHoriz, gazeLocalPos.y() + ets->optCalibrationVert);
+
+		// Draw it.
+		painter.drawEllipse(scotomaDrawPos, ets->optScotomaRadius, ets->optScotomaRadius);
+	}
+
 	painter.end();
 
 	// Dump the image buffer to the label's pixmap.
@@ -43,9 +55,15 @@ void ETSDrawArea::repaintDrawArea()
 	repaint();
 }
 
+void ETSDrawArea::setGazeLocalPosition(QPoint pos)
+{
+	gazeLocalPos = pos;
+}
+
 void ETSDrawArea::setGazeScreenPosition(QPoint pos)
 {
 	// We were given a screen position of the user's gaze. Save the position
 	// relative to the widget.
 	gazeLocalPos = mapFromGlobal(pos);
+	gazeLocalPos.setY(gazeLocalPos.y() - 100);
 }
