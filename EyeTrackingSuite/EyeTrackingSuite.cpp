@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QPoint>
+#include <QScreen>
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -139,6 +140,19 @@ void EyeTrackingSuite::onScotomaEnabled(bool enabled)
 void EyeTrackingSuite::onScotomaRadiusChanged(int newValue)
 {
 	optScotoma.radius = newValue;
+	scotomaDrawChangedFlag = true;
+}
+
+void EyeTrackingSuite::onScotomaAutoSize()
+{
+	// Figure out desired scotoma size.
+	QScreen * screen = QGuiApplication::primaryScreen();
+	double scotomaRadiusInches = tan((ui.scotomaAutoSizeDegrees->value() / 2.) * (3.141592 / 180.)) * ui.scotomaAutoViewDist->value();
+	int scotomaRadiusPixels = (int)(scotomaRadiusInches * screen->logicalDotsPerInch());
+	
+	// Set the new radius.
+	ui.scotomaRadius->setValue(scotomaRadiusPixels);
+	optScotoma.radius = scotomaRadiusPixels;
 	scotomaDrawChangedFlag = true;
 }
 

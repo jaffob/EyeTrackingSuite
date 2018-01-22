@@ -60,6 +60,7 @@ public slots:
 	// Central vision.
 	void onScotomaEnabled(bool enabled);
 	void onScotomaRadiusChanged(int newValue);
+	void onScotomaAutoSize();
 	void onProsthesisEnabled(bool enabled);
 	void onProsthesisSizeChanged(int newValue);
 	void onProsthesisGrayLevelChanged(int newValue);
