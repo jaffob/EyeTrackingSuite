@@ -8,6 +8,11 @@ typedef struct
 	bool prosthesisEnabled;
 	int prosthesisSizePercent;
 	int prosthesisGrayLevel;
+	int prosthesisPixelSize;
+	bool gradientEnabled;
+	bool gradientSquaredFalloff;
+	int gradientInside;
+	int gradientOutside;
 } ETSScotomaDrawOptions;
 
 class ETSScotoma : public QObject

@@ -29,7 +29,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QScrollArea" name="scrollArea">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -42,24 +42,13 @@
         <height>0</height>
        </size>
       </property>
-      <property name="baseSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
+      <property name="currentIndex">
+       <number>1</number>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>248</width>
-         <height>651</height>
-        </rect>
-       </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>General</string>
+       </attribute>
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
          <rect>
@@ -110,144 +99,6 @@
         </widget>
         <zorder>tobiiLabel</zorder>
         <zorder>tobiiReconnect</zorder>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>300</y>
-          <width>211</width>
-          <height>101</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Scotoma</string>
-        </property>
-        <widget class="QSlider" name="scotomaRadius">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>60</y>
-           <width>141</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="minimum">
-          <number>10</number>
-         </property>
-         <property name="maximum">
-          <number>200</number>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="scotomaEnabled">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>30</y>
-           <width>171</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Show Scotoma</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>60</y>
-           <width>31</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Size:</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>420</y>
-          <width>211</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Prosthesis</string>
-        </property>
-        <widget class="QCheckBox" name="prosthesisEnabled">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>30</y>
-           <width>171</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Show Prosthesis</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_2">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>60</y>
-           <width>51</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Size (%):</string>
-         </property>
-        </widget>
-        <widget class="QSlider" name="prosthesisSize">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>60</y>
-           <width>121</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="value">
-          <number>25</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_3">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>90</y>
-           <width>61</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Gray Level:</string>
-         </property>
-        </widget>
        </widget>
        <widget class="QGroupBox" name="groupBox_4">
         <property name="geometry">
@@ -332,6 +183,394 @@
          </property>
         </widget>
        </widget>
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>300</y>
+          <width>211</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Image</string>
+        </property>
+        <widget class="QComboBox" name="imageComboBox">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>171</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>Reading Test</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Oregon Sunset</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Desert Mustang</string>
+          </property>
+         </item>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Central Vision</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>211</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Scotoma</string>
+        </property>
+        <widget class="QSlider" name="scotomaRadius">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>60</y>
+           <width>141</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>10</number>
+         </property>
+         <property name="maximum">
+          <number>200</number>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="scotomaEnabled">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>171</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Show Scotoma</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>31</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Size:</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>211</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Prosthesis</string>
+        </property>
+        <widget class="QCheckBox" name="prosthesisEnabled">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>171</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Show Prosthesis</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>51</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Size (%):</string>
+         </property>
+        </widget>
+        <widget class="QSlider" name="prosthesisSize">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>60</y>
+           <width>121</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>25</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>61</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Gray Levels:</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="prosthesisGrayLevel">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>90</y>
+           <width>42</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+         <property name="value">
+          <number>8</number>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="prosthesisPixelSize">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>120</y>
+           <width>42</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>200</number>
+         </property>
+         <property name="value">
+          <number>5</number>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_8">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>120</y>
+           <width>61</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Pixel Size:</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>320</y>
+          <width>211</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Gradient</string>
+        </property>
+        <widget class="QCheckBox" name="gradientEnabled">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>181</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Fade Scotoma at Edges</string>
+         </property>
+        </widget>
+        <widget class="QSlider" name="gradientInside">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>60</y>
+           <width>101</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>95</number>
+         </property>
+         <property name="value">
+          <number>40</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_6">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>71</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Fade Inside:</string>
+         </property>
+        </widget>
+        <widget class="QSlider" name="gradientOutside">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>90</y>
+           <width>101</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>95</number>
+         </property>
+         <property name="value">
+          <number>60</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_7">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>71</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Fade Outside:</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Visual Field</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>211</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Homonymous Hemianopsia</string>
+        </property>
+        <widget class="QRadioButton" name="halfFieldBlockNone">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>171</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Do not block visual fields</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="halfFieldBlockLeft">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>171</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Block left visual field</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="halfFieldBlockRight">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>171</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Block right visual field</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -356,6 +595,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSwitch_Application">
+   <property name="text">
+    <string>Switch Application</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -387,9 +631,9 @@
   </connection>
   <connection>
    <sender>scotomaEnabled</sender>
-   <signal>stateChanged(int)</signal>
+   <signal>toggled(bool)</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onScotomaEnabled(int)</slot>
+   <slot>onScotomaEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>781</x>
@@ -451,9 +695,9 @@
   </connection>
   <connection>
    <sender>prosthesisEnabled</sender>
-   <signal>stateChanged(int)</signal>
+   <signal>toggled(bool)</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisEnabled(int)</slot>
+   <slot>onProsthesisEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>781</x>
@@ -481,15 +725,167 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>halfFieldBlockNone</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onHalfFieldBlockNone(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>782</x>
+     <y>122</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>halfFieldBlockLeft</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onHalfFieldBlockLeft(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>782</x>
+     <y>152</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>halfFieldBlockRight</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onHalfFieldBlockRight(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>782</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisGrayLevel</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisGrayLevelChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>777</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gradientEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onGradientEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>787</x>
+     <y>392</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gradientInside</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onGradientInsideChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>817</x>
+     <y>424</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gradientOutside</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onGradientOutsideChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>817</x>
+     <y>454</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>imageComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onImageComboBoxChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>782</x>
+     <y>404</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisPixelSize</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisPixelSizeChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>787</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onTobiiReconnectClicked()</slot>
-  <slot>onScotomaEnabled(int)</slot>
+  <slot>onScotomaEnabled(bool)</slot>
   <slot>onScotomaRadiusChanged(int)</slot>
   <slot>onCalibrationHorizChanged(int)</slot>
   <slot>onCalibrationVertChanged(int)</slot>
-  <slot>onProsthesisEnabled(int)</slot>
+  <slot>onProsthesisEnabled(bool)</slot>
   <slot>onProsthesisSizeChanged(int)</slot>
   <slot>onProsthesisGrayLevelChanged(int)</slot>
+  <slot>onHalfFieldBlockNone(bool)</slot>
+  <slot>onHalfFieldBlockLeft(bool)</slot>
+  <slot>onHalfFieldBlockRight(bool)</slot>
+  <slot>onGradientEnabled(bool)</slot>
+  <slot>onGradientInsideChanged(int)</slot>
+  <slot>onGradientOutsideChanged(int)</slot>
+  <slot>onImageComboBoxChanged(QString)</slot>
+  <slot>onProsthesisPixelSizeChanged(int)</slot>
  </slots>
 </ui>

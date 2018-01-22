@@ -10,10 +10,13 @@ class ETSDrawArea : public QLabel
 private:
 
 	QImage baseImg;
-	QImage img;
 	bool imgLoaded;
 	QPoint gazeLocalPos;
 	ETSScotoma scotoma;
+
+public:
+
+	QImage img;
 
 public:
 	ETSDrawArea(QWidget *parent);
@@ -21,8 +24,12 @@ public:
 
 	bool loadBaseImage(QString filename);
 	void repaintDrawArea(class EyeTrackingSuite * ets);
+	void drawProsthesis(class EyeTrackingSuite * ets, QPointF& finalEyePos, QPainter& painter);
 
 	void setGazeLocalPosition(QPoint pos);
 	void setGazeScreenPosition(QPoint pos);
 
+private:
+
+	void drawProsthesis_Pixel(class EyeTrackingSuite * ets, QPainter& painter, int x, int y);
 };

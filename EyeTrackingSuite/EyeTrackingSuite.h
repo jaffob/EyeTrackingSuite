@@ -27,6 +27,7 @@ public:
 	int optCalibrationVert;
 	bool optScotomaEnabled;
 	ETSScotomaDrawOptions optScotoma;
+	int optHalfField;
 
 public:
     EyeTrackingSuite(QWidget *parent = Q_NULLPTR);
@@ -50,13 +51,25 @@ public:
 
 public slots:
 
+	// General.
 	void onTobiiReconnectClicked();
 	void onCalibrationHorizChanged(int newValue);
 	void onCalibrationVertChanged(int newValue);
-	void onScotomaEnabled(int enabled);
+	void onImageComboBoxChanged(QString newText);
+
+	// Central vision.
+	void onScotomaEnabled(bool enabled);
 	void onScotomaRadiusChanged(int newValue);
-	void onProsthesisEnabled(int enabled);
+	void onProsthesisEnabled(bool enabled);
 	void onProsthesisSizeChanged(int newValue);
 	void onProsthesisGrayLevelChanged(int newValue);
+	void onProsthesisPixelSizeChanged(int newValue);
+	void onGradientEnabled(bool enabled);
+	void onGradientInsideChanged(int newValue);
+	void onGradientOutsideChanged(int newValue);
 
+	// Visual field.
+	void onHalfFieldBlockNone(bool enabled);
+	void onHalfFieldBlockLeft(bool enabled);
+	void onHalfFieldBlockRight(bool enabled);
 };

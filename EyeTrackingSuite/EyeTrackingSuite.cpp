@@ -10,7 +10,8 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, scotomaDrawChangedFlag(true)
 	, optCalibrationHoriz(0)
 	, optCalibrationVert(0)
-	, optScotomaEnabled(true)
+	, optScotomaEnabled(false)
+	, optHalfField(0)
 {
 	ui.setupUi(this);
 	drawArea = (ETSDrawArea *)ui.mainDrawArea;
@@ -25,13 +26,18 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optScotoma.prosthesisEnabled = false;
 	optScotoma.prosthesisSizePercent = 25;
 	optScotoma.prosthesisGrayLevel = 0;
+	optScotoma.prosthesisPixelSize = 5;
+	optScotoma.gradientEnabled = false;
+	optScotoma.gradientSquaredFalloff = true;
+	optScotoma.gradientInside = 40;
+	optScotoma.gradientOutside = 60;
 
 	// Load the base image for the draw area.
-	drawArea->loadBaseImage(QString("input.jpg"));
+	drawArea->loadBaseImage(ui.imageComboBox->currentText() + QString(".jpg"));
 	drawArea->repaintDrawArea(this);
 
 	// Start the main loop.
-	timerId = startTimer(1000/60);
+	timerId = startTimer(12);
 }
 
 EyeTrackingSuite::~EyeTrackingSuite()
@@ -61,7 +67,7 @@ void EyeTrackingSuite::timerEvent(QTimerEvent * event)
 	// If no Tobii is connected, draw the scotoma in the center.
 	else
 	{
-		drawArea->setGazeLocalPosition(QPoint(drawArea->width() / 2, drawArea->height() / 2));
+		drawArea->setGazeLocalPosition(QPoint(drawArea->img.width() / 2, drawArea->img.height() / 2));
 		drawArea->repaintDrawArea(this);
 	}
 }
@@ -120,7 +126,12 @@ void EyeTrackingSuite::onCalibrationVertChanged(int newValue)
 	optCalibrationVert = newValue;
 }
 
-void EyeTrackingSuite::onScotomaEnabled(int enabled)
+void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
+{
+	drawArea->loadBaseImage(newText + QString(".jpg"));
+}
+
+void EyeTrackingSuite::onScotomaEnabled(bool enabled)
 {
 	optScotomaEnabled = enabled;
 }
@@ -131,7 +142,7 @@ void EyeTrackingSuite::onScotomaRadiusChanged(int newValue)
 	scotomaDrawChangedFlag = true;
 }
 
-void EyeTrackingSuite::onProsthesisEnabled(int enabled)
+void EyeTrackingSuite::onProsthesisEnabled(bool enabled)
 {
 	optScotoma.prosthesisEnabled = enabled;
 	scotomaDrawChangedFlag = true;
@@ -147,4 +158,43 @@ void EyeTrackingSuite::onProsthesisGrayLevelChanged(int newValue)
 {
 	optScotoma.prosthesisGrayLevel = newValue;
 	scotomaDrawChangedFlag = true;
+}
+
+void EyeTrackingSuite::onProsthesisPixelSizeChanged(int newValue)
+{
+	optScotoma.prosthesisPixelSize = newValue;
+	scotomaDrawChangedFlag = true;
+}
+
+void EyeTrackingSuite::onGradientEnabled(bool enabled)
+{
+	optScotoma.gradientEnabled = enabled;
+	scotomaDrawChangedFlag = true;
+}
+
+void EyeTrackingSuite::onGradientInsideChanged(int newValue)
+{
+	optScotoma.gradientInside = newValue;
+	scotomaDrawChangedFlag = true;
+}
+
+void EyeTrackingSuite::onGradientOutsideChanged(int newValue)
+{
+	optScotoma.gradientOutside = newValue;
+	scotomaDrawChangedFlag = true;
+}
+
+void EyeTrackingSuite::onHalfFieldBlockNone(bool enabled)
+{
+	if (enabled) optHalfField = 0;
+}
+
+void EyeTrackingSuite::onHalfFieldBlockLeft(bool enabled)
+{
+	if (enabled) optHalfField = 1;
+}
+
+void EyeTrackingSuite::onHalfFieldBlockRight(bool enabled)
+{
+	if (enabled) optHalfField = 2;
 }
