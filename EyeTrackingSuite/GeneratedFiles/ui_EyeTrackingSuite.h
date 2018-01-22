@@ -62,7 +62,7 @@ public:
     QLabel *label_2;
     QSlider *prosthesisSize;
     QLabel *label_3;
-    QSpinBox *prosthesisGrayLevel;
+    QSpinBox *prosthesisGrayLevels;
     QSpinBox *prosthesisPixelSize;
     QLabel *label_8;
     QGroupBox *groupBox_7;
@@ -198,12 +198,12 @@ public:
         label_3 = new QLabel(groupBox_3);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(20, 90, 61, 21));
-        prosthesisGrayLevel = new QSpinBox(groupBox_3);
-        prosthesisGrayLevel->setObjectName(QStringLiteral("prosthesisGrayLevel"));
-        prosthesisGrayLevel->setGeometry(QRect(90, 90, 42, 22));
-        prosthesisGrayLevel->setMinimum(2);
-        prosthesisGrayLevel->setMaximum(10);
-        prosthesisGrayLevel->setValue(8);
+        prosthesisGrayLevels = new QSpinBox(groupBox_3);
+        prosthesisGrayLevels->setObjectName(QStringLiteral("prosthesisGrayLevel"));
+        prosthesisGrayLevels->setGeometry(QRect(90, 90, 42, 22));
+        prosthesisGrayLevels->setMinimum(2);
+        prosthesisGrayLevels->setMaximum(10);
+        prosthesisGrayLevels->setValue(8);
         prosthesisPixelSize = new QSpinBox(groupBox_3);
         prosthesisPixelSize->setObjectName(QStringLiteral("prosthesisPixelSize"));
         prosthesisPixelSize->setGeometry(QRect(90, 120, 42, 22));
@@ -282,7 +282,7 @@ public:
         QObject::connect(halfFieldBlockNone, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockNone(bool)));
         QObject::connect(halfFieldBlockLeft, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockLeft(bool)));
         QObject::connect(halfFieldBlockRight, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockRight(bool)));
-        QObject::connect(prosthesisGrayLevel, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisGrayLevelChanged(int)));
+        QObject::connect(prosthesisGrayLevels, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisGrayLevelChanged(int)));
         QObject::connect(gradientEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onGradientEnabled(bool)));
         QObject::connect(gradientInside, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onGradientInsideChanged(int)));
         QObject::connect(gradientOutside, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onGradientOutsideChanged(int)));

@@ -7,7 +7,7 @@ typedef struct
 	int radius;
 	bool prosthesisEnabled;
 	int prosthesisSizePercent;
-	int prosthesisGrayLevel;
+	int prosthesisGrayLevels;
 	int prosthesisPixelSize;
 	bool gradientEnabled;
 	bool gradientSquaredFalloff;

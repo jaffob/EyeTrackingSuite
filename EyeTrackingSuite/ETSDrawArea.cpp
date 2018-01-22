@@ -52,7 +52,10 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	}
 
 	// Reduce image quality in the area of the prosthesis.
-	drawProsthesis(ets, finalEyePos, painter);
+	if (ets->optScotoma.prosthesisEnabled)
+	{
+		drawProsthesis(ets, finalEyePos, painter);
+	}
 
 	// Draw the scotoma.
 	if (ets->optScotomaEnabled)
@@ -133,6 +136,12 @@ void ETSDrawArea::drawProsthesis_Pixel(EyeTrackingSuite * ets, QPainter& painter
 		}
 	}
 
+	// Total lightness of this prosthesis pixel is the average of all the screen pixels.
 	totalLightness /= totalN;
+
+	// Force this value to one of the gray levels.
+	int grayLevel = totalLightness / (256 / ets->optScotoma.prosthesisGrayLevels);
+	totalLightness = grayLevel * (255 / (ets->optScotoma.prosthesisGrayLevels - 1));
+
 	painter.fillRect(x, y, ets->optScotoma.prosthesisPixelSize, ets->optScotoma.prosthesisPixelSize, QColor(totalLightness, totalLightness, totalLightness));
 }

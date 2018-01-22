@@ -25,7 +25,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optScotoma.radius = 50;
 	optScotoma.prosthesisEnabled = false;
 	optScotoma.prosthesisSizePercent = 25;
-	optScotoma.prosthesisGrayLevel = 0;
+	optScotoma.prosthesisGrayLevels = 8;
 	optScotoma.prosthesisPixelSize = 5;
 	optScotoma.gradientEnabled = false;
 	optScotoma.gradientSquaredFalloff = true;
@@ -156,14 +156,12 @@ void EyeTrackingSuite::onProsthesisSizeChanged(int newValue)
 
 void EyeTrackingSuite::onProsthesisGrayLevelChanged(int newValue)
 {
-	optScotoma.prosthesisGrayLevel = newValue;
-	scotomaDrawChangedFlag = true;
+	optScotoma.prosthesisGrayLevels = newValue;
 }
 
 void EyeTrackingSuite::onProsthesisPixelSizeChanged(int newValue)
 {
 	optScotoma.prosthesisPixelSize = newValue;
-	scotomaDrawChangedFlag = true;
 }
 
 void EyeTrackingSuite::onGradientEnabled(bool enabled)
