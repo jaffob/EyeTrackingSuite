@@ -65,4 +65,7 @@ public slots:
 	void onHalfFieldBlockNone(bool enabled);
 	void onHalfFieldBlockLeft(bool enabled);
 	void onHalfFieldBlockRight(bool enabled);
+
+	// Menu actions.
+	void onActionAbout();
 };

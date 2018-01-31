@@ -20,6 +20,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
@@ -37,6 +38,7 @@ class Ui_EyeTrackingSuiteClass
 {
 public:
     QAction *actionSwitch_Application;
+    QAction *actionAbout;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     ETSDrawArea *mainDrawArea;
@@ -66,11 +68,11 @@ public:
     QGroupBox *groupBox_3;
     QCheckBox *prosthesisEnabled;
     QLabel *label_2;
-    QSlider *prosthesisSize;
     QLabel *label_3;
     QSpinBox *prosthesisGrayLevel;
     QSpinBox *prosthesisPixelSize;
     QLabel *label_8;
+    QSpinBox *prosthesisSize;
     QGroupBox *groupBox_7;
     QCheckBox *gradientEnabled;
     QSlider *gradientInside;
@@ -83,6 +85,7 @@ public:
     QRadioButton *halfFieldBlockLeft;
     QRadioButton *halfFieldBlockRight;
     QMenuBar *menuBar;
+    QMenu *menuHelp;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -93,6 +96,8 @@ public:
         EyeTrackingSuiteClass->resize(914, 724);
         actionSwitch_Application = new QAction(EyeTrackingSuiteClass);
         actionSwitch_Application->setObjectName(QStringLiteral("actionSwitch_Application"));
+        actionAbout = new QAction(EyeTrackingSuiteClass);
+        actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(EyeTrackingSuiteClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setLayoutDirection(Qt::LeftToRight);
@@ -218,13 +223,6 @@ public:
         label_2 = new QLabel(groupBox_3);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(20, 60, 51, 21));
-        prosthesisSize = new QSlider(groupBox_3);
-        prosthesisSize->setObjectName(QStringLiteral("prosthesisSize"));
-        prosthesisSize->setGeometry(QRect(70, 60, 121, 22));
-        prosthesisSize->setMinimum(0);
-        prosthesisSize->setMaximum(100);
-        prosthesisSize->setValue(25);
-        prosthesisSize->setOrientation(Qt::Horizontal);
         label_3 = new QLabel(groupBox_3);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(20, 90, 61, 21));
@@ -243,6 +241,12 @@ public:
         label_8 = new QLabel(groupBox_3);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(20, 120, 61, 21));
+        prosthesisSize = new QSpinBox(groupBox_3);
+        prosthesisSize->setObjectName(QStringLiteral("prosthesisSize"));
+        prosthesisSize->setGeometry(QRect(90, 60, 42, 22));
+        prosthesisSize->setMinimum(5);
+        prosthesisSize->setMaximum(95);
+        prosthesisSize->setValue(50);
         groupBox_7 = new QGroupBox(tab_4);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
         groupBox_7->setGeometry(QRect(20, 470, 211, 131));
@@ -293,6 +297,8 @@ public:
         menuBar = new QMenuBar(EyeTrackingSuiteClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 914, 21));
+        menuHelp = new QMenu(menuBar);
+        menuHelp->setObjectName(QStringLiteral("menuHelp"));
         EyeTrackingSuiteClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(EyeTrackingSuiteClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -301,6 +307,9 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         EyeTrackingSuiteClass->setStatusBar(statusBar);
 
+        menuBar->addAction(menuHelp->menuAction());
+        menuHelp->addAction(actionAbout);
+
         retranslateUi(EyeTrackingSuiteClass);
         QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
         QObject::connect(scotomaEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaEnabled(bool)));
@@ -308,7 +317,6 @@ public:
         QObject::connect(calibrationHoriz, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationHorizChanged(int)));
         QObject::connect(calibrationVert, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationVertChanged(int)));
         QObject::connect(prosthesisEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onProsthesisEnabled(bool)));
-        QObject::connect(prosthesisSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisSizeChanged(int)));
         QObject::connect(halfFieldBlockNone, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockNone(bool)));
         QObject::connect(halfFieldBlockLeft, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockLeft(bool)));
         QObject::connect(halfFieldBlockRight, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockRight(bool)));
@@ -319,6 +327,8 @@ public:
         QObject::connect(imageComboBox, SIGNAL(currentIndexChanged(QString)), EyeTrackingSuiteClass, SLOT(onImageComboBoxChanged(QString)));
         QObject::connect(prosthesisPixelSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisPixelSizeChanged(int)));
         QObject::connect(scotomaAutoSize, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onScotomaAutoSize()));
+        QObject::connect(prosthesisSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisSizeChanged(int)));
+        QObject::connect(actionAbout, SIGNAL(triggered()), EyeTrackingSuiteClass, SLOT(onActionAbout()));
 
         tabWidget->setCurrentIndex(1);
 
@@ -330,6 +340,7 @@ public:
     {
         EyeTrackingSuiteClass->setWindowTitle(QApplication::translate("EyeTrackingSuiteClass", "Eye Tracking Suite", nullptr));
         actionSwitch_Application->setText(QApplication::translate("EyeTrackingSuiteClass", "Switch Application", nullptr));
+        actionAbout->setText(QApplication::translate("EyeTrackingSuiteClass", "About", nullptr));
         mainDrawArea->setText(QApplication::translate("EyeTrackingSuiteClass", "TextLabel", nullptr));
         groupBox->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Tobii", nullptr));
         tobiiReconnect->setText(QApplication::translate("EyeTrackingSuiteClass", "Reconnect", nullptr));
@@ -365,6 +376,7 @@ public:
         halfFieldBlockLeft->setText(QApplication::translate("EyeTrackingSuiteClass", "Block left visual field", nullptr));
         halfFieldBlockRight->setText(QApplication::translate("EyeTrackingSuiteClass", "Block right visual field", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("EyeTrackingSuiteClass", "Visual Field", nullptr));
+        menuHelp->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Help", nullptr));
     } // retranslateUi
 
 };

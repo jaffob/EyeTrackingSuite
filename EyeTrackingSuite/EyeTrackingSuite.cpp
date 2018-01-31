@@ -5,6 +5,7 @@
 #include <QDesktopWidget>
 #include <QPoint>
 #include <QScreen>
+#include <QMessageBox>
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -25,7 +26,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optScotoma.radius = 50;
 	optScotoma.changed = true;
 	optScotoma.prosthesisEnabled = false;
-	optScotoma.prosthesisSizePercent = 25;
+	optScotoma.prosthesisSizePercent = 50;
 	optScotoma.gradientEnabled = false;
 	optScotoma.gradientSquaredFalloff = true;
 	optScotoma.gradientInside = 40;
@@ -205,4 +206,9 @@ void EyeTrackingSuite::onHalfFieldBlockLeft(bool enabled)
 void EyeTrackingSuite::onHalfFieldBlockRight(bool enabled)
 {
 	if (enabled) optHalfField = 2;
+}
+
+void EyeTrackingSuite::onActionAbout()
+{
+	QMessageBox::about(this, "About", "Created by Jack Boffa.");
 }

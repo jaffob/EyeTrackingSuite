@@ -17,7 +17,7 @@ void ETSScotoma::makeScotoma(ETSScotomaDrawOptions * options)
 		return;
 
 	// Create an alpha-only image that's big enough to hold the whole scotoma.
-	img = QImage(options->radius * 2, options->radius * 2, QImage::Format::Format_Alpha8);
+	img = QImage(options->radius * 2, options->radius * 2, QImage::Format::Format_ARGB32_Premultiplied);
 
 	// Do some pre-calculations.
 	QPoint center = QPoint(img.width() / 2, img.height() / 2);
@@ -58,7 +58,7 @@ void ETSScotoma::makeScotoma(ETSScotomaDrawOptions * options)
 					alpha = 1.f - (float)(qSqrt(distSq) - gradOutside) / (options->radius - gradOutside);
 			}
 
-			img.setPixelColor(i, j, QColor(0, 0, 0, 255.f * alpha));
+			img.setPixelColor(i, j, QColor(110.f, 110.f, 110.f, 255.f * alpha));
 		}
 	}
 }
