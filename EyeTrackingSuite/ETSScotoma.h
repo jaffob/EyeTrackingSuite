@@ -4,11 +4,10 @@
 
 typedef struct
 {
+	bool changed;
 	int radius;
 	bool prosthesisEnabled;
 	int prosthesisSizePercent;
-	int prosthesisGrayLevels;
-	int prosthesisPixelSize;
 	bool gradientEnabled;
 	bool gradientSquaredFalloff;
 	int gradientInside;

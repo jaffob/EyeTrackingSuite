@@ -4,6 +4,7 @@
 #include "ui_EyeTrackingSuite.h"
 #include "ETSTobii.h"
 #include "ETSScotoma.h"
+#include "ETSProsthesis.h"
 
 class EyeTrackingSuite : public QMainWindow
 {
@@ -18,8 +19,6 @@ private:
 	ETSDrawArea * drawArea;
 	int timerId;
 
-	bool scotomaDrawChangedFlag;
-	
 public:
 
 	// Options.
@@ -27,6 +26,7 @@ public:
 	int optCalibrationVert;
 	bool optScotomaEnabled;
 	ETSScotomaDrawOptions optScotoma;
+	ETSProsthesisDrawOptions optProsthesis;
 	int optHalfField;
 
 public:
@@ -40,14 +40,6 @@ protected:
 	static void onGazePointReceived(float alpha, float beta, void * context);
 
 	void reconnectToTobii();
-
-public:
-
-	/**
-	 * Returns whether the scotoma visual options have changed, and
-	 * resets the flag to false.
-	 */
-	bool consumeScotomaDrawChangedFlag();
 
 public slots:
 

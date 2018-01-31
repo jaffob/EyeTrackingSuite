@@ -2,6 +2,7 @@
 
 #include <QLabel>
 #include "ETSScotoma.h"
+#include "ETSProsthesis.h"
 
 class ETSDrawArea : public QLabel
 {
@@ -13,6 +14,7 @@ private:
 	bool imgLoaded;
 	QPoint gazeLocalPos;
 	ETSScotoma scotoma;
+	ETSProsthesis prosthesis;
 
 public:
 

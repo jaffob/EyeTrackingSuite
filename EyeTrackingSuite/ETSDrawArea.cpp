@@ -11,6 +11,7 @@ ETSDrawArea::ETSDrawArea(QWidget *parent)
 	: QLabel(parent)
 	, imgLoaded(false)
 	, scotoma()
+	, prosthesis()
 {
 }
 
@@ -46,15 +47,25 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	painter.setBrush(Qt::black);
 	
 	// Remake the scotoma if the options have changed.
-	if (ets->consumeScotomaDrawChangedFlag())
+	if (ets->optScotoma.changed)
 	{
 		scotoma.makeScotoma(&ets->optScotoma);
+		ets->optScotoma.changed = false;
+	}
+
+	// Remake the prosthesis if the options have changed.
+	if (ets->optProsthesis.changed)
+	{
+		prosthesis.makeProsthesis(baseImg, &ets->optProsthesis);
+		ets->optProsthesis.changed = false;
 	}
 
 	// Reduce image quality in the area of the prosthesis.
 	if (ets->optScotoma.prosthesisEnabled)
 	{
-		drawProsthesis(ets, finalEyePos, painter);
+		int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
+		QRect prosthesisRect = QRect(finalEyePos.x() - prosthesisRadius, finalEyePos.y() - prosthesisRadius, prosthesisRadius * 2, prosthesisRadius * 2);
+		painter.drawImage(prosthesisRect, prosthesis.getImage(), prosthesisRect);
 	}
 
 	// Draw the scotoma.
@@ -82,30 +93,30 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 
 void ETSDrawArea::drawProsthesis(EyeTrackingSuite * ets, QPointF& finalEyePos, QPainter& painter)
 {
-	// Radius of the prosthesis (we were given a percent).
-	int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
-	int prosthesisRadiusSq = prosthesisRadius * prosthesisRadius;
+	//// Radius of the prosthesis (we were given a percent).
+	//int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
+	//int prosthesisRadiusSq = prosthesisRadius * prosthesisRadius;
 
-	// Buckets for resolution reduction.
-	/*unsigned int bucketN = prosthesisRadius / ets->optScotoma.prosthesisPixelSize;
-	if (prosthesisRadius % ets->optScotoma.prosthesisPixelSize) bucketN++;*/
-	
-	// Iterate over pixels in the prosthesis area.
-	for (int i = qMax(0, (int)finalEyePos.x() - prosthesisRadius); i < qMin((int)finalEyePos.x() + prosthesisRadius, img.width()); i += ets->optScotoma.prosthesisPixelSize)
-	{
-		for (int j = qMax(0, (int)finalEyePos.y() - prosthesisRadius); j < qMin((int)finalEyePos.y() + prosthesisRadius, img.height()); j += ets->optScotoma.prosthesisPixelSize)
-		{
-			// Ignore pixels outside the circular radius.
-			int pixDistSq = pow(finalEyePos.x() - i, 2) + pow(finalEyePos.y() - j, 2);
-			if (pixDistSq > prosthesisRadiusSq + pow(ets->optScotoma.prosthesisPixelSize, 2)) continue;
+	//// Buckets for resolution reduction.
+	///*unsigned int bucketN = prosthesisRadius / ets->optScotoma.prosthesisPixelSize;
+	//if (prosthesisRadius % ets->optScotoma.prosthesisPixelSize) bucketN++;*/
+	//
+	//// Iterate over pixels in the prosthesis area.
+	//for (int i = qMax(0, (int)finalEyePos.x() - prosthesisRadius); i < qMin((int)finalEyePos.x() + prosthesisRadius, img.width()); i += ets->optScotoma.prosthesisPixelSize)
+	//{
+	//	for (int j = qMax(0, (int)finalEyePos.y() - prosthesisRadius); j < qMin((int)finalEyePos.y() + prosthesisRadius, img.height()); j += ets->optScotoma.prosthesisPixelSize)
+	//	{
+	//		// Ignore pixels outside the circular radius.
+	//		int pixDistSq = pow(finalEyePos.x() - i, 2) + pow(finalEyePos.y() - j, 2);
+	//		if (pixDistSq > prosthesisRadiusSq + pow(ets->optScotoma.prosthesisPixelSize, 2)) continue;
 
-			drawProsthesis_Pixel(ets, painter, i, j);
+	//		drawProsthesis_Pixel(ets, painter, i, j);
 
-			/*QColor pix = img.pixelColor(i, j);
-			drawProsthesis_Pixel(ets, pix);
-			img.setPixelColor(i, j, pix);*/
-		}
-	}
+	//		/*QColor pix = img.pixelColor(i, j);
+	//		drawProsthesis_Pixel(ets, pix);
+	//		img.setPixelColor(i, j, pix);*/
+	//	}
+	//}
 }
 
 void ETSDrawArea::setGazeLocalPosition(QPoint pos)
@@ -123,25 +134,25 @@ void ETSDrawArea::setGazeScreenPosition(QPoint pos)
 
 void ETSDrawArea::drawProsthesis_Pixel(EyeTrackingSuite * ets, QPainter& painter, int x, int y)
 {
-	int totalLightness = 0, totalN = 0;
+	//int totalLightness = 0, totalN = 0;
 
-	// Iterate over all the screen pixels in this prosthesis pixel.
-	for (int i = x; i < qMin(x + ets->optScotoma.prosthesisPixelSize, img.width()); i++)
-	{
-		for (int j = y; j < qMin(y + ets->optScotoma.prosthesisPixelSize, img.height()); j++)
-		{
-			QColor pix = img.pixelColor(i, j);
-			totalLightness += pix.lightness();
-			totalN++;
-		}
-	}
+	//// Iterate over all the screen pixels in this prosthesis pixel.
+	//for (int i = x; i < qMin(x + ets->optScotoma.prosthesisPixelSize, img.width()); i++)
+	//{
+	//	for (int j = y; j < qMin(y + ets->optScotoma.prosthesisPixelSize, img.height()); j++)
+	//	{
+	//		QColor pix = img.pixelColor(i, j);
+	//		totalLightness += pix.lightness();
+	//		totalN++;
+	//	}
+	//}
 
-	// Total lightness of this prosthesis pixel is the average of all the screen pixels.
-	totalLightness /= totalN;
+	//// Total lightness of this prosthesis pixel is the average of all the screen pixels.
+	//totalLightness /= totalN;
 
-	// Force this value to one of the gray levels.
-	int grayLevel = totalLightness / (256 / ets->optScotoma.prosthesisGrayLevels);
-	totalLightness = grayLevel * (255 / (ets->optScotoma.prosthesisGrayLevels - 1));
+	//// Force this value to one of the gray levels.
+	//int grayLevel = totalLightness / (256 / ets->optScotoma.prosthesisGrayLevels);
+	//totalLightness = grayLevel * (255 / (ets->optScotoma.prosthesisGrayLevels - 1));
 
-	painter.fillRect(x, y, ets->optScotoma.prosthesisPixelSize, ets->optScotoma.prosthesisPixelSize, QColor(totalLightness, totalLightness, totalLightness));
+	//painter.fillRect(x, y, ets->optScotoma.prosthesisPixelSize, ets->optScotoma.prosthesisPixelSize, QColor(totalLightness, totalLightness, totalLightness));
 }
