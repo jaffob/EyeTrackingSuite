@@ -96,8 +96,8 @@ void ETSDrawArea::drawProsthesis(EyeTrackingSuite * ets, QPointF& finalEyePos, Q
 		for (int j = qMax(0, (int)finalEyePos.y() - prosthesisRadius); j < qMin((int)finalEyePos.y() + prosthesisRadius, img.height()); j += ets->optScotoma.prosthesisPixelSize)
 		{
 			// Ignore pixels outside the circular radius.
-			/*int pixDistSq = pow(finalEyePos.x() - i, 2) + pow(finalEyePos.y() - j, 2);
-			if (pixDistSq > prosthesisRadiusSq) continue;*/
+			int pixDistSq = pow(finalEyePos.x() - i, 2) + pow(finalEyePos.y() - j, 2);
+			if (pixDistSq > prosthesisRadiusSq + pow(ets->optScotoma.prosthesisPixelSize, 2)) continue;
 
 			drawProsthesis_Pixel(ets, painter, i, j);
 
