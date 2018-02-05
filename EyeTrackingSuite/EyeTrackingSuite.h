@@ -24,6 +24,7 @@ public:
 	// Options.
 	int optCalibrationHoriz;
 	int optCalibrationVert;
+	int optPhysViewDistInches;
 	bool optScotomaEnabled;
 	ETSScotomaDrawOptions optScotoma;
 	ETSProsthesisDrawOptions optProsthesis;
@@ -47,10 +48,12 @@ public slots:
 	void onTobiiReconnectClicked();
 	void onCalibrationHorizChanged(int newValue);
 	void onCalibrationVertChanged(int newValue);
+	void onPhysViewDistChanged(int newValue);
 	void onImageComboBoxChanged(QString newText);
 
 	// Central vision.
 	void onScotomaEnabled(bool enabled);
+	void onScotomaUseDegrees(bool enabled);
 	void onScotomaRadiusChanged(int newValue);
 	void onScotomaAutoSize();
 	void onProsthesisEnabled(bool enabled);

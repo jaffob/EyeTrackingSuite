@@ -121,6 +121,12 @@ void EyeTrackingSuite::onCalibrationVertChanged(int newValue)
 	optCalibrationVert = newValue;
 }
 
+void EyeTrackingSuite::onPhysViewDistChanged(int newValue)
+{
+	optPhysViewDistInches = newValue;
+	optProsthesis.changed = true;	// Pixel size depends on view dist.
+}
+
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
 {
 	drawArea->loadBaseImage(newText + QString(".jpg"));

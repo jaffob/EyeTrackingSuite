@@ -28,7 +28,6 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include "etsdrawarea.h"
 
@@ -86,7 +85,6 @@ public:
     QRadioButton *halfFieldBlockRight;
     QMenuBar *menuBar;
     QMenu *menuHelp;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *EyeTrackingSuiteClass)
@@ -300,9 +298,6 @@ public:
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         EyeTrackingSuiteClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(EyeTrackingSuiteClass);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        EyeTrackingSuiteClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(EyeTrackingSuiteClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         EyeTrackingSuiteClass->setStatusBar(statusBar);
