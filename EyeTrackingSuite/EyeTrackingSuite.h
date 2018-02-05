@@ -64,6 +64,8 @@ public slots:
 	void onProsthesisSizeChanged(int newValue);
 	void onProsthesisGrayLevelChanged(int newValue);
 	void onProsthesisPixelSizeChanged(int newValue);
+	void onProsthesisFullBlackChanged();
+	void onProsthesisFullWhiteChanged();
 	void onGradientEnabled(bool enabled);
 	void onGradientInsideChanged(int newValue);
 	void onGradientOutsideChanged(int newValue);

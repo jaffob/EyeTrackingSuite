@@ -43,7 +43,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -1103,6 +1103,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>prosthesisFullWhite</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisFullWhiteChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>452</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisFullBlack</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisFullBlackChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>422</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onTobiiReconnectClicked()</slot>
@@ -1125,5 +1157,7 @@
   <slot>onActionAbout()</slot>
   <slot>onPhysViewDistChanged(int)</slot>
   <slot>onScotomaSizeDegreesChanged(int)</slot>
+  <slot>onProsthesisFullBlackChanged()</slot>
+  <slot>onProsthesisFullWhiteChanged()</slot>
  </slots>
 </ui>

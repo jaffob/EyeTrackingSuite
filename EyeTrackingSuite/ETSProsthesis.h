@@ -7,6 +7,8 @@ typedef struct
 	bool changed;
 	int grayLevels;
 	int pixelSize;
+	int fullBlack;
+	int fullWhite;
 } ETSProsthesisDrawOptions;
 
 class ETSProsthesis : public QObject

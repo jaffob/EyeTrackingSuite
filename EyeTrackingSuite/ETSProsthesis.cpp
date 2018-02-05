@@ -41,13 +41,20 @@ void ETSProsthesis::makeProsthesis_Pixel(QPainter& painter, ETSProsthesisDrawOpt
 		}
 	}
 	
-	// Total lightness of this prosthesis pixel is the average of all the screen pixels.
-	totalLightness /= totalN;
-	
-	// Force this value to one of the gray levels.
-	int grayLevel = totalLightness / (256 / options->grayLevels);
-	totalLightness = qMin(grayLevel * (255 / (options->grayLevels - 1)), 255);
-	
+	if (totalN > 0)
+	{
+		// Total lightness of this prosthesis pixel is the average of all the screen pixels.
+		totalLightness /= totalN;
+
+		// Force this value to one of the gray levels.
+		int grayLevel = totalLightness / (256 / options->grayLevels);
+
+		// Interpolate the gray level between the full black and full white value.
+		//totalLightness = qMin(grayLevel * (255 / (options->grayLevels - 1)), 255);
+		totalLightness = options->fullBlack + (int)((options->fullWhite - options->fullBlack) * (1. * grayLevel / (options->grayLevels - 1.)));
+		totalLightness = qMax(qMin(totalLightness, 255), 0);
+	}
+
 	painter.fillRect(x, y, options->pixelSize, options->pixelSize, QColor(totalLightness, totalLightness, totalLightness));
 }
 

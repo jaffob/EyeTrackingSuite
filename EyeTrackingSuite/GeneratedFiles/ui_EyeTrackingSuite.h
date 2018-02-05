@@ -353,8 +353,10 @@ public:
         QObject::connect(physViewDist, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysViewDistChanged(int)));
         QObject::connect(scotomaUseDegrees, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaUseDegrees(bool)));
         QObject::connect(scotomaSizeDegrees, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaSizeDegreesChanged(int)));
+        QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
+        QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);

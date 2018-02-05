@@ -38,6 +38,8 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optProsthesis.changed = true;
 	optProsthesis.grayLevels = 8;
 	autoResizeProsthesisPixels();
+	optProsthesis.fullBlack = 0;
+	optProsthesis.fullWhite = 255;
 
 	// Load the base image for the draw area.
 	drawArea->loadBaseImage(ui.imageComboBox->currentText() + QString(".jpg"));
@@ -225,6 +227,18 @@ void EyeTrackingSuite::onProsthesisGrayLevelChanged(int newValue)
 void EyeTrackingSuite::onProsthesisPixelSizeChanged(int newValue)
 {
 	autoResizeProsthesisPixels();
+}
+
+void EyeTrackingSuite::onProsthesisFullBlackChanged()
+{
+	optProsthesis.fullBlack = ui.prosthesisFullBlack->value();
+	optProsthesis.changed = true;
+}
+
+void EyeTrackingSuite::onProsthesisFullWhiteChanged()
+{
+	optProsthesis.fullWhite = ui.prosthesisFullWhite->value();
+	optProsthesis.changed = true;
 }
 
 void EyeTrackingSuite::onGradientEnabled(bool enabled)
