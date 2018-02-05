@@ -11,7 +11,9 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
 	, optCalibrationHoriz(0)
 	, optCalibrationVert(0)
+	, optPhysViewDistInches(24)
 	, optScotomaEnabled(false)
+	, optScotomaUseDegrees(false)
 	, optHalfField(0)
 {
 	ui.setupUi(this);
@@ -106,6 +108,19 @@ void EyeTrackingSuite::reconnectToTobii()
 	}
 }
 
+void EyeTrackingSuite::autoResizeScotoma()
+{
+	// Figure out desired scotoma size.
+	QScreen * screen = QGuiApplication::primaryScreen();
+	double scotomaRadiusInches = tan((ui.scotomaSizeDegrees->value() / 2.) * (3.141592 / 180.)) * optPhysViewDistInches;
+	int scotomaRadiusPixels = (int)(scotomaRadiusInches * screen->logicalDotsPerInch());
+
+	// Set the new radius.
+	ui.scotomaRadius->setValue(scotomaRadiusPixels);
+	optScotoma.radius = scotomaRadiusPixels;
+	optScotoma.changed = true;
+}
+
 void EyeTrackingSuite::onTobiiReconnectClicked()
 {
 	reconnectToTobii();
@@ -125,6 +140,12 @@ void EyeTrackingSuite::onPhysViewDistChanged(int newValue)
 {
 	optPhysViewDistInches = newValue;
 	optProsthesis.changed = true;	// Pixel size depends on view dist.
+
+	// If the scotoma is set to size in degrees, update it.
+	if (optScotomaUseDegrees)
+	{
+		autoResizeScotoma();
+	}
 }
 
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
@@ -138,23 +159,36 @@ void EyeTrackingSuite::onScotomaEnabled(bool enabled)
 	optScotomaEnabled = enabled;
 }
 
-void EyeTrackingSuite::onScotomaRadiusChanged(int newValue)
+void EyeTrackingSuite::onScotomaUseDegrees(bool enabled)
 {
-	optScotoma.radius = newValue;
-	optScotoma.changed = true;
+	optScotomaUseDegrees = enabled;
+
+	// Enable/disable the different size controls.
+	ui.scotomaRadius->setEnabled(!optScotomaUseDegrees);
+	ui.scotomaSizeDegrees->setEnabled(optScotomaUseDegrees);
+
+	// If starting to use degrees, resize to the set value.
+	if (optScotomaUseDegrees)
+	{
+		autoResizeScotoma();
+	}
 }
 
-void EyeTrackingSuite::onScotomaAutoSize()
+void EyeTrackingSuite::onScotomaRadiusChanged(int newValue)
 {
-	// Figure out desired scotoma size.
-	QScreen * screen = QGuiApplication::primaryScreen();
-	double scotomaRadiusInches = tan((ui.scotomaAutoSizeDegrees->value() / 2.) * (3.141592 / 180.)) * ui.scotomaAutoViewDist->value();
-	int scotomaRadiusPixels = (int)(scotomaRadiusInches * screen->logicalDotsPerInch());
-	
-	// Set the new radius.
-	ui.scotomaRadius->setValue(scotomaRadiusPixels);
-	optScotoma.radius = scotomaRadiusPixels;
-	optScotoma.changed = true;
+	if (!optScotomaUseDegrees)
+	{
+		optScotoma.radius = newValue;
+		optScotoma.changed = true;
+	}
+}
+
+void EyeTrackingSuite::onScotomaSizeDegreesChanged(int newValue)
+{
+	if (optScotomaUseDegrees)
+	{
+		autoResizeScotoma();
+	}
 }
 
 void EyeTrackingSuite::onProsthesisEnabled(bool enabled)

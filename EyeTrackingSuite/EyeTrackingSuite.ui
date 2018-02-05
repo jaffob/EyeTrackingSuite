@@ -350,7 +350,7 @@
           <bool>false</bool>
          </property>
         </widget>
-        <widget class="QSpinBox" name="scotomaAutoSizeDegrees">
+        <widget class="QSpinBox" name="scotomaSizeDegrees">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -1087,6 +1087,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>scotomaSizeDegrees</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onScotomaSizeDegreesChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>817</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onTobiiReconnectClicked()</slot>
@@ -1108,5 +1124,6 @@
   <slot>onScotomaUseDegrees(bool)</slot>
   <slot>onActionAbout()</slot>
   <slot>onPhysViewDistChanged(int)</slot>
+  <slot>onScotomaSizeDegreesChanged(int)</slot>
  </slots>
 </ui>

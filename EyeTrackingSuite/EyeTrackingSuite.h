@@ -26,6 +26,7 @@ public:
 	int optCalibrationVert;
 	int optPhysViewDistInches;
 	bool optScotomaEnabled;
+	bool optScotomaUseDegrees;
 	ETSScotomaDrawOptions optScotoma;
 	ETSProsthesisDrawOptions optProsthesis;
 	int optHalfField;
@@ -42,6 +43,8 @@ protected:
 
 	void reconnectToTobii();
 
+	void autoResizeScotoma();
+
 public slots:
 
 	// General.
@@ -55,7 +58,7 @@ public slots:
 	void onScotomaEnabled(bool enabled);
 	void onScotomaUseDegrees(bool enabled);
 	void onScotomaRadiusChanged(int newValue);
-	void onScotomaAutoSize();
+	void onScotomaSizeDegreesChanged(int newValue);
 	void onProsthesisEnabled(bool enabled);
 	void onProsthesisSizeChanged(int newValue);
 	void onProsthesisGrayLevelChanged(int newValue);
