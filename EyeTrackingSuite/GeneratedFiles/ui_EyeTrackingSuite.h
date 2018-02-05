@@ -182,8 +182,8 @@ public:
         physViewDist->setObjectName(QStringLiteral("physViewDist"));
         physViewDist->setGeometry(QRect(157, 30, 42, 22));
         physViewDist->setMinimum(1);
-        physViewDist->setMaximum(60);
-        physViewDist->setValue(24);
+        physViewDist->setMaximum(5);
+        physViewDist->setValue(2);
         tabWidget->addTab(tab_3, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
@@ -238,9 +238,9 @@ public:
         prosthesisPixelSize = new QSpinBox(groupBox_3);
         prosthesisPixelSize->setObjectName(QStringLiteral("prosthesisPixelSize"));
         prosthesisPixelSize->setGeometry(QRect(100, 90, 50, 22));
-        prosthesisPixelSize->setMinimum(1);
-        prosthesisPixelSize->setMaximum(200);
-        prosthesisPixelSize->setValue(5);
+        prosthesisPixelSize->setMinimum(10);
+        prosthesisPixelSize->setMaximum(999);
+        prosthesisPixelSize->setValue(30);
         label_8 = new QLabel(groupBox_3);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(20, 90, 81, 21));
@@ -354,7 +354,7 @@ public:
         QObject::connect(scotomaUseDegrees, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaUseDegrees(bool)));
         QObject::connect(scotomaSizeDegrees, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaSizeDegreesChanged(int)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);
@@ -378,7 +378,7 @@ public:
         imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
-        label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));
+        label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (ft):", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("EyeTrackingSuiteClass", "General", nullptr));
         groupBox_2->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Scotoma", nullptr));
         scotomaEnabled->setText(QApplication::translate("EyeTrackingSuiteClass", "Show Scotoma", nullptr));

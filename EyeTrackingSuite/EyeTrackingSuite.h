@@ -24,7 +24,7 @@ public:
 	// Options.
 	int optCalibrationHoriz;
 	int optCalibrationVert;
-	int optPhysViewDistInches;
+	int optPhysViewDistFt;
 	bool optScotomaEnabled;
 	bool optScotomaUseDegrees;
 	ETSScotomaDrawOptions optScotoma;
@@ -44,6 +44,7 @@ protected:
 	void reconnectToTobii();
 
 	void autoResizeScotoma();
+	void autoResizeProsthesisPixels();
 
 public slots:
 

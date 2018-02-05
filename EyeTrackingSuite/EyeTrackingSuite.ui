@@ -43,7 +43,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -243,7 +243,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>Eye-To-Screen Distance (in):</string>
+          <string>Eye-To-Screen Distance (ft):</string>
          </property>
         </widget>
         <widget class="QSpinBox" name="physViewDist">
@@ -259,10 +259,10 @@
           <number>1</number>
          </property>
          <property name="maximum">
-          <number>60</number>
+          <number>5</number>
          </property>
          <property name="value">
-          <number>24</number>
+          <number>2</number>
          </property>
         </widget>
        </widget>
@@ -463,13 +463,13 @@
           </rect>
          </property>
          <property name="minimum">
-          <number>1</number>
+          <number>10</number>
          </property>
          <property name="maximum">
-          <number>200</number>
+          <number>999</number>
          </property>
          <property name="value">
-          <number>5</number>
+          <number>30</number>
          </property>
         </widget>
         <widget class="QLabel" name="label_8">

@@ -11,7 +11,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
 	, optCalibrationHoriz(0)
 	, optCalibrationVert(0)
-	, optPhysViewDistInches(24)
+	, optPhysViewDistFt(2)
 	, optScotomaEnabled(false)
 	, optScotomaUseDegrees(false)
 	, optHalfField(0)
@@ -37,7 +37,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	// Initialize prosthesis options.
 	optProsthesis.changed = true;
 	optProsthesis.grayLevels = 8;
-	optProsthesis.pixelSize = 5;
+	autoResizeProsthesisPixels();
 
 	// Load the base image for the draw area.
 	drawArea->loadBaseImage(ui.imageComboBox->currentText() + QString(".jpg"));
@@ -112,13 +112,25 @@ void EyeTrackingSuite::autoResizeScotoma()
 {
 	// Figure out desired scotoma size.
 	QScreen * screen = QGuiApplication::primaryScreen();
-	double scotomaRadiusInches = tan((ui.scotomaSizeDegrees->value() / 2.) * (3.141592 / 180.)) * optPhysViewDistInches;
+	double scotomaRadiusInches = tan((ui.scotomaSizeDegrees->value() / 2.) * (3.141592 / 180.)) * (optPhysViewDistFt * 12.);
 	int scotomaRadiusPixels = (int)(scotomaRadiusInches * screen->logicalDotsPerInch());
 
 	// Set the new radius.
 	ui.scotomaRadius->setValue(scotomaRadiusPixels);
 	optScotoma.radius = scotomaRadiusPixels;
 	optScotoma.changed = true;
+}
+
+void EyeTrackingSuite::autoResizeProsthesisPixels()
+{
+	// Figure out pixel size. 300 microns is one degree of vision.
+	QScreen * screen = QGuiApplication::primaryScreen();
+	double prosPixSizeDegrees = ui.prosthesisPixelSize->value() / 300.;
+	double prosPixSizeInches = tan((prosPixSizeDegrees / 2.) * (3.141592 / 180.)) * (optPhysViewDistFt * 12.) * 2.;
+	int prosPixSizePixels = (int)(prosPixSizeInches * screen->logicalDotsPerInch());
+
+	optProsthesis.pixelSize = prosPixSizePixels;
+	optProsthesis.changed = true;
 }
 
 void EyeTrackingSuite::onTobiiReconnectClicked()
@@ -138,14 +150,15 @@ void EyeTrackingSuite::onCalibrationVertChanged(int newValue)
 
 void EyeTrackingSuite::onPhysViewDistChanged(int newValue)
 {
-	optPhysViewDistInches = newValue;
-	optProsthesis.changed = true;	// Pixel size depends on view dist.
+	optPhysViewDistFt = qMax(newValue, 1);
 
 	// If the scotoma is set to size in degrees, update it.
 	if (optScotomaUseDegrees)
 	{
 		autoResizeScotoma();
 	}
+
+	autoResizeProsthesisPixels();
 }
 
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
@@ -211,8 +224,7 @@ void EyeTrackingSuite::onProsthesisGrayLevelChanged(int newValue)
 
 void EyeTrackingSuite::onProsthesisPixelSizeChanged(int newValue)
 {
-	optProsthesis.pixelSize = newValue;
-	optProsthesis.changed = true;
+	autoResizeProsthesisPixels();
 }
 
 void EyeTrackingSuite::onGradientEnabled(bool enabled)
