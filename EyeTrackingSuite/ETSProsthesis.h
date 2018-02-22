@@ -6,7 +6,7 @@ typedef struct
 {
 	bool changed;
 	int grayLevels;
-	int pixelSize;
+	double pixelSize;
 	int fullBlack;
 	int fullWhite;
 } ETSProsthesisDrawOptions;

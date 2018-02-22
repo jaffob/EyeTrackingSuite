@@ -129,7 +129,7 @@ void EyeTrackingSuite::autoResizeProsthesisPixels()
 	QScreen * screen = QGuiApplication::primaryScreen();
 	double prosPixSizeDegrees = ui.prosthesisPixelSize->value() / 300.;
 	double prosPixSizeInches = tan((prosPixSizeDegrees / 2.) * (3.141592 / 180.)) * (optPhysViewDistFt * 12.) * 2.;
-	int prosPixSizePixels = (int)(prosPixSizeInches * screen->logicalDotsPerInch());
+	double prosPixSizePixels = prosPixSizeInches * screen->logicalDotsPerInch();
 
 	optProsthesis.pixelSize = prosPixSizePixels;
 	optProsthesis.changed = true;
