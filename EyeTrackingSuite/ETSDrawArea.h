@@ -11,10 +11,14 @@ class ETSDrawArea : public QLabel
 private:
 
 	QImage baseImg;
+	QString baseImgFilename;
+
 	bool imgLoaded;
 	QPoint gazeLocalPos;
 	ETSScotoma scotoma;
 	ETSProsthesis prosthesis;
+
+	int resizeTimerId;
 
 public:
 
@@ -24,14 +28,17 @@ public:
 	ETSDrawArea(QWidget *parent);
 	~ETSDrawArea();
 
-	bool loadBaseImage(QString filename);
+	bool setBaseImage(QString filename);
+	bool loadBaseImage();
 	void repaintDrawArea(class EyeTrackingSuite * ets);
-	void drawProsthesis(class EyeTrackingSuite * ets, QPointF& finalEyePos, QPainter& painter);
 
 	void setGazeLocalPosition(QPoint pos);
 	void setGazeScreenPosition(QPoint pos);
 
-private:
+protected:
 
-	void drawProsthesis_Pixel(class EyeTrackingSuite * ets, QPainter& painter, int x, int y);
+	virtual void resizeEvent(QResizeEvent *event) override;
+	virtual void timerEvent(QTimerEvent *event) override;
+	
+
 };

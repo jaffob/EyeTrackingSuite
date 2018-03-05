@@ -42,7 +42,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optProsthesis.fullWhite = 255;
 
 	// Load the base image for the draw area.
-	drawArea->loadBaseImage(ui.imageComboBox->currentText() + QString(".jpg"));
+	drawArea->setBaseImage(ui.imageComboBox->currentText() + QString(".jpg"));
 	drawArea->repaintDrawArea(this);
 
 	// Start the main loop.
@@ -165,8 +165,7 @@ void EyeTrackingSuite::onPhysViewDistChanged(int newValue)
 
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
 {
-	drawArea->loadBaseImage(newText + QString(".jpg"));
-	optProsthesis.changed = true;	// A new base image means we have to re-blur.
+	drawArea->setBaseImage(newText + QString(".jpg"));
 }
 
 void EyeTrackingSuite::onScotomaEnabled(bool enabled)

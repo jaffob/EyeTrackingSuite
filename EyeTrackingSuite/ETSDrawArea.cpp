@@ -11,7 +11,7 @@ ETSDrawArea::ETSDrawArea(QWidget *parent)
 	: QLabel(parent)
 	, imgLoaded(false)
 	, scotoma()
-	, prosthesis()
+	, resizeTimerId(-1)
 {
 }
 
@@ -19,21 +19,39 @@ ETSDrawArea::~ETSDrawArea()
 {
 }
 
-bool ETSDrawArea::loadBaseImage(QString filename)
+bool ETSDrawArea::setBaseImage(QString filename)
+{
+	baseImgFilename = filename;
+	return loadBaseImage();
+}
+
+bool ETSDrawArea::loadBaseImage()
 {
 	// Read the image from the filename specified.
-	QImageReader imgReader(filename);
-	//imgReader.setScaledSize(size());
+	QImageReader imgReader(baseImgFilename);
 	baseImg = imgReader.read();
-	
 	imgLoaded = !baseImg.isNull();
-	return imgLoaded;
+	if (!imgLoaded)
+		return false;
+	
+	// Scale the base image to fit the size of the widget.
+	baseImg = baseImg.scaled(size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+	// Remake the prosthesis given that it relies on the base image.
+	prosthesis.makeProsthesis(baseImg);
 }
 
 void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 {
 	if (!imgLoaded)
+	{
 		return;
+	}
+	
+	if (!prosthesis.areDrawOptionsAttached())
+	{
+		prosthesis.attachDrawOptions(&ets->optProsthesis);
+	}
 
 	// Determine the eye position from the local position adjusted for calibration.
 	QPointF finalEyePos = QPointF(gazeLocalPos.x() + ets->optCalibrationHoriz, gazeLocalPos.y() + ets->optCalibrationVert);
@@ -56,7 +74,7 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	// Remake the prosthesis if the options have changed.
 	if (ets->optProsthesis.changed)
 	{
-		prosthesis.makeProsthesis(baseImg, &ets->optProsthesis);
+		prosthesis.makeProsthesis(baseImg);
 		ets->optProsthesis.changed = false;
 	}
 
@@ -91,34 +109,6 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	repaint();
 }
 
-void ETSDrawArea::drawProsthesis(EyeTrackingSuite * ets, QPointF& finalEyePos, QPainter& painter)
-{
-	//// Radius of the prosthesis (we were given a percent).
-	//int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
-	//int prosthesisRadiusSq = prosthesisRadius * prosthesisRadius;
-
-	//// Buckets for resolution reduction.
-	///*unsigned int bucketN = prosthesisRadius / ets->optScotoma.prosthesisPixelSize;
-	//if (prosthesisRadius % ets->optScotoma.prosthesisPixelSize) bucketN++;*/
-	//
-	//// Iterate over pixels in the prosthesis area.
-	//for (int i = qMax(0, (int)finalEyePos.x() - prosthesisRadius); i < qMin((int)finalEyePos.x() + prosthesisRadius, img.width()); i += ets->optScotoma.prosthesisPixelSize)
-	//{
-	//	for (int j = qMax(0, (int)finalEyePos.y() - prosthesisRadius); j < qMin((int)finalEyePos.y() + prosthesisRadius, img.height()); j += ets->optScotoma.prosthesisPixelSize)
-	//	{
-	//		// Ignore pixels outside the circular radius.
-	//		int pixDistSq = pow(finalEyePos.x() - i, 2) + pow(finalEyePos.y() - j, 2);
-	//		if (pixDistSq > prosthesisRadiusSq + pow(ets->optScotoma.prosthesisPixelSize, 2)) continue;
-
-	//		drawProsthesis_Pixel(ets, painter, i, j);
-
-	//		/*QColor pix = img.pixelColor(i, j);
-	//		drawProsthesis_Pixel(ets, pix);
-	//		img.setPixelColor(i, j, pix);*/
-	//	}
-	//}
-}
-
 void ETSDrawArea::setGazeLocalPosition(QPoint pos)
 {
 	gazeLocalPos = pos;
@@ -132,27 +122,22 @@ void ETSDrawArea::setGazeScreenPosition(QPoint pos)
 	gazeLocalPos.setY(gazeLocalPos.y() - 100);
 }
 
-void ETSDrawArea::drawProsthesis_Pixel(EyeTrackingSuite * ets, QPainter& painter, int x, int y)
+void ETSDrawArea::resizeEvent(QResizeEvent * event)
 {
-	//int totalLightness = 0, totalN = 0;
+	// This resize event will fire consistently while the user is resizing
+	// the window. In order to prevent lots of expensive operations, we only
+	// handle resizes after no resize events have fired for a set period of time.
+	if (resizeTimerId >= 0)
+		killTimer(resizeTimerId);
+	resizeTimerId = startTimer(200);
+}
 
-	//// Iterate over all the screen pixels in this prosthesis pixel.
-	//for (int i = x; i < qMin(x + ets->optScotoma.prosthesisPixelSize, img.width()); i++)
-	//{
-	//	for (int j = y; j < qMin(y + ets->optScotoma.prosthesisPixelSize, img.height()); j++)
-	//	{
-	//		QColor pix = img.pixelColor(i, j);
-	//		totalLightness += pix.lightness();
-	//		totalN++;
-	//	}
-	//}
+void ETSDrawArea::timerEvent(QTimerEvent * event)
+{
+	// Calling loadBaseImage() re-scales the underlying image.
+	loadBaseImage();
 
-	//// Total lightness of this prosthesis pixel is the average of all the screen pixels.
-	//totalLightness /= totalN;
-
-	//// Force this value to one of the gray levels.
-	//int grayLevel = totalLightness / (256 / ets->optScotoma.prosthesisGrayLevels);
-	//totalLightness = grayLevel * (255 / (ets->optScotoma.prosthesisGrayLevels - 1));
-
-	//painter.fillRect(x, y, ets->optScotoma.prosthesisPixelSize, ets->optScotoma.prosthesisPixelSize, QColor(totalLightness, totalLightness, totalLightness));
+	// Prevent the timer from firing repeatedly.
+	killTimer(event->timerId());
+	resizeTimerId = -1;
 }

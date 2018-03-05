@@ -117,18 +117,25 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         mainDrawArea = new ETSDrawArea(centralWidget);
         mainDrawArea->setObjectName(QStringLiteral("mainDrawArea"));
+        QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(mainDrawArea->sizePolicy().hasHeightForWidth());
+        mainDrawArea->setSizePolicy(sizePolicy);
         mainDrawArea->setAutoFillBackground(false);
+        mainDrawArea->setScaledContents(false);
 
         horizontalLayout_2->addWidget(mainDrawArea);
 
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy);
-        tabWidget->setMinimumSize(QSize(250, 0));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy1);
+        tabWidget->setMinimumSize(QSize(260, 0));
+        tabWidget->setMaximumSize(QSize(260, 16777215));
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
         verticalLayout_2 = new QVBoxLayout(tab_3);
@@ -138,11 +145,11 @@ public:
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         scrollArea = new QScrollArea(tab_3);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
-        scrollArea->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
+        scrollArea->setSizePolicy(sizePolicy2);
         scrollArea->setAutoFillBackground(false);
         scrollArea->setStyleSheet(QStringLiteral("background-color:none"));
         scrollArea->setFrameShape(QFrame::NoFrame);
@@ -156,7 +163,7 @@ public:
         scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 259, 639));
         groupBox_6 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
-        groupBox_6->setGeometry(QRect(15, 390, 211, 71));
+        groupBox_6->setGeometry(QRect(10, 390, 211, 71));
         imageComboBox = new QComboBox(groupBox_6);
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
@@ -165,7 +172,7 @@ public:
         imageComboBox->setGeometry(QRect(20, 30, 171, 22));
         groupBox_9 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_9->setObjectName(QStringLiteral("groupBox_9"));
-        groupBox_9->setGeometry(QRect(15, 300, 211, 71));
+        groupBox_9->setGeometry(QRect(10, 300, 211, 71));
         label_9 = new QLabel(groupBox_9);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(13, 30, 151, 21));
@@ -177,7 +184,7 @@ public:
         physViewDist->setValue(2);
         groupBox_4 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
-        groupBox_4->setGeometry(QRect(15, 120, 211, 161));
+        groupBox_4->setGeometry(QRect(10, 120, 211, 161));
         label_4 = new QLabel(groupBox_4);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(20, 30, 91, 21));
@@ -200,7 +207,7 @@ public:
         label_5->setGeometry(QRect(20, 90, 91, 21));
         groupBox = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(15, 20, 211, 81));
+        groupBox->setGeometry(QRect(10, 20, 211, 81));
         tobiiReconnect = new QPushButton(groupBox);
         tobiiReconnect->setObjectName(QStringLiteral("tobiiReconnect"));
         tobiiReconnect->setGeometry(QRect(120, 30, 81, 31));
@@ -229,8 +236,8 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         scrollArea_2 = new QScrollArea(tab_4);
         scrollArea_2->setObjectName(QStringLiteral("scrollArea_2"));
-        sizePolicy1.setHeightForWidth(scrollArea_2->sizePolicy().hasHeightForWidth());
-        scrollArea_2->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(scrollArea_2->sizePolicy().hasHeightForWidth());
+        scrollArea_2->setSizePolicy(sizePolicy2);
         scrollArea_2->setStyleSheet(QStringLiteral("background-color:none"));
         scrollArea_2->setFrameShape(QFrame::NoFrame);
         scrollArea_2->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -241,7 +248,7 @@ public:
         scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 242, 639));
         groupBox_7 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
-        groupBox_7->setGeometry(QRect(15, 450, 211, 131));
+        groupBox_7->setGeometry(QRect(10, 450, 211, 131));
         gradientEnabled = new QCheckBox(groupBox_7);
         gradientEnabled->setObjectName(QStringLiteral("gradientEnabled"));
         gradientEnabled->setGeometry(QRect(20, 30, 181, 17));
@@ -267,7 +274,7 @@ public:
         label_7->setGeometry(QRect(20, 90, 71, 21));
         groupBox_2 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(15, 20, 211, 161));
+        groupBox_2->setGeometry(QRect(10, 20, 211, 161));
         scotomaRadius = new QSlider(groupBox_2);
         scotomaRadius->setObjectName(QStringLiteral("scotomaRadius"));
         scotomaRadius->setGeometry(QRect(50, 90, 141, 22));
@@ -297,7 +304,7 @@ public:
         label_10->setGeometry(QRect(20, 120, 111, 21));
         groupBox_3 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setGeometry(QRect(15, 200, 211, 231));
+        groupBox_3->setGeometry(QRect(10, 200, 211, 231));
         prosthesisEnabled = new QCheckBox(groupBox_3);
         prosthesisEnabled->setObjectName(QStringLiteral("prosthesisEnabled"));
         prosthesisEnabled->setGeometry(QRect(20, 30, 171, 17));
@@ -412,7 +419,7 @@ public:
         QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
         QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);

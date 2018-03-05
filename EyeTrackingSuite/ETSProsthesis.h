@@ -17,14 +17,16 @@ class ETSProsthesis : public QObject
 private:
 
 	QImage img;
+	ETSProsthesisDrawOptions * options;
 
 public:
 
 	ETSProsthesis(QObject *parent = Q_NULLPTR);
 	~ETSProsthesis();
 
-	void makeProsthesis(QImage& source, ETSProsthesisDrawOptions * options);
-	void makeProsthesis_Pixel(QPainter& painter, ETSProsthesisDrawOptions * options, int x, int y);
-
+	void makeProsthesis(QImage& source);
 	QImage& getImage();
+
+	void attachDrawOptions(ETSProsthesisDrawOptions * options);
+	bool areDrawOptionsAttached() const;
 };
