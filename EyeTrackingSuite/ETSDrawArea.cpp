@@ -39,6 +39,8 @@ bool ETSDrawArea::loadBaseImage()
 
 	// Remake the prosthesis given that it relies on the base image.
 	prosthesis.makeProsthesis(baseImg);
+
+	return true;
 }
 
 void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
@@ -82,8 +84,7 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	if (ets->optScotoma.prosthesisEnabled)
 	{
 		int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
-		QRect prosthesisRect = QRect(finalEyePos.x() - prosthesisRadius, finalEyePos.y() - prosthesisRadius, prosthesisRadius * 2, prosthesisRadius * 2);
-		painter.drawImage(prosthesisRect, prosthesis.getImage(), prosthesisRect);
+		prosthesis.drawOverImage(painter, finalEyePos, prosthesisRadius);
 	}
 
 	// Draw the scotoma.

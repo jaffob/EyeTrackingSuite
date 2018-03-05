@@ -47,6 +47,24 @@ void ETSProsthesis::makeProsthesis(QImage& source)
 	}
 }
 
+void ETSProsthesis::drawOverImage(QPainter& painter, QPointF& prosthesisCenter, int prosthesisRadius)
+{
+	// Create a rectangle for the final part of the image that will receive the prosthesis.
+	QRect prosthesisRect = QRect(prosthesisCenter.x() - prosthesisRadius, prosthesisCenter.y() - prosthesisRadius, prosthesisRadius * 2, prosthesisRadius * 2);
+	
+	// Set the painter to confine drawing operations to just the prosthesis circle (so we don't get square edges).
+	QPainterPath oldClipPath = painter.clipPath();
+	QPainterPath newClipPath = QPainterPath();
+	newClipPath.addEllipse(prosthesisRect);
+	painter.setClipPath(newClipPath);
+
+	// Draw from the prosthesis image into the regular image.
+	painter.drawImage(prosthesisRect, img, prosthesisRect);
+
+	// Turn clipping off after completing this draw.
+	painter.setClipPath(oldClipPath, Qt::ClipOperation::NoClip);
+}
+
 QImage & ETSProsthesis::getImage()
 {
 	return img;

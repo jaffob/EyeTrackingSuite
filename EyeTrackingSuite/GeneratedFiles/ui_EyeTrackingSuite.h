@@ -100,7 +100,7 @@ public:
     {
         if (EyeTrackingSuiteClass->objectName().isEmpty())
             EyeTrackingSuiteClass->setObjectName(QStringLiteral("EyeTrackingSuiteClass"));
-        EyeTrackingSuiteClass->resize(914, 724);
+        EyeTrackingSuiteClass->resize(1156, 770);
         actionSwitch_Application = new QAction(EyeTrackingSuiteClass);
         actionSwitch_Application->setObjectName(QStringLiteral("actionSwitch_Application"));
         actionAbout = new QAction(EyeTrackingSuiteClass);
@@ -245,7 +245,7 @@ public:
         scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 242, 639));
         groupBox_7 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
-        groupBox_7->setGeometry(QRect(10, 450, 211, 131));
+        groupBox_7->setGeometry(QRect(10, 390, 211, 131));
         gradientEnabled = new QCheckBox(groupBox_7);
         gradientEnabled->setObjectName(QStringLiteral("gradientEnabled"));
         gradientEnabled->setGeometry(QRect(20, 30, 181, 17));
@@ -271,23 +271,23 @@ public:
         label_7->setGeometry(QRect(20, 90, 71, 21));
         groupBox_2 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(10, 20, 211, 161));
+        groupBox_2->setGeometry(QRect(10, 20, 211, 101));
         scotomaEnabled = new QCheckBox(groupBox_2);
         scotomaEnabled->setObjectName(QStringLiteral("scotomaEnabled"));
         scotomaEnabled->setGeometry(QRect(20, 30, 171, 17));
         scotomaEnabled->setChecked(false);
         scotomaSizeDegrees = new QSpinBox(groupBox_2);
         scotomaSizeDegrees->setObjectName(QStringLiteral("scotomaSizeDegrees"));
-        scotomaSizeDegrees->setGeometry(QRect(120, 120, 42, 22));
+        scotomaSizeDegrees->setGeometry(QRect(120, 60, 42, 22));
         scotomaSizeDegrees->setMinimum(1);
         scotomaSizeDegrees->setMaximum(20);
         scotomaSizeDegrees->setValue(10);
         label_10 = new QLabel(groupBox_2);
         label_10->setObjectName(QStringLiteral("label_10"));
-        label_10->setGeometry(QRect(20, 120, 111, 21));
+        label_10->setGeometry(QRect(20, 60, 111, 21));
         groupBox_3 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setGeometry(QRect(10, 200, 211, 231));
+        groupBox_3->setGeometry(QRect(10, 140, 211, 231));
         prosthesisEnabled = new QCheckBox(groupBox_3);
         prosthesisEnabled->setObjectName(QStringLiteral("prosthesisEnabled"));
         prosthesisEnabled->setGeometry(QRect(20, 30, 171, 17));
@@ -367,7 +367,7 @@ public:
         EyeTrackingSuiteClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(EyeTrackingSuiteClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 914, 21));
+        menuBar->setGeometry(QRect(0, 0, 1156, 21));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         EyeTrackingSuiteClass->setMenuBar(menuBar);
@@ -400,7 +400,7 @@ public:
         QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
         QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);

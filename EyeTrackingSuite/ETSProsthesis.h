@@ -25,6 +25,7 @@ public:
 	~ETSProsthesis();
 
 	void makeProsthesis(QImage& source);
+	void drawOverImage(QPainter& painter, QPointF& prosthesisCenter, int prosthesisRadius);
 	QImage& getImage();
 
 	void attachDrawOptions(ETSProsthesisDrawOptions * options);
