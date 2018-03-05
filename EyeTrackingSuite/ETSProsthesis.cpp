@@ -13,7 +13,7 @@ ETSProsthesis::~ETSProsthesis()
 
 void ETSProsthesis::makeProsthesis(QImage& source, ETSProsthesisDrawOptions * options)
 {
-	img = source.scaled(source.size() / options->pixelSize, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+	img = source.scaled(source.size() / options->pixelSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	img = img.scaled(source.size(), Qt::IgnoreAspectRatio, Qt::FastTransformation);
 
 	// Iterate over pixels in the prosthesis area.
