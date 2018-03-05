@@ -72,10 +72,7 @@ public:
     QSlider *gradientOutside;
     QLabel *label_7;
     QGroupBox *groupBox_2;
-    QSlider *scotomaRadius;
     QCheckBox *scotomaEnabled;
-    QLabel *label;
-    QCheckBox *scotomaUseDegrees;
     QSpinBox *scotomaSizeDegrees;
     QLabel *label_10;
     QGroupBox *groupBox_3;
@@ -275,24 +272,10 @@ public:
         groupBox_2 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(10, 20, 211, 161));
-        scotomaRadius = new QSlider(groupBox_2);
-        scotomaRadius->setObjectName(QStringLiteral("scotomaRadius"));
-        scotomaRadius->setGeometry(QRect(50, 90, 141, 22));
-        scotomaRadius->setMinimum(10);
-        scotomaRadius->setMaximum(300);
-        scotomaRadius->setValue(50);
-        scotomaRadius->setOrientation(Qt::Horizontal);
         scotomaEnabled = new QCheckBox(groupBox_2);
         scotomaEnabled->setObjectName(QStringLiteral("scotomaEnabled"));
         scotomaEnabled->setGeometry(QRect(20, 30, 171, 17));
         scotomaEnabled->setChecked(false);
-        label = new QLabel(groupBox_2);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(20, 90, 31, 21));
-        scotomaUseDegrees = new QCheckBox(groupBox_2);
-        scotomaUseDegrees->setObjectName(QStringLiteral("scotomaUseDegrees"));
-        scotomaUseDegrees->setGeometry(QRect(20, 60, 171, 17));
-        scotomaUseDegrees->setChecked(false);
         scotomaSizeDegrees = new QSpinBox(groupBox_2);
         scotomaSizeDegrees->setObjectName(QStringLiteral("scotomaSizeDegrees"));
         scotomaSizeDegrees->setGeometry(QRect(120, 120, 42, 22));
@@ -398,7 +381,6 @@ public:
         retranslateUi(EyeTrackingSuiteClass);
         QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
         QObject::connect(scotomaEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaEnabled(bool)));
-        QObject::connect(scotomaRadius, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaRadiusChanged(int)));
         QObject::connect(calibrationHoriz, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationHorizChanged(int)));
         QObject::connect(calibrationVert, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationVertChanged(int)));
         QObject::connect(prosthesisEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onProsthesisEnabled(bool)));
@@ -414,12 +396,11 @@ public:
         QObject::connect(prosthesisSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisSizeChanged(int)));
         QObject::connect(actionAbout, SIGNAL(triggered()), EyeTrackingSuiteClass, SLOT(onActionAbout()));
         QObject::connect(physViewDist, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysViewDistChanged(int)));
-        QObject::connect(scotomaUseDegrees, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaUseDegrees(bool)));
         QObject::connect(scotomaSizeDegrees, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaSizeDegreesChanged(int)));
         QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
         QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);
@@ -451,8 +432,6 @@ public:
         label_7->setText(QApplication::translate("EyeTrackingSuiteClass", "Fade Outside:", nullptr));
         groupBox_2->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Scotoma", nullptr));
         scotomaEnabled->setText(QApplication::translate("EyeTrackingSuiteClass", "Show Scotoma", nullptr));
-        label->setText(QApplication::translate("EyeTrackingSuiteClass", "Size:", nullptr));
-        scotomaUseDegrees->setText(QApplication::translate("EyeTrackingSuiteClass", "Set Scotoma Size In Degrees", nullptr));
         label_10->setText(QApplication::translate("EyeTrackingSuiteClass", "Size in Degrees:", nullptr));
         groupBox_3->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Prosthesis", nullptr));
         prosthesisEnabled->setText(QApplication::translate("EyeTrackingSuiteClass", "Show Prosthesis", nullptr));

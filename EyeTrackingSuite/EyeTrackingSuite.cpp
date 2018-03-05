@@ -13,7 +13,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, optCalibrationVert(0)
 	, optPhysViewDistFt(2)
 	, optScotomaEnabled(false)
-	, optScotomaUseDegrees(false)
+	, optScotomaUseDegrees(true)
 	, optHalfField(0)
 {
 	ui.setupUi(this);
@@ -33,6 +33,8 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optScotoma.gradientSquaredFalloff = true;
 	optScotoma.gradientInside = 40;
 	optScotoma.gradientOutside = 60;
+
+	autoResizeScotoma();
 
 	// Initialize prosthesis options.
 	optProsthesis.changed = true;
@@ -118,7 +120,7 @@ void EyeTrackingSuite::autoResizeScotoma()
 	int scotomaRadiusPixels = (int)(scotomaRadiusInches * screen->logicalDotsPerInch());
 
 	// Set the new radius.
-	ui.scotomaRadius->setValue(scotomaRadiusPixels);
+	//ui.scotomaRadius->setValue(scotomaRadiusPixels);
 	optScotoma.radius = scotomaRadiusPixels;
 	optScotoma.changed = true;
 }
@@ -178,8 +180,8 @@ void EyeTrackingSuite::onScotomaUseDegrees(bool enabled)
 	optScotomaUseDegrees = enabled;
 
 	// Enable/disable the different size controls.
-	ui.scotomaRadius->setEnabled(!optScotomaUseDegrees);
-	ui.scotomaSizeDegrees->setEnabled(optScotomaUseDegrees);
+	//ui.scotomaRadius->setEnabled(!optScotomaUseDegrees);
+	//ui.scotomaSizeDegrees->setEnabled(optScotomaUseDegrees);
 
 	// If starting to use degrees, resize to the set value.
 	if (optScotomaUseDegrees)

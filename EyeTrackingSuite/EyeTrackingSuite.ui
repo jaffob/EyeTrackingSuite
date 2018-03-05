@@ -58,7 +58,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -393,7 +393,7 @@
             <property name="geometry">
              <rect>
               <x>10</x>
-              <y>450</y>
+              <y>390</y>
               <width>211</width>
               <height>131</height>
              </rect>
@@ -491,34 +491,12 @@
               <x>10</x>
               <y>20</y>
               <width>211</width>
-              <height>161</height>
+              <height>101</height>
              </rect>
             </property>
             <property name="title">
              <string>Scotoma</string>
             </property>
-            <widget class="QSlider" name="scotomaRadius">
-             <property name="geometry">
-              <rect>
-               <x>50</x>
-               <y>90</y>
-               <width>141</width>
-               <height>22</height>
-              </rect>
-             </property>
-             <property name="minimum">
-              <number>10</number>
-             </property>
-             <property name="maximum">
-              <number>300</number>
-             </property>
-             <property name="value">
-              <number>50</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
             <widget class="QCheckBox" name="scotomaEnabled">
              <property name="geometry">
               <rect>
@@ -535,40 +513,11 @@
               <bool>false</bool>
              </property>
             </widget>
-            <widget class="QLabel" name="label">
-             <property name="geometry">
-              <rect>
-               <x>20</x>
-               <y>90</y>
-               <width>31</width>
-               <height>21</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Size:</string>
-             </property>
-            </widget>
-            <widget class="QCheckBox" name="scotomaUseDegrees">
-             <property name="geometry">
-              <rect>
-               <x>20</x>
-               <y>60</y>
-               <width>171</width>
-               <height>17</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Set Scotoma Size In Degrees</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
             <widget class="QSpinBox" name="scotomaSizeDegrees">
              <property name="geometry">
               <rect>
                <x>120</x>
-               <y>120</y>
+               <y>60</y>
                <width>42</width>
                <height>22</height>
               </rect>
@@ -587,7 +536,7 @@
              <property name="geometry">
               <rect>
                <x>20</x>
-               <y>120</y>
+               <y>60</y>
                <width>111</width>
                <height>21</height>
               </rect>
@@ -601,7 +550,7 @@
             <property name="geometry">
              <rect>
               <x>10</x>
-              <y>200</y>
+              <y>140</y>
               <width>211</width>
               <height>231</height>
              </rect>
@@ -938,22 +887,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>scotomaRadius</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onScotomaRadiusChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>796</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>calibrationHoriz</sender>
    <signal>valueChanged(int)</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
@@ -1186,22 +1119,6 @@
     <hint type="sourcelabel">
      <x>854</x>
      <y>392</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>scotomaUseDegrees</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onScotomaUseDegrees(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>782</x>
-     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>456</x>
