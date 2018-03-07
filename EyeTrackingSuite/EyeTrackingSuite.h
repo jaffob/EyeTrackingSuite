@@ -5,6 +5,7 @@
 #include "ETSTobii.h"
 #include "ETSScotoma.h"
 #include "ETSProsthesis.h"
+#include "ETSPhysicalUnitSystem.h"
 
 class EyeTrackingSuite : public QMainWindow
 {
@@ -18,13 +19,13 @@ private:
 	ETSTobii * tobii;
 	ETSDrawArea * drawArea;
 	int timerId;
+	ETSPhysicalUnitSystem * physUnits;
 
 public:
 
 	// Options.
 	int optCalibrationHoriz;
 	int optCalibrationVert;
-	int optPhysViewDistFt;
 	bool optScotomaEnabled;
 	bool optScotomaUseDegrees;
 	ETSScotomaDrawOptions optScotoma;
@@ -34,6 +35,8 @@ public:
 public:
     EyeTrackingSuite(QWidget *parent = Q_NULLPTR);
 	~EyeTrackingSuite();
+
+	void onPhysicalUnitSystemUpdate();
 
 protected:
 

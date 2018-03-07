@@ -16,7 +16,7 @@ typedef struct
 
 class ETSScotoma : public QObject
 {
-	
+
 private:
 
 	QImage img;

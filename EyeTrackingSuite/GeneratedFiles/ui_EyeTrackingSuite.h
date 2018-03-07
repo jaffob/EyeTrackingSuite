@@ -176,9 +176,9 @@ public:
         physViewDist = new QSpinBox(groupBox_9);
         physViewDist->setObjectName(QStringLiteral("physViewDist"));
         physViewDist->setGeometry(QRect(157, 30, 42, 22));
-        physViewDist->setMinimum(1);
-        physViewDist->setMaximum(5);
-        physViewDist->setValue(2);
+        physViewDist->setMinimum(10);
+        physViewDist->setMaximum(60);
+        physViewDist->setValue(24);
         groupBox_4 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(10, 120, 211, 161));
@@ -418,7 +418,7 @@ public:
         imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
-        label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (ft):", nullptr));
+        label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));
         groupBox_4->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Calibration", nullptr));
         label_4->setText(QApplication::translate("EyeTrackingSuiteClass", "Horizontal Offset:", nullptr));
         label_5->setText(QApplication::translate("EyeTrackingSuiteClass", "Vertical Offset:", nullptr));

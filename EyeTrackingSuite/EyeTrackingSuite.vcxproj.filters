@@ -77,6 +77,9 @@
     <ClCompile Include="ETSProsthesis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ETSPhysicalUnitSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="EyeTrackingSuite.h">
@@ -89,6 +92,15 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="ETSDrawArea.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ETSPhysicalUnitSystem.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ETSProsthesis.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ETSScotoma.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -109,12 +121,6 @@
       <Filter>Header Files\tobii</Filter>
     </ClInclude>
     <ClInclude Include="ETSTobii.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ETSScotoma.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ETSProsthesis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
