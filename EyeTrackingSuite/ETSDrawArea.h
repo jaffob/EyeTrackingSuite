@@ -10,6 +10,7 @@ class ETSDrawArea : public QLabel
 
 private:
 
+	class EyeTrackingSuite * ets;
 	QPoint gazeLocalPos;
 	ETSScotoma scotoma;
 	ETSProsthesis prosthesis;
@@ -25,13 +26,18 @@ public:
 	ETSDrawArea(QWidget *parent);
 	~ETSDrawArea();
 
-	void repaintDrawArea(class EyeTrackingSuite * ets);
+	void attachETS(class EyeTrackingSuite * ets);
+
+	void repaintDrawArea();
 
 	void setGazeLocalPosition(QPoint pos);
 	void setGazeScreenPosition(QPoint pos);
 
+	QPoint getImageOffset() const;
+
 protected:
 
+	virtual void mousePressEvent(QMouseEvent *event) override;
 	virtual void resizeEvent(QResizeEvent *event) override;
 	virtual void timerEvent(QTimerEvent *event) override;
 	

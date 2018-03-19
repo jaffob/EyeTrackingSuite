@@ -2,6 +2,7 @@
 #include <QPainter>
 #include "ETSPhysicalUnitSystem.h"
 
+const int ETSBaseImage_VisionChart::textResolvePixels = 10;
 const double ETSBaseImage_VisionChart::degrees2020 = 5./60.;
 
 ETSBaseImage_VisionChart::ETSBaseImage_VisionChart(ETSPhysicalUnitSystem * physUnits)
@@ -21,7 +22,7 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 	this->drawAreaSize = drawAreaSize;
 
 	// Make a new image that fills the draw area and init a painter.
-	img = QImage(drawAreaSize, QImage::Format::Format_ARGB32);
+	img = QImage(drawAreaSize, QImage::Format::Format_RGB32);
 	QPainter painter(&img);
 	
 	// White background.
@@ -35,7 +36,8 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 	QFont fontText = QFont("Lucida Sans Typewriter");
 
 	// Make a font for drawing "20/xxx" numbers.
-	QFont fontAcuity = QFont("Times New Roman");
+	QFont fontAcuity = QFont("Courier");
+	fontAcuity.setBold(true);
 	int acNumberHeight = phys->calcDegreesToPixels(degrees2020 * 5.);
 	fontAcuity.setPixelSize(acNumberHeight);
 	int acNumberWidth = QFontMetrics(fontAcuity).width("20/000");
@@ -48,6 +50,8 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 
 	for (unsigned int i = 0; i < nAcuities; i++)
 	{
+		painter.setPen(Qt::black);
+
 		// Get this acuity and calculate how tall it should be.
 		unsigned int acuity = acuities[i];
 		double degs = (acuity / 20.) * degrees2020;
@@ -57,6 +61,12 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 		fontText.setPixelSize(pixs);
 		painter.setFont(fontText);
 		painter.drawText(padding, textBase, makeTruncatedSampleString(fontText, textZoneWidth));
+
+		// Use a warning color if the text might not be resolvable on this display.
+		if (pixs < textResolvePixels)
+		{
+			painter.setPen(Qt::red);
+		}
 
 		// Draw acuity number.
 		QString acNumberString = QString("20/") + QString::number(acuity);
@@ -71,10 +81,10 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 
 	// Put in a top black border then crop the image.
 	textBase += padding * 2;
+	painter.setPen(Qt::black);
 	painter.drawLine(0, textBase, drawAreaSize.width(), textBase);
 	painter.end();
 	img = img.copy(0, textBase, drawAreaSize.width(), drawAreaSize.height() - textBase + 1);
-
 
 	painter.end();
 	return true;

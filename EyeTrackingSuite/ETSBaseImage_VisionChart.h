@@ -1,11 +1,13 @@
 #pragma once
 #include "ETSBaseImage.h"
+#include <QImage>
 
 class ETSBaseImage_VisionChart : public ETSBaseImage
 {
 
 public:
 
+	static const int textResolvePixels;	// Minimum text height for the text to be resolvable.
 	static const double degrees2020;	// Degrees of visual height occupied by text at 20/20.
 
 private:

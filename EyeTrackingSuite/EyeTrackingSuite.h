@@ -41,6 +41,9 @@ public:
 
 	void onPhysicalUnitSystemUpdate();
 
+	void setCalibration(int h, int v);
+	bool isTobiiConnected() const;
+
 protected:
 
 	void loadNewBaseImage();

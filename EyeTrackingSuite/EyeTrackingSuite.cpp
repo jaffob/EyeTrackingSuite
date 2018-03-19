@@ -20,6 +20,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 {
 	ui.setupUi(this);
 	drawArea = (ETSDrawArea *)ui.mainDrawArea;
+	drawArea->attachETS(this);
 
 	// Initialize the Tobii bridge.
 	tobii = new ETSTobii();
@@ -52,7 +53,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 
 	// Load the base image for the draw area.
 	loadNewBaseImage();
-	drawArea->repaintDrawArea(this);
+	drawArea->repaintDrawArea();
 
 	// Start the main loop.
 	timerId = startTimer(12);
@@ -125,11 +126,10 @@ void EyeTrackingSuite::timerEvent(QTimerEvent * event)
 		}
 	}
 
-	// If no Tobii is connected, draw the scotoma in the center.
+	// If no Tobii is connected, call repaint here.
 	else
 	{
-		drawArea->setGazeLocalPosition(QPoint(drawArea->img.width() / 2, drawArea->img.height() / 2));
-		drawArea->repaintDrawArea(this);
+		drawArea->repaintDrawArea();
 	}
 }
 
@@ -143,7 +143,7 @@ void EyeTrackingSuite::onGazePointReceived(float alpha, float beta, void * conte
 
 	// Send that on to the draw area, and tell it to redraw.
 	ets->drawArea->setGazeScreenPosition(screenPoint);
-	ets->drawArea->repaintDrawArea(ets);
+	ets->drawArea->repaintDrawArea();
 }
 
 void EyeTrackingSuite::reconnectToTobii()
@@ -172,6 +172,19 @@ void EyeTrackingSuite::autoResizeProsthesisPixels()
 {
 	optProsthesis.pixelSize = physUnits->calcEyeMicronsToPixels(ui.prosthesisPixelSize->value());
 	optProsthesis.changed = true;
+}
+
+void EyeTrackingSuite::setCalibration(int h, int v)
+{
+	optCalibrationHoriz = h;
+	optCalibrationVert = v;
+	ui.calibrationHoriz->setValue(h);
+	ui.calibrationVert->setValue(v);
+}
+
+bool EyeTrackingSuite::isTobiiConnected() const
+{
+	return tobii->isConnected();
 }
 
 void EyeTrackingSuite::onTobiiReconnectClicked()
