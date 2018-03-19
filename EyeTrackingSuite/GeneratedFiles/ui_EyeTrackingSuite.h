@@ -69,8 +69,6 @@ public:
     QWidget *scrollAreaWidgetContents_3;
     QGroupBox *groupBox_7;
     QCheckBox *gradientEnabled;
-    QSlider *gradientInside;
-    QLabel *label_6;
     QSlider *gradientOutside;
     QLabel *label_7;
     QGroupBox *groupBox_2;
@@ -256,30 +254,20 @@ public:
         scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 242, 639));
         groupBox_7 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
-        groupBox_7->setGeometry(QRect(10, 390, 211, 131));
+        groupBox_7->setGeometry(QRect(10, 390, 211, 101));
         gradientEnabled = new QCheckBox(groupBox_7);
         gradientEnabled->setObjectName(QStringLiteral("gradientEnabled"));
         gradientEnabled->setGeometry(QRect(20, 30, 181, 17));
-        gradientInside = new QSlider(groupBox_7);
-        gradientInside->setObjectName(QStringLiteral("gradientInside"));
-        gradientInside->setGeometry(QRect(90, 60, 101, 22));
-        gradientInside->setMinimum(0);
-        gradientInside->setMaximum(95);
-        gradientInside->setValue(40);
-        gradientInside->setOrientation(Qt::Horizontal);
-        label_6 = new QLabel(groupBox_7);
-        label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setGeometry(QRect(20, 60, 71, 21));
         gradientOutside = new QSlider(groupBox_7);
         gradientOutside->setObjectName(QStringLiteral("gradientOutside"));
-        gradientOutside->setGeometry(QRect(90, 90, 101, 22));
+        gradientOutside->setGeometry(QRect(60, 60, 131, 22));
         gradientOutside->setMinimum(0);
         gradientOutside->setMaximum(95);
         gradientOutside->setValue(60);
         gradientOutside->setOrientation(Qt::Horizontal);
         label_7 = new QLabel(groupBox_7);
         label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setGeometry(QRect(20, 90, 71, 21));
+        label_7->setGeometry(QRect(20, 60, 31, 21));
         groupBox_2 = new QGroupBox(scrollAreaWidgetContents_3);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(10, 20, 211, 101));
@@ -406,7 +394,6 @@ public:
         QObject::connect(halfFieldBlockRight, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockRight(bool)));
         QObject::connect(prosthesisGrayLevel, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisGrayLevelChanged(int)));
         QObject::connect(gradientEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onGradientEnabled(bool)));
-        QObject::connect(gradientInside, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onGradientInsideChanged(int)));
         QObject::connect(gradientOutside, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onGradientOutsideChanged(int)));
         QObject::connect(imageComboBox, SIGNAL(currentIndexChanged(QString)), EyeTrackingSuiteClass, SLOT(onImageComboBoxChanged(QString)));
         QObject::connect(prosthesisPixelSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisPixelSizeChanged(int)));
@@ -419,7 +406,7 @@ public:
         QObject::connect(actionFull_Screen, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionFullscreen(bool)));
         QObject::connect(actionShow_Controls, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionShowControls(bool)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);
@@ -450,8 +437,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("EyeTrackingSuiteClass", "General", nullptr));
         groupBox_7->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Gradient", nullptr));
         gradientEnabled->setText(QApplication::translate("EyeTrackingSuiteClass", "Fade Scotoma at Edges", nullptr));
-        label_6->setText(QApplication::translate("EyeTrackingSuiteClass", "Fade Inside:", nullptr));
-        label_7->setText(QApplication::translate("EyeTrackingSuiteClass", "Fade Outside:", nullptr));
+        label_7->setText(QApplication::translate("EyeTrackingSuiteClass", "Fade:", nullptr));
         groupBox_2->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Scotoma", nullptr));
         scotomaEnabled->setText(QApplication::translate("EyeTrackingSuiteClass", "Show Scotoma", nullptr));
         label_10->setText(QApplication::translate("EyeTrackingSuiteClass", "Size in Degrees:", nullptr));
