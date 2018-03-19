@@ -6,12 +6,13 @@
 #include <QImageReader>
 #include <QImage>
 #include <QPainter>
+#include "ETSBaseImage.h"
 
 ETSDrawArea::ETSDrawArea(QWidget *parent)
 	: QLabel(parent)
-	, imgLoaded(false)
 	, scotoma()
 	, resizeTimerId(-1)
+	, resizeFlag(false)
 {
 }
 
@@ -19,40 +20,26 @@ ETSDrawArea::~ETSDrawArea()
 {
 }
 
-bool ETSDrawArea::setBaseImage(QString filename)
-{
-	baseImgFilename = filename;
-	return loadBaseImage();
-}
-
-bool ETSDrawArea::loadBaseImage()
-{
-	// Read the image from the filename specified.
-	QImageReader imgReader(baseImgFilename);
-	baseImg = imgReader.read();
-	imgLoaded = !baseImg.isNull();
-	if (!imgLoaded)
-		return false;
-	
-	// Scale the base image to fit the size of the widget.
-	baseImg = baseImg.scaled(size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-	// Remake the prosthesis given that it relies on the base image.
-	prosthesis.makeProsthesis(baseImg);
-
-	return true;
-}
-
 void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 {
-	if (!imgLoaded)
-	{
-		return;
-	}
-	
 	if (!prosthesis.areDrawOptionsAttached())
 	{
 		prosthesis.attachDrawOptions(&ets->optProsthesis);
+	}
+
+	// If a resize event has occurred, generate a new base image.
+	if (resizeFlag && ets->baseImage)
+	{
+		ets->baseImage->regenerateForSize(size());
+		ets->optProsthesis.changed = true;
+		resizeFlag = false;
+	}
+
+	// If at this point the base image is invalid, abort.
+	if (!ets->baseImage || !ets->baseImage->isValid())
+	{
+		setText("(Loading...)");
+		return;
 	}
 
 	// Determine the eye position from the local position adjusted for calibration.
@@ -60,7 +47,7 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 
 	// Copy the base image into the image buffer. That is, overwrite the last
 	// frame's drawing with just the base image.
-	img = QImage(baseImg);
+	img = ets->baseImage->getImage();
 
 	// Initialize drawing.
 	QPainter painter(&img);
@@ -76,7 +63,7 @@ void ETSDrawArea::repaintDrawArea(EyeTrackingSuite * ets)
 	// Remake the prosthesis if the options have changed.
 	if (ets->optProsthesis.changed)
 	{
-		prosthesis.makeProsthesis(baseImg);
+		prosthesis.makeProsthesis(ets->baseImage->getImage());
 		ets->optProsthesis.changed = false;
 	}
 
@@ -136,7 +123,7 @@ void ETSDrawArea::resizeEvent(QResizeEvent * event)
 void ETSDrawArea::timerEvent(QTimerEvent * event)
 {
 	// Calling loadBaseImage() re-scales the underlying image.
-	loadBaseImage();
+	resizeFlag = true;
 
 	// Prevent the timer from firing repeatedly.
 	killTimer(event->timerId());

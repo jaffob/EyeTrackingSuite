@@ -80,6 +80,12 @@
     <ClCompile Include="ETSPhysicalUnitSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ETSBaseImage_File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ETSBaseImage_VisionChart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="EyeTrackingSuite.h">
@@ -121,6 +127,15 @@
       <Filter>Header Files\tobii</Filter>
     </ClInclude>
     <ClInclude Include="ETSTobii.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ETSBaseImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ETSBaseImage_File.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ETSBaseImage_VisionChart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

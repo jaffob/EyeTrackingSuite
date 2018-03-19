@@ -10,15 +10,12 @@ class ETSDrawArea : public QLabel
 
 private:
 
-	QImage baseImg;
-	QString baseImgFilename;
-
-	bool imgLoaded;
 	QPoint gazeLocalPos;
 	ETSScotoma scotoma;
 	ETSProsthesis prosthesis;
 
 	int resizeTimerId;
+	bool resizeFlag;
 
 public:
 
@@ -28,8 +25,6 @@ public:
 	ETSDrawArea(QWidget *parent);
 	~ETSDrawArea();
 
-	bool setBaseImage(QString filename);
-	bool loadBaseImage();
 	void repaintDrawArea(class EyeTrackingSuite * ets);
 
 	void setGazeLocalPosition(QPoint pos);

@@ -141,7 +141,12 @@
              </property>
              <item>
               <property name="text">
-               <string>Reading Test</string>
+               <string>Vision Chart</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Old Reading Test</string>
               </property>
              </item>
              <item>
@@ -828,6 +833,15 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionFull_Screen"/>
+    <addaction name="separator"/>
+    <addaction name="actionShow_Controls"/>
+   </widget>
+   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -839,6 +853,25 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionFull_Screen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Full Screen</string>
+   </property>
+  </action>
+  <action name="actionShow_Controls">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Controls</string>
    </property>
   </action>
  </widget>
@@ -1174,6 +1207,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionFull_Screen</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onActionFullscreen(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShow_Controls</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onActionShowControls(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onTobiiReconnectClicked()</slot>
@@ -1198,5 +1263,7 @@
   <slot>onScotomaSizeDegreesChanged(int)</slot>
   <slot>onProsthesisFullBlackChanged()</slot>
   <slot>onProsthesisFullWhiteChanged()</slot>
+  <slot>onActionShowControls(bool)</slot>
+  <slot>onActionFullscreen(bool)</slot>
  </slots>
 </ui>

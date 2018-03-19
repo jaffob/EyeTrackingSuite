@@ -32,6 +32,9 @@ public:
 	ETSProsthesisDrawOptions optProsthesis;
 	int optHalfField;
 
+	// Base image.
+	class ETSBaseImage * baseImage;
+
 public:
     EyeTrackingSuite(QWidget *parent = Q_NULLPTR);
 	~EyeTrackingSuite();
@@ -39,6 +42,8 @@ public:
 	void onPhysicalUnitSystemUpdate();
 
 protected:
+
+	void loadNewBaseImage();
 
 	virtual void timerEvent(QTimerEvent *event) override;
 
@@ -79,5 +84,7 @@ public slots:
 	void onHalfFieldBlockRight(bool enabled);
 
 	// Menu actions.
+	void onActionFullscreen(bool newValue);
+	void onActionShowControls(bool newValue);
 	void onActionAbout();
 };

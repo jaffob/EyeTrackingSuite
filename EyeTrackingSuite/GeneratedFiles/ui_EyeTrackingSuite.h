@@ -40,6 +40,8 @@ class Ui_EyeTrackingSuiteClass
 public:
     QAction *actionSwitch_Application;
     QAction *actionAbout;
+    QAction *actionFull_Screen;
+    QAction *actionShow_Controls;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     ETSDrawArea *mainDrawArea;
@@ -94,6 +96,7 @@ public:
     QRadioButton *halfFieldBlockRight;
     QMenuBar *menuBar;
     QMenu *menuHelp;
+    QMenu *menuWindow;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *EyeTrackingSuiteClass)
@@ -105,6 +108,13 @@ public:
         actionSwitch_Application->setObjectName(QStringLiteral("actionSwitch_Application"));
         actionAbout = new QAction(EyeTrackingSuiteClass);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
+        actionFull_Screen = new QAction(EyeTrackingSuiteClass);
+        actionFull_Screen->setObjectName(QStringLiteral("actionFull_Screen"));
+        actionFull_Screen->setCheckable(true);
+        actionShow_Controls = new QAction(EyeTrackingSuiteClass);
+        actionShow_Controls->setObjectName(QStringLiteral("actionShow_Controls"));
+        actionShow_Controls->setCheckable(true);
+        actionShow_Controls->setChecked(true);
         centralWidget = new QWidget(EyeTrackingSuiteClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setLayoutDirection(Qt::LeftToRight);
@@ -162,6 +172,7 @@ public:
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         groupBox_6->setGeometry(QRect(10, 390, 211, 71));
         imageComboBox = new QComboBox(groupBox_6);
+        imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
@@ -370,13 +381,19 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1156, 21));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
+        menuWindow = new QMenu(menuBar);
+        menuWindow->setObjectName(QStringLiteral("menuWindow"));
         EyeTrackingSuiteClass->setMenuBar(menuBar);
         statusBar = new QStatusBar(EyeTrackingSuiteClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         EyeTrackingSuiteClass->setStatusBar(statusBar);
 
+        menuBar->addAction(menuWindow->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuHelp->addAction(actionAbout);
+        menuWindow->addAction(actionFull_Screen);
+        menuWindow->addSeparator();
+        menuWindow->addAction(actionShow_Controls);
 
         retranslateUi(EyeTrackingSuiteClass);
         QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
@@ -399,6 +416,8 @@ public:
         QObject::connect(scotomaSizeDegrees, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaSizeDegreesChanged(int)));
         QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
         QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
+        QObject::connect(actionFull_Screen, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionFullscreen(bool)));
+        QObject::connect(actionShow_Controls, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionShowControls(bool)));
 
         tabWidget->setCurrentIndex(0);
 
@@ -411,11 +430,14 @@ public:
         EyeTrackingSuiteClass->setWindowTitle(QApplication::translate("EyeTrackingSuiteClass", "Eye Tracking Suite", nullptr));
         actionSwitch_Application->setText(QApplication::translate("EyeTrackingSuiteClass", "Switch Application", nullptr));
         actionAbout->setText(QApplication::translate("EyeTrackingSuiteClass", "About", nullptr));
+        actionFull_Screen->setText(QApplication::translate("EyeTrackingSuiteClass", "Full Screen", nullptr));
+        actionShow_Controls->setText(QApplication::translate("EyeTrackingSuiteClass", "Show Controls", nullptr));
         mainDrawArea->setText(QApplication::translate("EyeTrackingSuiteClass", "TextLabel", nullptr));
         groupBox_6->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Image", nullptr));
-        imageComboBox->setItemText(0, QApplication::translate("EyeTrackingSuiteClass", "Reading Test", nullptr));
-        imageComboBox->setItemText(1, QApplication::translate("EyeTrackingSuiteClass", "Oregon Sunset", nullptr));
-        imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
+        imageComboBox->setItemText(0, QApplication::translate("EyeTrackingSuiteClass", "Vision Chart", nullptr));
+        imageComboBox->setItemText(1, QApplication::translate("EyeTrackingSuiteClass", "Old Reading Test", nullptr));
+        imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Oregon Sunset", nullptr));
+        imageComboBox->setItemText(3, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
         label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));
@@ -447,6 +469,7 @@ public:
         halfFieldBlockRight->setText(QApplication::translate("EyeTrackingSuiteClass", "Block right visual field", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("EyeTrackingSuiteClass", "Visual Field", nullptr));
         menuHelp->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Help", nullptr));
+        menuWindow->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Window", nullptr));
     } // retranslateUi
 
 };

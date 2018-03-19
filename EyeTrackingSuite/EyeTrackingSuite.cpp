@@ -6,6 +6,8 @@
 #include <QPoint>
 #include <QScreen>
 #include <QMessageBox>
+#include "ETSBaseImage_File.h"
+#include "ETSBaseImage_VisionChart.h"
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -14,6 +16,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, optScotomaEnabled(false)
 	, optScotomaUseDegrees(true)
 	, optHalfField(0)
+	, baseImage(nullptr)
 {
 	ui.setupUi(this);
 	drawArea = (ETSDrawArea *)ui.mainDrawArea;
@@ -48,7 +51,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optProsthesis.fullWhite = 255;
 
 	// Load the base image for the draw area.
-	drawArea->setBaseImage(ui.imageComboBox->currentText() + QString(".jpg"));
+	loadNewBaseImage();
 	drawArea->repaintDrawArea(this);
 
 	// Start the main loop.
@@ -66,6 +69,9 @@ EyeTrackingSuite::~EyeTrackingSuite()
 
 void EyeTrackingSuite::onPhysicalUnitSystemUpdate()
 {
+	// Regenerate the base image in case it depends on physical units.
+	baseImage->regenerateForSize(drawArea->size());
+
 	// If the scotoma is set to size in degrees, update it.
 	if (optScotomaUseDegrees)
 	{
@@ -73,6 +79,35 @@ void EyeTrackingSuite::onPhysicalUnitSystemUpdate()
 	}
 
 	autoResizeProsthesisPixels();
+}
+
+void EyeTrackingSuite::loadNewBaseImage()
+{
+	// Kill the old base image.
+	if (baseImage)
+		delete baseImage;
+
+	// Load the dynamic vision chart.
+	if (ui.imageComboBox->currentIndex() == 0)
+	{
+		ETSBaseImage_VisionChart * bi = new ETSBaseImage_VisionChart(physUnits);
+		unsigned int acs[9] = { 20, 30, 40, 60, 80, 100, 200, 400, 800 };
+		bi->setAcuities(acs, 9);
+		baseImage = bi;
+	}
+
+	// Load a file.
+	else
+	{
+		ETSBaseImage_File * bi = new ETSBaseImage_File();
+		bi->loadFromFile(ui.imageComboBox->currentText() + QString(".jpg"));
+		baseImage = bi;
+	}
+
+	baseImage->regenerateForSize(drawArea->size());
+
+	// Changing the base image invalidates the old prosthesis render.
+	optProsthesis.changed = true;
 }
 
 void EyeTrackingSuite::timerEvent(QTimerEvent * event)
@@ -161,7 +196,7 @@ void EyeTrackingSuite::onPhysViewDistChanged(int newValue)
 
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
 {
-	drawArea->setBaseImage(newText + QString(".jpg"));
+	loadNewBaseImage();
 }
 
 void EyeTrackingSuite::onScotomaEnabled(bool enabled)
@@ -268,6 +303,20 @@ void EyeTrackingSuite::onHalfFieldBlockRight(bool enabled)
 {
 	if (enabled) optHalfField = 2;
 }
+
+void EyeTrackingSuite::onActionFullscreen(bool newValue)
+{
+	if (newValue)
+		showFullScreen();
+	else
+		showNormal();
+}
+
+void EyeTrackingSuite::onActionShowControls(bool newValue)
+{
+	ui.tabWidget->setHidden(!newValue);
+}
+
 
 void EyeTrackingSuite::onActionAbout()
 {
