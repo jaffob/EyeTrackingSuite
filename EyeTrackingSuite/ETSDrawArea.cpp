@@ -44,7 +44,7 @@ void ETSDrawArea::repaintDrawArea()
 	// If at this point the base image is invalid, abort.
 	if (!ets->baseImage || !ets->baseImage->isValid())
 	{
-		setText("(Loading...)");
+		setText("(Invalid Image...)");
 		return;
 	}
 
@@ -81,7 +81,7 @@ void ETSDrawArea::repaintDrawArea()
 	// Remake the prosthesis if the options have changed.
 	if (ets->optProsthesis.changed)
 	{
-		prosthesis.makeProsthesis(ets->baseImage->getImage());
+		prosthesis.makeProsthesis(ets->baseImage);
 		ets->optProsthesis.changed = false;
 	}
 

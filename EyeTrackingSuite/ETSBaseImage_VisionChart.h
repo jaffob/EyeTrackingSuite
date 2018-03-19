@@ -20,6 +20,8 @@ private:
 	unsigned int acuities[32];
 	unsigned int nAcuities;
 
+	int acNumberX;
+
 public:
 
 	ETSBaseImage_VisionChart(class ETSPhysicalUnitSystem * physUnits);
@@ -28,6 +30,8 @@ public:
 	virtual bool regenerateForSize(QSize drawAreaSize) override;
 	virtual QImage getImage() const override;
 	virtual bool isValid() const override;
+
+	virtual void prosthesisPostEdit(QImage& prosthesisImg) override;
 
 	virtual void setAcuities(unsigned int * acuities, unsigned int count);
 	virtual unsigned int * getAcuities() const;

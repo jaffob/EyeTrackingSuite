@@ -25,4 +25,14 @@ public:
 	 */
 	virtual bool isValid() const = 0;
 
+	/**
+	 * Special version of getImage() for making the prosthesis.
+	 */
+	virtual QImage getProsthesisBase() const;
+
+	/**
+	 * Hook for adding last minute modifications to a prosthesis image.
+	 */
+	virtual void prosthesisPostEdit(QImage& prosthesisImg);
+
 };

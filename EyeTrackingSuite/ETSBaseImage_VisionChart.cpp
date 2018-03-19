@@ -10,6 +10,7 @@ ETSBaseImage_VisionChart::ETSBaseImage_VisionChart(ETSPhysicalUnitSystem * physU
 	, drawAreaSize()
 	, phys(physUnits)
 	, nAcuities(0)
+	, acNumberX(0)
 {
 }
 
@@ -48,6 +49,8 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 	QRect acNumberRect = QRect(0, 0, acNumberWidth, acNumberHeight);
 	double textZoneWidth = drawAreaSize.width() - (padding * 3.) - acNumberWidth;
 
+	acNumberX = drawAreaSize.width() - padding - acNumberWidth;
+
 	for (unsigned int i = 0; i < nAcuities; i++)
 	{
 		painter.setPen(Qt::black);
@@ -70,7 +73,7 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 
 		// Draw acuity number.
 		QString acNumberString = QString("20/") + QString::number(acuity);
-		acNumberRect.moveTo(drawAreaSize.width() - padding - acNumberWidth, textBase - pixs);
+		acNumberRect.moveTo(acNumberX, textBase - pixs);
 		acNumberRect.setHeight(pixs);
 		painter.setFont(fontAcuity);
 		painter.drawText(acNumberRect, Qt::AlignRight | Qt::AlignVCenter | Qt::TextDontClip, acNumberString);
@@ -98,6 +101,17 @@ QImage ETSBaseImage_VisionChart::getImage() const
 bool ETSBaseImage_VisionChart::isValid() const
 {
 	return !drawAreaSize.isEmpty();
+}
+
+void ETSBaseImage_VisionChart::prosthesisPostEdit(QImage & prosthesisImg)
+{
+	if (acNumberX > 0)
+	{
+		QPainter painter(&prosthesisImg);
+		QRectF r = QRectF(acNumberX, 0, img.width() - acNumberX, img.height());
+		painter.drawImage(r, img, r);
+		painter.end();
+	}
 }
 
 void ETSBaseImage_VisionChart::setAcuities(unsigned int * acuities, unsigned int count)

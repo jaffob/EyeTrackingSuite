@@ -1,5 +1,6 @@
 #include "ETSProsthesis.h"
 #include <QPainter>
+#include "ETSBaseImage.h"
 
 ETSProsthesis::ETSProsthesis(QObject * parent)
 	: QObject(parent)
@@ -12,14 +13,19 @@ ETSProsthesis::~ETSProsthesis()
 {
 }
 
-void ETSProsthesis::makeProsthesis(QImage& source)
+void ETSProsthesis::makeProsthesis(ETSBaseImage * baseImage)
 {
+	// If the base image is invalid, definitely do nothing.
+	if (!baseImage || !baseImage->isValid()) return;
+
 	// If no draw options have been attached, essentially do nothing.
 	if (!options)
 	{
-		img = QImage(source);
+		img = baseImage->getImage();
 		return;
 	}
+
+	QImage source = baseImage->getImage();
 
 	// Reduce image resolution by downscaling then upscaling the image.
 	img = source.scaled(source.size() / options->pixelSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
@@ -45,6 +51,8 @@ void ETSProsthesis::makeProsthesis(QImage& source)
 			img.setPixelColor(pixpoint, QColor(pixelLightness, pixelLightness, pixelLightness));
 		}
 	}
+
+	baseImage->prosthesisPostEdit(img);
 }
 
 void ETSProsthesis::drawOverImage(QPainter& painter, QPointF& prosthesisCenter, int prosthesisRadius)

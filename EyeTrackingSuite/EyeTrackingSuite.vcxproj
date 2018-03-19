@@ -69,6 +69,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ETSBaseImage.cpp" />
     <ClCompile Include="ETSBaseImage_File.cpp" />
     <ClCompile Include="ETSBaseImage_VisionChart.cpp" />
     <ClCompile Include="ETSDrawArea.cpp" />

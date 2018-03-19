@@ -24,7 +24,7 @@ public:
 	ETSProsthesis(QObject *parent = Q_NULLPTR);
 	~ETSProsthesis();
 
-	void makeProsthesis(QImage& source);
+	void makeProsthesis(class ETSBaseImage * baseImage);
 	void drawOverImage(QPainter& painter, QPointF& prosthesisCenter, int prosthesisRadius);
 	QImage& getImage();
 
