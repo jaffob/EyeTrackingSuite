@@ -406,7 +406,7 @@ public:
         QObject::connect(actionFull_Screen, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionFullscreen(bool)));
         QObject::connect(actionShow_Controls, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionShowControls(bool)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(EyeTrackingSuiteClass);

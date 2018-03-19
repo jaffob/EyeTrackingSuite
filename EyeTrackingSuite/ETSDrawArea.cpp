@@ -85,16 +85,16 @@ void ETSDrawArea::repaintDrawArea()
 		ets->optProsthesis.changed = false;
 	}
 
-	// Reduce image quality in the area of the prosthesis.
-	if (ets->optScotoma.prosthesisEnabled)
-	{
-		int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
-		prosthesis.drawOverImage(painter, finalEyePos, prosthesisRadius);
-	}
-
 	// Draw the scotoma.
 	if (ets->optScotomaEnabled)
 	{
+		// Reduce image quality in the area of the prosthesis.
+		if (ets->optScotoma.prosthesisEnabled)
+		{
+			int prosthesisRadius = ets->optScotoma.radius * (ets->optScotoma.prosthesisSizePercent / 100.f);
+			prosthesis.drawOverImage(painter, finalEyePos, prosthesisRadius);
+		}
+
 		painter.drawImage(finalEyePos - QPointF(ets->optScotoma.radius, ets->optScotoma.radius), scotoma.getImage());
 	}
 

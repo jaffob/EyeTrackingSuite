@@ -14,6 +14,10 @@ class EyeTrackingSuite : public QMainWindow
 private:
 	Ui::EyeTrackingSuiteClass ui;
 
+public:
+
+	static const unsigned int optionsFileVersion;
+
 private:
 
 	ETSTobii * tobii;
@@ -56,6 +60,12 @@ protected:
 
 	void autoResizeScotoma();
 	void autoResizeProsthesisPixels();
+
+	// Settings and files.
+	void readOptionsFile();
+	void writeOptionsFile();
+
+	virtual void closeEvent(QCloseEvent *event) override;
 
 public slots:
 

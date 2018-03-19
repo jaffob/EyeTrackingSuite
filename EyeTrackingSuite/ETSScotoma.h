@@ -6,6 +6,7 @@ typedef struct
 {
 	bool changed;
 	int radius;
+	int sizeDegrees;
 	bool prosthesisEnabled;
 	int prosthesisSizePercent;
 	bool gradientEnabled;

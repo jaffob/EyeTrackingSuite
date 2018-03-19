@@ -8,6 +8,10 @@
 #include <QMessageBox>
 #include "ETSBaseImage_File.h"
 #include "ETSBaseImage_VisionChart.h"
+#include <cstdio>
+#include <QCloseEvent>
+
+const unsigned int EyeTrackingSuite::optionsFileVersion = 1;
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -29,10 +33,10 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 
 	// Initialize the physical unit system.
 	physUnits = new ETSPhysicalUnitSystem(24);
-	physUnits->registerForUpdates(this);
 
 	// Initialize the scotoma draw options.
 	optScotoma.radius = 50;
+	optScotoma.sizeDegrees = 10;
 	optScotoma.changed = true;
 	optScotoma.prosthesisEnabled = false;
 	optScotoma.prosthesisSizePercent = 50;
@@ -41,15 +45,21 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optScotoma.gradientInside = 40;
 	optScotoma.gradientOutside = 60;
 
-	autoResizeScotoma();
-
 	// Initialize prosthesis options.
 	optProsthesis.changed = true;
 	optProsthesis.pixelSize = 30;
+	optProsthesis.pixelSizeMicrons = 30;
 	optProsthesis.grayLevels = 8;
-	autoResizeProsthesisPixels();
 	optProsthesis.fullBlack = 0;
 	optProsthesis.fullWhite = 255;
+
+	// Load options from file.
+	readOptionsFile();
+
+	physUnits->registerForUpdates(this);
+
+	autoResizeScotoma();
+	autoResizeProsthesisPixels();
 
 	// Load the base image for the draw area.
 	loadNewBaseImage();
@@ -174,6 +184,89 @@ void EyeTrackingSuite::autoResizeProsthesisPixels()
 	optProsthesis.changed = true;
 }
 
+void EyeTrackingSuite::readOptionsFile()
+{
+	// Open options file.
+	FILE * fp = fopen("options.dat", "r");
+	if (!fp) return;
+
+	bool fullscreen = false;
+	bool hidecontrols = false;
+	int viewdist = 0;
+
+	// Abort if options file version is different.
+	unsigned int ver;
+	fread(&ver, sizeof(unsigned int), 1, fp);
+	if (ver != optionsFileVersion)
+	{
+		fclose(fp);
+		return;
+	}
+
+	// Read options.
+	fread(&optScotomaEnabled, sizeof(bool), 1, fp);
+	fread(&optScotoma, sizeof(ETSScotomaDrawOptions), 1, fp);
+	fread(&optProsthesis, sizeof(ETSProsthesisDrawOptions), 1, fp);
+	fread(&fullscreen, sizeof(bool), 1, fp);
+	fread(&hidecontrols, sizeof(bool), 1, fp);
+	fread(&viewdist, sizeof(int), 1, fp);
+
+	// Update UI.
+
+	ui.scotomaEnabled->setChecked(optScotomaEnabled);
+	ui.scotomaSizeDegrees->setValue(optScotoma.sizeDegrees);
+
+	ui.prosthesisEnabled->setChecked(optScotoma.prosthesisEnabled);
+	ui.prosthesisSize->setValue(optScotoma.prosthesisSizePercent);
+	ui.gradientEnabled->setChecked(optScotoma.gradientEnabled);
+	ui.gradientOutside->setValue(optScotoma.gradientOutside);
+	
+	ui.prosthesisGrayLevel->setValue(optProsthesis.grayLevels);
+	ui.prosthesisPixelSize->setValue(optProsthesis.pixelSizeMicrons);
+	ui.prosthesisFullBlack->setValue(optProsthesis.fullBlack);
+	ui.prosthesisFullWhite->setValue(optProsthesis.fullWhite);
+
+	if (fullscreen) showFullScreen();
+	ui.actionFull_Screen->setChecked(fullscreen);
+	ui.tabWidget->setHidden(hidecontrols);
+	ui.actionShow_Controls->setChecked(!hidecontrols);
+
+	physUnits->setViewDist(viewdist);
+	ui.physViewDist->setValue(viewdist);
+
+	fclose(fp);
+}
+
+void EyeTrackingSuite::writeOptionsFile()
+{
+	// Open options file.
+	FILE * fp = fopen("options.dat", "w");
+	if (!fp) return;
+
+	bool fullscreen = isFullScreen();
+	bool hidecontrols = ui.tabWidget->isHidden();
+	int viewdist = physUnits->getViewDist();
+
+	// Write file version.
+	fwrite(&optionsFileVersion, sizeof(unsigned int), 1, fp);
+
+	// Write options.
+	fwrite(&optScotomaEnabled, sizeof(bool), 1, fp);
+	fwrite(&optScotoma, sizeof(ETSScotomaDrawOptions), 1, fp);
+	fwrite(&optProsthesis, sizeof(ETSProsthesisDrawOptions), 1, fp);
+	fwrite(&fullscreen, sizeof(bool), 1, fp);
+	fwrite(&hidecontrols, sizeof(bool), 1, fp);
+	fwrite(&viewdist, sizeof(int), 1, fp);
+
+	fclose(fp);
+}
+
+void EyeTrackingSuite::closeEvent(QCloseEvent * event)
+{
+	writeOptionsFile();
+	event->accept();
+}
+
 void EyeTrackingSuite::setCalibration(int h, int v)
 {
 	optCalibrationHoriz = h;
@@ -243,6 +336,8 @@ void EyeTrackingSuite::onScotomaRadiusChanged(int newValue)
 
 void EyeTrackingSuite::onScotomaSizeDegreesChanged(int newValue)
 {
+	optScotoma.sizeDegrees = newValue;
+
 	if (optScotomaUseDegrees)
 	{
 		autoResizeScotoma();
@@ -269,6 +364,7 @@ void EyeTrackingSuite::onProsthesisGrayLevelChanged(int newValue)
 
 void EyeTrackingSuite::onProsthesisPixelSizeChanged(int newValue)
 {
+	optProsthesis.pixelSizeMicrons = newValue;
 	autoResizeProsthesisPixels();
 }
 
