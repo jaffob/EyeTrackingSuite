@@ -55,6 +55,9 @@ public:
     QGroupBox *groupBox_9;
     QLabel *label_9;
     QSpinBox *physViewDist;
+    QSpinBox *physDPICalib;
+    QLabel *label_13;
+    QPushButton *physDPICalibHelp;
     QGroupBox *groupBox_4;
     QLabel *label_4;
     QSlider *calibrationHoriz;
@@ -168,8 +171,9 @@ public:
         scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 259, 639));
         groupBox_6 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
-        groupBox_6->setGeometry(QRect(10, 390, 211, 71));
+        groupBox_6->setGeometry(QRect(10, 420, 211, 71));
         imageComboBox = new QComboBox(groupBox_6);
+        imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
@@ -178,7 +182,7 @@ public:
         imageComboBox->setGeometry(QRect(20, 30, 171, 22));
         groupBox_9 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_9->setObjectName(QStringLiteral("groupBox_9"));
-        groupBox_9->setGeometry(QRect(10, 300, 211, 71));
+        groupBox_9->setGeometry(QRect(10, 300, 211, 101));
         label_9 = new QLabel(groupBox_9);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(13, 30, 151, 21));
@@ -188,6 +192,22 @@ public:
         physViewDist->setMinimum(10);
         physViewDist->setMaximum(60);
         physViewDist->setValue(24);
+        physDPICalib = new QSpinBox(groupBox_9);
+        physDPICalib->setObjectName(QStringLiteral("physDPICalib"));
+        physDPICalib->setGeometry(QRect(120, 60, 42, 22));
+        physDPICalib->setMinimum(10);
+        physDPICalib->setMaximum(99);
+        physDPICalib->setValue(25);
+        label_13 = new QLabel(groupBox_9);
+        label_13->setObjectName(QStringLiteral("label_13"));
+        label_13->setGeometry(QRect(13, 60, 111, 21));
+        physDPICalibHelp = new QPushButton(groupBox_9);
+        physDPICalibHelp->setObjectName(QStringLiteral("physDPICalibHelp"));
+        physDPICalibHelp->setGeometry(QRect(170, 60, 31, 23));
+        QFont font;
+        font.setBold(true);
+        font.setWeight(75);
+        physDPICalibHelp->setFont(font);
         groupBox_4 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(10, 120, 211, 161));
@@ -220,11 +240,11 @@ public:
         tobiiLabel = new QLabel(groupBox);
         tobiiLabel->setObjectName(QStringLiteral("tobiiLabel"));
         tobiiLabel->setGeometry(QRect(10, 30, 101, 31));
-        QFont font;
-        font.setPointSize(10);
-        font.setBold(true);
-        font.setWeight(75);
-        tobiiLabel->setFont(font);
+        QFont font1;
+        font1.setPointSize(10);
+        font1.setBold(true);
+        font1.setWeight(75);
+        tobiiLabel->setFont(font1);
         tobiiLabel->setAlignment(Qt::AlignCenter);
         tobiiLabel->raise();
         tobiiReconnect->raise();
@@ -405,6 +425,8 @@ public:
         QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
         QObject::connect(actionFull_Screen, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionFullscreen(bool)));
         QObject::connect(actionShow_Controls, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionShowControls(bool)));
+        QObject::connect(physDPICalib, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysDPICalibChanged(int)));
+        QObject::connect(physDPICalibHelp, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onPhysDPICalibHelp()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -422,12 +444,15 @@ public:
         mainDrawArea->setText(QApplication::translate("EyeTrackingSuiteClass", "TextLabel", nullptr));
         groupBox_6->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Image", nullptr));
         imageComboBox->setItemText(0, QApplication::translate("EyeTrackingSuiteClass", "Vision Chart", nullptr));
-        imageComboBox->setItemText(1, QApplication::translate("EyeTrackingSuiteClass", "Old Reading Test", nullptr));
-        imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Oregon Sunset", nullptr));
-        imageComboBox->setItemText(3, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
+        imageComboBox->setItemText(1, QApplication::translate("EyeTrackingSuiteClass", "One Square Inch", nullptr));
+        imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Old Reading Test", nullptr));
+        imageComboBox->setItemText(3, QApplication::translate("EyeTrackingSuiteClass", "Oregon Sunset", nullptr));
+        imageComboBox->setItemText(4, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
         label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));
+        label_13->setText(QApplication::translate("EyeTrackingSuiteClass", "DPI Calibration (mm):", nullptr));
+        physDPICalibHelp->setText(QApplication::translate("EyeTrackingSuiteClass", "?", nullptr));
         groupBox_4->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Calibration", nullptr));
         label_4->setText(QApplication::translate("EyeTrackingSuiteClass", "Horizontal Offset:", nullptr));
         label_5->setText(QApplication::translate("EyeTrackingSuiteClass", "Vertical Offset:", nullptr));

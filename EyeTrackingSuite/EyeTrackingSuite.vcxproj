@@ -71,6 +71,7 @@
   <ItemGroup>
     <ClCompile Include="ETSBaseImage.cpp" />
     <ClCompile Include="ETSBaseImage_File.cpp" />
+    <ClCompile Include="ETSBaseImage_OneInch.cpp" />
     <ClCompile Include="ETSBaseImage_VisionChart.cpp" />
     <ClCompile Include="ETSDrawArea.cpp" />
     <ClCompile Include="ETSPhysicalUnitSystem.cpp" />
@@ -151,6 +152,7 @@
     <CustomBuild Include="ETSScotoma.h" />
     <ClInclude Include="ETSBaseImage.h" />
     <ClInclude Include="ETSBaseImage_File.h" />
+    <ClInclude Include="ETSBaseImage_OneInch.h" />
     <ClInclude Include="ETSBaseImage_VisionChart.h" />
     <ClInclude Include="ETSTobii.h" />
     <ClInclude Include="GeneratedFiles\ui_EyeTrackingSuite.h" />

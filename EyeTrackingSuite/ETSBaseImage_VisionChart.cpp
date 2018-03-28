@@ -34,7 +34,7 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 	if (!phys) return false;
 
 	// Make a font to use for drawing text.
-	QFont fontText = QFont("Lucida Sans Typewriter");
+	QFont fontText = QFont("Courier New");
 
 	// Make a font for drawing "20/xxx" numbers.
 	QFont fontAcuity = QFont("Courier");
@@ -135,7 +135,7 @@ unsigned int ETSBaseImage_VisionChart::getAcuitiesCount() const
 
 QString ETSBaseImage_VisionChart::makeTruncatedSampleString(QFont & font, int width) const
 {
-	QString full = QString("The quick brown fox jumps over the lazy dog. Then it sees a cat and it jumps over that too! Finally, in its exhaustion, it realizes the futility of its actions and decides to pursue a degree in philosophy.");
+	QString full = QString("LOREM IPSUM DOLOR SIT AMET. ");
 	QFontMetrics metrics = QFontMetrics(font);
 	int charwidth = metrics.averageCharWidth();
 	int numchars = width / charwidth;

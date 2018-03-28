@@ -27,6 +27,8 @@ public:
 	void setDPI(double dpi);
 	double getDPI();
 
+	void calibrateDPI(int calibMillimeters);
+
 	void registerForUpdates(class EyeTrackingSuite * ets);
 
 	/**

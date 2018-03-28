@@ -34,6 +34,7 @@ public:
 	bool optScotomaUseDegrees;
 	ETSScotomaDrawOptions optScotoma;
 	ETSProsthesisDrawOptions optProsthesis;
+	int optPhysDPICalib;
 	int optHalfField;
 
 	// Base image.
@@ -74,6 +75,8 @@ public slots:
 	void onCalibrationHorizChanged(int newValue);
 	void onCalibrationVertChanged(int newValue);
 	void onPhysViewDistChanged(int newValue);
+	void onPhysDPICalibChanged(int newValue);
+	void onPhysDPICalibHelp();
 	void onImageComboBoxChanged(QString newText);
 
 	// Central vision.

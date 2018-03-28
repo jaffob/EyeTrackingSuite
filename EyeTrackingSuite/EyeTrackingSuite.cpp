@@ -8,10 +8,11 @@
 #include <QMessageBox>
 #include "ETSBaseImage_File.h"
 #include "ETSBaseImage_VisionChart.h"
+#include "ETSBaseImage_OneInch.h"
 #include <cstdio>
 #include <QCloseEvent>
 
-const unsigned int EyeTrackingSuite::optionsFileVersion = 1;
+const unsigned int EyeTrackingSuite::optionsFileVersion = 2;
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -20,6 +21,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, optScotomaEnabled(false)
 	, optScotomaUseDegrees(true)
 	, optHalfField(0)
+	, optPhysDPICalib(0)
 	, baseImage(nullptr)
 {
 	ui.setupUi(this);
@@ -55,6 +57,20 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 
 	// Load options from file.
 	readOptionsFile();
+
+	// If DPI has been calibrated, do the calibration.
+	if (optPhysDPICalib > 0)
+	{
+		physUnits->calibrateDPI(optPhysDPICalib);
+	}
+
+	// If not, warn the user.
+	else
+	{
+		QMessageBox::warning(this, "DPI Calibration", "The dots-per-inch (DPI) metric of this screen has not yet \
+been calibrated. To do this, press the [?] button under \"Physical Setup\" and follow the instructions. Measurements \
+may not be accurate until this is done.", "OK");
+	}
 
 	physUnits->registerForUpdates(this);
 
@@ -105,6 +121,12 @@ void EyeTrackingSuite::loadNewBaseImage()
 		unsigned int acs[9] = { 20, 30, 40, 60, 80, 100, 200, 400, 800 };
 		bi->setAcuities(acs, 9);
 		baseImage = bi;
+	}
+
+	// Load the square inch.
+	else if (ui.imageComboBox->currentIndex() == 1)
+	{
+		baseImage = new ETSBaseImage_OneInch(physUnits);
 	}
 
 	// Load a file.
@@ -210,6 +232,7 @@ void EyeTrackingSuite::readOptionsFile()
 	fread(&fullscreen, sizeof(bool), 1, fp);
 	fread(&hidecontrols, sizeof(bool), 1, fp);
 	fread(&viewdist, sizeof(int), 1, fp);
+	fread(&optPhysDPICalib, sizeof(int), 1, fp);
 
 	// Update UI.
 
@@ -233,6 +256,7 @@ void EyeTrackingSuite::readOptionsFile()
 
 	physUnits->setViewDist(viewdist);
 	ui.physViewDist->setValue(viewdist);
+	ui.physDPICalib->setValue(optPhysDPICalib);
 
 	fclose(fp);
 }
@@ -257,6 +281,7 @@ void EyeTrackingSuite::writeOptionsFile()
 	fwrite(&fullscreen, sizeof(bool), 1, fp);
 	fwrite(&hidecontrols, sizeof(bool), 1, fp);
 	fwrite(&viewdist, sizeof(int), 1, fp);
+	fwrite(&optPhysDPICalib, sizeof(int), 1, fp);
 
 	fclose(fp);
 }
@@ -298,6 +323,21 @@ void EyeTrackingSuite::onCalibrationVertChanged(int newValue)
 void EyeTrackingSuite::onPhysViewDistChanged(int newValue)
 {
 	physUnits->setViewDist(newValue);
+}
+
+void EyeTrackingSuite::onPhysDPICalibChanged(int newValue)
+{
+	optPhysDPICalib = newValue;
+	physUnits->calibrateDPI(optPhysDPICalib);
+}
+
+void EyeTrackingSuite::onPhysDPICalibHelp()
+{
+	QString text = QString("To calibrate screen DPI:\n\n");
+	text += "1. Select the \"One Square Inch\" image from the image selector.\n";
+	text += "2. Using a ruler, measure the width of the square in millimeters.\n";
+	text += "3. Enter the measurement (in mm) into the \"DPI Calibration\" field.\n";
+	QMessageBox::information(this, "DPI Calibration", text, QMessageBox::Ok);
 }
 
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)

@@ -46,6 +46,14 @@ double ETSPhysicalUnitSystem::getDPI()
 	return dpi;
 }
 
+void ETSPhysicalUnitSystem::calibrateDPI(int calibMillimeters)
+{
+	QScreen * screen = QGuiApplication::primaryScreen();
+	dpi = screen->logicalDotsPerInch();
+	dpi = dpi * (25.4 / calibMillimeters);
+	notifyUpdate();
+}
+
 void ETSPhysicalUnitSystem::registerForUpdates(EyeTrackingSuite * ets)
 {
 	updateETS = ets;

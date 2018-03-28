@@ -108,6 +108,9 @@ void ETSDrawArea::repaintDrawArea()
 		painter.drawRect(finalEyePos.x(), 0, img.width() - finalEyePos.x(), img.height());
 	}
 
+	float r1 = devicePixelRatio();
+	float r2 = img.devicePixelRatio();
+
 	painter.end();
 
 	// Dump the image buffer to the label's pixmap.
