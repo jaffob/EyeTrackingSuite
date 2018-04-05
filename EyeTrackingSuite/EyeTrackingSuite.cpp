@@ -336,7 +336,9 @@ void EyeTrackingSuite::onPhysDPICalibHelp()
 	QString text = QString("To calibrate screen DPI:\n\n");
 	text += "1. Select the \"One Square Inch\" image from the image selector.\n";
 	text += "2. Using a ruler, measure the width of the square in millimeters.\n";
-	text += "3. Enter the measurement (in mm) into the \"DPI Calibration\" field.\n";
+	text += "3. Enter the measurement (in mm) into the \"DPI Calibration\" field.\n\n";
+	text += "If the DPI was already calibrated when you opened the application, another option ";
+	text += "is to simply perturb the calibration value until the square measures one inch.";
 	QMessageBox::information(this, "DPI Calibration", text, QMessageBox::Ok);
 }
 
