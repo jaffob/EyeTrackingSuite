@@ -2,7 +2,7 @@
 #include <QPainter>
 #include "ETSPhysicalUnitSystem.h"
 
-const int ETSBaseImage_VisionChart::textResolvePixels = 10;
+const int ETSBaseImage_VisionChart::textResolvePixels = 6;
 const double ETSBaseImage_VisionChart::degrees2020 = 5./60.;
 
 ETSBaseImage_VisionChart::ETSBaseImage_VisionChart(ETSPhysicalUnitSystem * physUnits)
@@ -61,6 +61,12 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 		double degs = (acuity / 20.) * degrees2020;
 		double pixs = phys->calcDegreesToPixels(degs);
 
+		// Stop drawing if this line of text will be hitting the ceiling.
+		if (textBase - pixs < 0.)
+		{
+			break;
+		}
+
 		// Set the font to be the desired height in pixels and draw.
 		fontText.setPixelSize(pixs * fontTextCalibrationFactor);
 		painter.setFont(fontText);
@@ -84,7 +90,7 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 	}
 
 	// Put in a top black border then crop the image.
-	textBase += padding * 2;
+	textBase = qMax(textBase, 0.);
 	painter.setPen(Qt::black);
 	painter.drawLine(0, textBase, drawAreaSize.width(), textBase);
 	painter.end();
