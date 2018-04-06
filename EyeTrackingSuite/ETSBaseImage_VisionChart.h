@@ -43,4 +43,11 @@ protected:
 	 * Using the given font, make a sample text string that fits in width.
 	 */
 	virtual QString makeTruncatedSampleString(QFont& font, int width) const;
+
+	/**
+	 * Use font metrics to establish a calibration factor for the font height. Using
+	 * QFont::setPixelSize() gives results that are always off by a constant factor,
+	 * so by measuring the resulting height of setPixelSize(), we can adjust for it.
+	 */
+	virtual double calcFontCalibration(QFont font) const;
 };

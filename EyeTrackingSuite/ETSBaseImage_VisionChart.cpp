@@ -35,6 +35,7 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 
 	// Make a font to use for drawing text.
 	QFont fontText = QFont("Courier New");
+	double fontTextCalibrationFactor = calcFontCalibration(fontText);
 
 	// Make a font for drawing "20/xxx" numbers.
 	QFont fontAcuity = QFont("Courier");
@@ -61,7 +62,7 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 		double pixs = phys->calcDegreesToPixels(degs);
 
 		// Set the font to be the desired height in pixels and draw.
-		fontText.setPixelSize(pixs);
+		fontText.setPixelSize(pixs * fontTextCalibrationFactor);
 		painter.setFont(fontText);
 		painter.drawText(padding, textBase, makeTruncatedSampleString(fontText, textZoneWidth));
 
@@ -133,7 +134,7 @@ unsigned int ETSBaseImage_VisionChart::getAcuitiesCount() const
 	return nAcuities;
 }
 
-QString ETSBaseImage_VisionChart::makeTruncatedSampleString(QFont & font, int width) const
+QString ETSBaseImage_VisionChart::makeTruncatedSampleString(QFont& font, int width) const
 {
 	QString full = QString("LOREM IPSUM DOLOR SIT AMET. ");
 	QFontMetrics metrics = QFontMetrics(font);
@@ -155,4 +156,27 @@ QString ETSBaseImage_VisionChart::makeTruncatedSampleString(QFont & font, int wi
 	}
 
 	return full.mid(0, numchars);
+}
+
+double ETSBaseImage_VisionChart::calcFontCalibration(QFont font) const
+{
+	double actualSize = 0;
+	QRect rect;
+	char * letters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+
+	// Set an arbitrary pixel size.
+	double inputSize = 200;
+	font.setPixelSize(inputSize);
+	QFontMetrics metrics = QFontMetrics(font);
+
+	// Get the average height of every letter in the alphabet.
+	for (unsigned int i = 0; i < 26; i++)
+	{
+		rect = metrics.boundingRect(letters[i]);
+		actualSize += rect.height();
+	}
+	actualSize /= 26;
+
+	// Calculate and return the scaling factor.
+	return inputSize / actualSize;
 }
