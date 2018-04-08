@@ -79,6 +79,7 @@
     <ClCompile Include="ETSScotoma.cpp" />
     <ClCompile Include="ETSTobii.cpp" />
     <ClCompile Include="ETSVisionChartLetters.cpp" />
+    <ClCompile Include="ETSVisionChartText.cpp" />
     <ClCompile Include="EyeTrackingSuite.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_ETSDrawArea.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -157,6 +158,7 @@
     <ClInclude Include="ETSBaseImage_VisionChart.h" />
     <ClInclude Include="ETSTobii.h" />
     <ClInclude Include="ETSVisionChartLetters.h" />
+    <ClInclude Include="ETSVisionChartText.h" />
     <ClInclude Include="GeneratedFiles\ui_EyeTrackingSuite.h" />
     <ClInclude Include="tobii\tobii.h" />
     <ClInclude Include="tobii\tobii_engine.h" />

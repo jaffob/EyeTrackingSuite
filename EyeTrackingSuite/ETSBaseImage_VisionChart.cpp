@@ -5,8 +5,9 @@
 const int ETSBaseImage_VisionChart::textResolvePixels = 6;
 const double ETSBaseImage_VisionChart::degrees2020 = 5./60.;
 
-ETSBaseImage_VisionChart::ETSBaseImage_VisionChart(ETSPhysicalUnitSystem * physUnits)
-	: img()
+ETSBaseImage_VisionChart::ETSBaseImage_VisionChart(class EyeTrackingSuite * ets, ETSPhysicalUnitSystem * physUnits)
+	: ets(ets)
+	, img()
 	, drawAreaSize()
 	, phys(physUnits)
 	, nAcuities(0)

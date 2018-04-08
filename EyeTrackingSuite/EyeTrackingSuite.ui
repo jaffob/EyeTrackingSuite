@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1156</width>
-    <height>770</height>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -115,7 +115,7 @@
              <x>0</x>
              <y>0</y>
              <width>259</width>
-             <height>639</height>
+             <height>750</height>
             </rect>
            </property>
            <widget class="QGroupBox" name="groupBox_6">
@@ -213,7 +213,7 @@
             <widget class="QSpinBox" name="physDPICalib">
              <property name="geometry">
               <rect>
-               <x>120</x>
+               <x>123</x>
                <y>60</y>
                <width>42</width>
                <height>22</height>
@@ -239,7 +239,7 @@
               </rect>
              </property>
              <property name="text">
-              <string>DPI Calibration (mm):</string>
+              <string>Size Calibration (mm):</string>
              </property>
             </widget>
             <widget class="QPushButton" name="physDPICalibHelp">
@@ -395,6 +395,128 @@
             </widget>
             <zorder>tobiiLabel</zorder>
             <zorder>tobiiReconnect</zorder>
+           </widget>
+           <widget class="QGroupBox" name="groupBox_8">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>510</y>
+              <width>211</width>
+              <height>201</height>
+             </rect>
+            </property>
+            <property name="title">
+             <string>Vision Chart</string>
+            </property>
+            <widget class="QLabel" name="label">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>30</y>
+               <width>31</width>
+               <height>21</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Font:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="visFont">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>60</y>
+               <width>151</width>
+               <height>22</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_6">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>100</y>
+               <width>111</width>
+               <height>21</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Sample Text Number:</string>
+             </property>
+            </widget>
+            <widget class="QSpinBox" name="visTextNumber">
+             <property name="geometry">
+              <rect>
+               <x>140</x>
+               <y>100</y>
+               <width>42</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>1</number>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="visTextDifferent">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>134</y>
+               <width>171</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Different Text For Each Line</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="visTextCapital">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>160</y>
+               <width>171</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Always Use Capital Letters</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="visFontBold">
+             <property name="geometry">
+              <rect>
+               <x>174</x>
+               <y>60</y>
+               <width>21</width>
+               <height>21</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>B</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
            </widget>
           </widget>
          </widget>
@@ -1276,6 +1398,86 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>visFont</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisFontChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1017</x>
+     <y>602</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visTextDifferent</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisTextDifferentChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>999</x>
+     <y>674</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visTextNumber</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisTextNumberChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1049</x>
+     <y>642</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visTextCapital</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisTextCapitalChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1004</x>
+     <y>700</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visFontBold</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisFontBoldChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1083</x>
+     <y>632</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>424</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onTobiiReconnectClicked()</slot>
@@ -1304,5 +1506,10 @@
   <slot>onActionFullscreen(bool)</slot>
   <slot>onPhysDPICalibChanged(int)</slot>
   <slot>onPhysDPICalibHelp()</slot>
+  <slot>onVisFontChanged(int)</slot>
+  <slot>onVisTextNumberChanged(int)</slot>
+  <slot>onVisTextDifferentChanged(bool)</slot>
+  <slot>onVisTextCapitalChanged(bool)</slot>
+  <slot>onVisFontBoldChanged(bool)</slot>
  </slots>
 </ui>

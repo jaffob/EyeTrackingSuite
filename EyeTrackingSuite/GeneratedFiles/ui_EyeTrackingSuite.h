@@ -66,6 +66,14 @@ public:
     QGroupBox *groupBox;
     QPushButton *tobiiReconnect;
     QLabel *tobiiLabel;
+    QGroupBox *groupBox_8;
+    QLabel *label;
+    QComboBox *visFont;
+    QLabel *label_6;
+    QSpinBox *visTextNumber;
+    QCheckBox *visTextDifferent;
+    QCheckBox *visTextCapital;
+    QPushButton *visFontBold;
     QWidget *tab_4;
     QVBoxLayout *verticalLayout;
     QScrollArea *scrollArea_2;
@@ -104,7 +112,7 @@ public:
     {
         if (EyeTrackingSuiteClass->objectName().isEmpty())
             EyeTrackingSuiteClass->setObjectName(QStringLiteral("EyeTrackingSuiteClass"));
-        EyeTrackingSuiteClass->resize(1156, 770);
+        EyeTrackingSuiteClass->resize(1156, 850);
         actionSwitch_Application = new QAction(EyeTrackingSuiteClass);
         actionSwitch_Application->setObjectName(QStringLiteral("actionSwitch_Application"));
         actionAbout = new QAction(EyeTrackingSuiteClass);
@@ -168,7 +176,7 @@ public:
         scrollArea->setWidgetResizable(false);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 259, 639));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 259, 750));
         groupBox_6 = new QGroupBox(scrollAreaWidgetContents_2);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         groupBox_6->setGeometry(QRect(10, 420, 211, 71));
@@ -194,7 +202,7 @@ public:
         physViewDist->setValue(24);
         physDPICalib = new QSpinBox(groupBox_9);
         physDPICalib->setObjectName(QStringLiteral("physDPICalib"));
-        physDPICalib->setGeometry(QRect(120, 60, 42, 22));
+        physDPICalib->setGeometry(QRect(123, 60, 42, 22));
         physDPICalib->setMinimum(10);
         physDPICalib->setMaximum(99);
         physDPICalib->setValue(25);
@@ -248,6 +256,37 @@ public:
         tobiiLabel->setAlignment(Qt::AlignCenter);
         tobiiLabel->raise();
         tobiiReconnect->raise();
+        groupBox_8 = new QGroupBox(scrollAreaWidgetContents_2);
+        groupBox_8->setObjectName(QStringLiteral("groupBox_8"));
+        groupBox_8->setGeometry(QRect(10, 510, 211, 201));
+        label = new QLabel(groupBox_8);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(20, 30, 31, 21));
+        visFont = new QComboBox(groupBox_8);
+        visFont->setObjectName(QStringLiteral("visFont"));
+        visFont->setGeometry(QRect(20, 60, 151, 22));
+        label_6 = new QLabel(groupBox_8);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(20, 100, 111, 21));
+        visTextNumber = new QSpinBox(groupBox_8);
+        visTextNumber->setObjectName(QStringLiteral("visTextNumber"));
+        visTextNumber->setGeometry(QRect(140, 100, 42, 22));
+        visTextNumber->setMinimum(1);
+        visTextNumber->setMaximum(10);
+        visTextNumber->setValue(1);
+        visTextDifferent = new QCheckBox(groupBox_8);
+        visTextDifferent->setObjectName(QStringLiteral("visTextDifferent"));
+        visTextDifferent->setGeometry(QRect(20, 134, 171, 17));
+        visTextDifferent->setChecked(false);
+        visTextCapital = new QCheckBox(groupBox_8);
+        visTextCapital->setObjectName(QStringLiteral("visTextCapital"));
+        visTextCapital->setGeometry(QRect(20, 160, 171, 17));
+        visTextCapital->setChecked(true);
+        visFontBold = new QPushButton(groupBox_8);
+        visFontBold->setObjectName(QStringLiteral("visFontBold"));
+        visFontBold->setGeometry(QRect(174, 60, 21, 21));
+        visFontBold->setFont(font);
+        visFontBold->setCheckable(true);
         scrollArea->setWidget(scrollAreaWidgetContents_2);
 
         verticalLayout_2->addWidget(scrollArea);
@@ -427,6 +466,11 @@ public:
         QObject::connect(actionShow_Controls, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionShowControls(bool)));
         QObject::connect(physDPICalib, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysDPICalibChanged(int)));
         QObject::connect(physDPICalibHelp, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onPhysDPICalibHelp()));
+        QObject::connect(visFont, SIGNAL(currentIndexChanged(int)), EyeTrackingSuiteClass, SLOT(onVisFontChanged(int)));
+        QObject::connect(visTextDifferent, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextDifferentChanged(bool)));
+        QObject::connect(visTextNumber, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onVisTextNumberChanged(int)));
+        QObject::connect(visTextCapital, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextCapitalChanged(bool)));
+        QObject::connect(visFontBold, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisFontBoldChanged(bool)));
 
         tabWidget->setCurrentIndex(0);
 
@@ -451,7 +495,7 @@ public:
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
         label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));
-        label_13->setText(QApplication::translate("EyeTrackingSuiteClass", "DPI Calibration (mm):", nullptr));
+        label_13->setText(QApplication::translate("EyeTrackingSuiteClass", "Size Calibration (mm):", nullptr));
         physDPICalibHelp->setText(QApplication::translate("EyeTrackingSuiteClass", "?", nullptr));
         groupBox_4->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Calibration", nullptr));
         label_4->setText(QApplication::translate("EyeTrackingSuiteClass", "Horizontal Offset:", nullptr));
@@ -459,6 +503,12 @@ public:
         groupBox->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Tobii", nullptr));
         tobiiReconnect->setText(QApplication::translate("EyeTrackingSuiteClass", "Reconnect", nullptr));
         tobiiLabel->setText(QApplication::translate("EyeTrackingSuiteClass", "Disconnected", nullptr));
+        groupBox_8->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Vision Chart", nullptr));
+        label->setText(QApplication::translate("EyeTrackingSuiteClass", "Font:", nullptr));
+        label_6->setText(QApplication::translate("EyeTrackingSuiteClass", "Sample Text Number:", nullptr));
+        visTextDifferent->setText(QApplication::translate("EyeTrackingSuiteClass", "Different Text For Each Line", nullptr));
+        visTextCapital->setText(QApplication::translate("EyeTrackingSuiteClass", "Always Use Capital Letters", nullptr));
+        visFontBold->setText(QApplication::translate("EyeTrackingSuiteClass", "B", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("EyeTrackingSuiteClass", "General", nullptr));
         groupBox_7->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Gradient", nullptr));
         gradientEnabled->setText(QApplication::translate("EyeTrackingSuiteClass", "Fade Scotoma at Edges", nullptr));

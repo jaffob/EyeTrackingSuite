@@ -7,12 +7,11 @@
 #include <QScreen>
 #include <QMessageBox>
 #include "ETSBaseImage_File.h"
-#include "ETSBaseImage_VisionChart.h"
 #include "ETSBaseImage_OneInch.h"
 #include <cstdio>
 #include <QCloseEvent>
 
-const unsigned int EyeTrackingSuite::optionsFileVersion = 2;
+const unsigned int EyeTrackingSuite::optionsFileVersion = 4;
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -23,6 +22,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, optHalfField(0)
 	, optPhysDPICalib(0)
 	, baseImage(nullptr)
+	, visTexts("Vision Chart Text.txt")
 {
 	ui.setupUi(this);
 	drawArea = (ETSDrawArea *)ui.mainDrawArea;
@@ -54,6 +54,14 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	optProsthesis.grayLevels = 8;
 	optProsthesis.fullBlack = 0;
 	optProsthesis.fullWhite = 255;
+
+	// Initialize vision chart options.
+	optVisionChart.fontNumber = 0;
+	optVisionChart.fontBold = false;
+	optVisionChart.textNumber = 1;
+	optVisionChart.textDifferent = false;
+	optVisionChart.textCapital = true;
+	ui.visTextNumber->setMaximum(visTexts.getTextCount());
 
 	// Load options from file.
 	readOptionsFile();
@@ -117,7 +125,7 @@ void EyeTrackingSuite::loadNewBaseImage()
 	// Load the dynamic vision chart.
 	if (ui.imageComboBox->currentIndex() == 0)
 	{
-		ETSBaseImage_VisionChart * bi = new ETSBaseImage_VisionChart(physUnits);
+		ETSBaseImage_VisionChart * bi = new ETSBaseImage_VisionChart(this, physUnits);
 		unsigned int acs[9] = { 20, 30, 40, 60, 80, 100, 200, 400, 800 };
 		bi->setAcuities(acs, 9);
 		baseImage = bi;
@@ -229,10 +237,16 @@ void EyeTrackingSuite::readOptionsFile()
 	fread(&optScotomaEnabled, sizeof(bool), 1, fp);
 	fread(&optScotoma, sizeof(ETSScotomaDrawOptions), 1, fp);
 	fread(&optProsthesis, sizeof(ETSProsthesisDrawOptions), 1, fp);
+	fread(&optVisionChart, sizeof(ETSVisionChartOptions), 1, fp);
 	fread(&fullscreen, sizeof(bool), 1, fp);
 	fread(&hidecontrols, sizeof(bool), 1, fp);
 	fread(&viewdist, sizeof(int), 1, fp);
 	fread(&optPhysDPICalib, sizeof(int), 1, fp);
+
+	if (optVisionChart.textNumber > visTexts.getTextCount())
+	{
+		optVisionChart.textNumber = 1;
+	}
 
 	// Update UI.
 
@@ -248,6 +262,13 @@ void EyeTrackingSuite::readOptionsFile()
 	ui.prosthesisPixelSize->setValue(optProsthesis.pixelSizeMicrons);
 	ui.prosthesisFullBlack->setValue(optProsthesis.fullBlack);
 	ui.prosthesisFullWhite->setValue(optProsthesis.fullWhite);
+	
+	ui.visFont->setCurrentIndex(optVisionChart.fontNumber);
+	ui.visFontBold->setChecked(optVisionChart.fontBold);
+	ui.visTextNumber->setEnabled(!optVisionChart.textDifferent);
+	ui.visTextNumber->setValue(optVisionChart.textNumber);
+	ui.visTextDifferent->setChecked(optVisionChart.textDifferent);
+	ui.visTextCapital->setChecked(optVisionChart.textCapital);
 
 	if (fullscreen) showFullScreen();
 	ui.actionFull_Screen->setChecked(fullscreen);
@@ -278,6 +299,7 @@ void EyeTrackingSuite::writeOptionsFile()
 	fwrite(&optScotomaEnabled, sizeof(bool), 1, fp);
 	fwrite(&optScotoma, sizeof(ETSScotomaDrawOptions), 1, fp);
 	fwrite(&optProsthesis, sizeof(ETSProsthesisDrawOptions), 1, fp);
+	fwrite(&optVisionChart, sizeof(ETSVisionChartOptions), 1, fp);
 	fwrite(&fullscreen, sizeof(bool), 1, fp);
 	fwrite(&hidecontrols, sizeof(bool), 1, fp);
 	fwrite(&viewdist, sizeof(int), 1, fp);
@@ -345,6 +367,26 @@ void EyeTrackingSuite::onPhysDPICalibHelp()
 void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
 {
 	loadNewBaseImage();
+}
+
+void EyeTrackingSuite::onVisFontChanged(int newIndex)
+{
+}
+
+void EyeTrackingSuite::onVisFontBoldChanged(bool enabled)
+{
+}
+
+void EyeTrackingSuite::onVisTextNumberChanged(int newValue)
+{
+}
+
+void EyeTrackingSuite::onVisTextDifferentChanged(bool enabled)
+{
+}
+
+void EyeTrackingSuite::onVisTextCapitalChanged(bool enabled)
+{
 }
 
 void EyeTrackingSuite::onScotomaEnabled(bool enabled)

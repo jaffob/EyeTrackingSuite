@@ -2,6 +2,15 @@
 #include "ETSBaseImage.h"
 #include <QImage>
 
+typedef struct
+{
+	int fontNumber;
+	bool fontBold;
+	int textNumber;
+	bool textDifferent;
+	bool textCapital;
+} ETSVisionChartOptions;
+
 class ETSBaseImage_VisionChart : public ETSBaseImage
 {
 
@@ -11,6 +20,8 @@ public:
 	static const double degrees2020;	// Degrees of visual height occupied by text at 20/20.
 
 private:
+
+	class EyeTrackingSuite * ets;
 
 	QImage img;				// Chart generated for the right size
 	QSize drawAreaSize;
@@ -24,7 +35,7 @@ private:
 
 public:
 
-	ETSBaseImage_VisionChart(class ETSPhysicalUnitSystem * physUnits);
+	ETSBaseImage_VisionChart(class EyeTrackingSuite * ets, class ETSPhysicalUnitSystem * physUnits);
 	~ETSBaseImage_VisionChart();
 
 	virtual bool regenerateForSize(QSize drawAreaSize) override;

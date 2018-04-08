@@ -95,6 +95,9 @@
     <ClCompile Include="ETSVisionChartLetters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ETSVisionChartText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="EyeTrackingSuite.h">
@@ -151,6 +154,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ETSVisionChartLetters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ETSVisionChartText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

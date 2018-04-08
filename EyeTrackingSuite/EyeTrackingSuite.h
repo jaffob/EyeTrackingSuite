@@ -6,6 +6,8 @@
 #include "ETSScotoma.h"
 #include "ETSProsthesis.h"
 #include "ETSPhysicalUnitSystem.h"
+#include "ETSBaseImage_VisionChart.h"
+#include "ETSVisionChartText.h"
 
 class EyeTrackingSuite : public QMainWindow
 {
@@ -34,12 +36,16 @@ public:
 	bool optScotomaUseDegrees;
 	ETSScotomaDrawOptions optScotoma;
 	ETSProsthesisDrawOptions optProsthesis;
+	ETSVisionChartOptions optVisionChart;
 	int optPhysDPICalib;
 	int optHalfField;
 
 	// Base image.
 	class ETSBaseImage * baseImage;
 
+	// Vision chart texts.
+	ETSVisionChartText visTexts;
+	
 public:
     EyeTrackingSuite(QWidget *parent = Q_NULLPTR);
 	~EyeTrackingSuite();
@@ -78,6 +84,11 @@ public slots:
 	void onPhysDPICalibChanged(int newValue);
 	void onPhysDPICalibHelp();
 	void onImageComboBoxChanged(QString newText);
+	void onVisFontChanged(int newIndex);
+	void onVisFontBoldChanged(bool enabled);
+	void onVisTextNumberChanged(int newValue);
+	void onVisTextDifferentChanged(bool enabled);
+	void onVisTextCapitalChanged(bool enabled);
 
 	// Central vision.
 	void onScotomaEnabled(bool enabled);
