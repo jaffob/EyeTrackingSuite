@@ -26,6 +26,7 @@ private:
 	ETSDrawArea * drawArea;
 	int timerId;
 	ETSPhysicalUnitSystem * physUnits;
+	bool visChartShowing;
 
 public:
 
@@ -54,6 +55,8 @@ public:
 
 	void setCalibration(int h, int v);
 	bool isTobiiConnected() const;
+
+	QString getCurrentVisionChartFont() const;
 
 protected:
 

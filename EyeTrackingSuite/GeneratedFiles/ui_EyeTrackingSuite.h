@@ -140,6 +140,7 @@ public:
         mainDrawArea->setSizePolicy(sizePolicy);
         mainDrawArea->setAutoFillBackground(false);
         mainDrawArea->setScaledContents(false);
+        mainDrawArea->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(mainDrawArea);
 
@@ -181,6 +182,7 @@ public:
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         groupBox_6->setGeometry(QRect(10, 420, 211, 71));
         imageComboBox = new QComboBox(groupBox_6);
+        imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
@@ -263,6 +265,11 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(20, 30, 31, 21));
         visFont = new QComboBox(groupBox_8);
+        visFont->addItem(QString());
+        visFont->addItem(QString());
+        visFont->addItem(QString());
+        visFont->addItem(QString());
+        visFont->addItem(QString());
         visFont->setObjectName(QStringLiteral("visFont"));
         visFont->setGeometry(QRect(20, 60, 151, 22));
         label_6 = new QLabel(groupBox_8);
@@ -492,6 +499,7 @@ public:
         imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Old Reading Test", nullptr));
         imageComboBox->setItemText(3, QApplication::translate("EyeTrackingSuiteClass", "Oregon Sunset", nullptr));
         imageComboBox->setItemText(4, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
+        imageComboBox->setItemText(5, QApplication::translate("EyeTrackingSuiteClass", "Nelson Mandela", nullptr));
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
         label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));
@@ -505,6 +513,12 @@ public:
         tobiiLabel->setText(QApplication::translate("EyeTrackingSuiteClass", "Disconnected", nullptr));
         groupBox_8->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Vision Chart", nullptr));
         label->setText(QApplication::translate("EyeTrackingSuiteClass", "Font:", nullptr));
+        visFont->setItemText(0, QApplication::translate("EyeTrackingSuiteClass", "Courier New", nullptr));
+        visFont->setItemText(1, QApplication::translate("EyeTrackingSuiteClass", "Arial Black", nullptr));
+        visFont->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Times New Roman", nullptr));
+        visFont->setItemText(3, QApplication::translate("EyeTrackingSuiteClass", "Lucida Sans Unicode", nullptr));
+        visFont->setItemText(4, QApplication::translate("EyeTrackingSuiteClass", "Verdana", nullptr));
+
         label_6->setText(QApplication::translate("EyeTrackingSuiteClass", "Sample Text Number:", nullptr));
         visTextDifferent->setText(QApplication::translate("EyeTrackingSuiteClass", "Different Text For Each Line", nullptr));
         visTextCapital->setText(QApplication::translate("EyeTrackingSuiteClass", "Always Use Capital Letters", nullptr));

@@ -35,6 +35,9 @@
       <property name="scaledContents">
        <bool>false</bool>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -162,6 +165,11 @@
              <item>
               <property name="text">
                <string>Desert Mustang</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Nelson Mandela</string>
               </property>
              </item>
             </widget>
@@ -430,6 +438,31 @@
                <height>22</height>
               </rect>
              </property>
+             <item>
+              <property name="text">
+               <string>Courier New</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Arial Black</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Times New Roman</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Lucida Sans Unicode</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Verdana</string>
+              </property>
+             </item>
             </widget>
             <widget class="QLabel" name="label_6">
              <property name="geometry">

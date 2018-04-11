@@ -23,6 +23,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, optPhysDPICalib(0)
 	, baseImage(nullptr)
 	, visTexts("Vision Chart Text.txt")
+	, visChartShowing(false)
 {
 	ui.setupUi(this);
 	drawArea = (ETSDrawArea *)ui.mainDrawArea;
@@ -121,6 +122,7 @@ void EyeTrackingSuite::loadNewBaseImage()
 	// Kill the old base image.
 	if (baseImage)
 		delete baseImage;
+	visChartShowing = false;
 
 	// Load the dynamic vision chart.
 	if (ui.imageComboBox->currentIndex() == 0)
@@ -129,6 +131,7 @@ void EyeTrackingSuite::loadNewBaseImage()
 		unsigned int acs[9] = { 20, 30, 40, 60, 80, 100, 200, 400, 800 };
 		bi->setAcuities(acs, 9);
 		baseImage = bi;
+		visChartShowing = true;
 	}
 
 	// Load the square inch.
@@ -327,6 +330,11 @@ bool EyeTrackingSuite::isTobiiConnected() const
 	return tobii->isConnected();
 }
 
+QString EyeTrackingSuite::getCurrentVisionChartFont() const
+{
+	return ui.visFont->currentText();
+}
+
 void EyeTrackingSuite::onTobiiReconnectClicked()
 {
 	reconnectToTobii();
@@ -371,22 +379,58 @@ void EyeTrackingSuite::onImageComboBoxChanged(QString newText)
 
 void EyeTrackingSuite::onVisFontChanged(int newIndex)
 {
+	optVisionChart.fontNumber = newIndex;
+
+	if (visChartShowing)
+	{
+		baseImage->regenerateForSize(drawArea->size());
+		optProsthesis.changed = true;
+	}
 }
 
 void EyeTrackingSuite::onVisFontBoldChanged(bool enabled)
 {
+	optVisionChart.fontBold = enabled;
+
+	if (visChartShowing)
+	{
+		baseImage->regenerateForSize(drawArea->size());
+		optProsthesis.changed = true;
+	}
 }
 
 void EyeTrackingSuite::onVisTextNumberChanged(int newValue)
 {
+	optVisionChart.textNumber = newValue;
+
+	if (visChartShowing)
+	{
+		baseImage->regenerateForSize(drawArea->size());
+		optProsthesis.changed = true;
+	}
 }
 
 void EyeTrackingSuite::onVisTextDifferentChanged(bool enabled)
 {
+	optVisionChart.textDifferent = enabled;
+	ui.visTextNumber->setEnabled(!enabled);
+
+	if (visChartShowing)
+	{
+		baseImage->regenerateForSize(drawArea->size());
+		optProsthesis.changed = true;
+	}
 }
 
 void EyeTrackingSuite::onVisTextCapitalChanged(bool enabled)
 {
+	optVisionChart.textCapital = enabled;
+
+	if (visChartShowing)
+	{
+		baseImage->regenerateForSize(drawArea->size());
+		optProsthesis.changed = true;
+	}
 }
 
 void EyeTrackingSuite::onScotomaEnabled(bool enabled)

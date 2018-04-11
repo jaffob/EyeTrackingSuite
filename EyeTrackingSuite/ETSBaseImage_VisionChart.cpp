@@ -1,6 +1,7 @@
 #include "ETSBaseImage_VisionChart.h"
 #include <QPainter>
 #include "ETSPhysicalUnitSystem.h"
+#include "EyeTrackingSuite.h"
 
 const int ETSBaseImage_VisionChart::textResolvePixels = 6;
 const double ETSBaseImage_VisionChart::degrees2020 = 5./60.;
@@ -35,7 +36,8 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 	if (!phys) return false;
 
 	// Make a font to use for drawing text.
-	QFont fontText = QFont("Courier New");
+	QFont fontText = QFont(ets->getCurrentVisionChartFont());
+	fontText.setBold(ets->optVisionChart.fontBold);
 	double fontTextCalibrationFactor = calcFontCalibration(fontText);
 
 	// Make a font for drawing "20/xxx" numbers.
@@ -143,7 +145,23 @@ unsigned int ETSBaseImage_VisionChart::getAcuitiesCount() const
 
 QString ETSBaseImage_VisionChart::makeTruncatedSampleString(QFont& font, int width) const
 {
-	QString full = QString("LOREM IPSUM DOLOR SIT AMET. ");
+	QString full;
+
+	// Get a text to show.
+	if (ets->optVisionChart.textDifferent)
+	{
+		full = ets->visTexts.getRandomText();
+	}
+	else
+	{
+		full = ets->visTexts.getText(ets->optVisionChart.textNumber - 1);
+	}
+
+	if (ets->optVisionChart.textCapital)
+	{
+		full = full.toUpper();
+	}
+
 	QFontMetrics metrics = QFontMetrics(font);
 	int charwidth = metrics.averageCharWidth();
 	int numchars = width / charwidth;
