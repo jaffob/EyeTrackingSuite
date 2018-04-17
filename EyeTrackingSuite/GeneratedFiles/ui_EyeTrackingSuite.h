@@ -42,8 +42,10 @@ public:
     QAction *actionAbout;
     QAction *actionFull_Screen;
     QAction *actionShow_Controls;
+    QAction *actionAdd_Space_At_Bottom;
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout;
     ETSDrawArea *mainDrawArea;
     QTabWidget *tabWidget;
     QWidget *tab_3;
@@ -103,6 +105,7 @@ public:
     QRadioButton *halfFieldBlockNone;
     QRadioButton *halfFieldBlockLeft;
     QRadioButton *halfFieldBlockRight;
+    QWidget *spaceAtBottom;
     QMenuBar *menuBar;
     QMenu *menuHelp;
     QMenu *menuWindow;
@@ -124,13 +127,19 @@ public:
         actionShow_Controls->setObjectName(QStringLiteral("actionShow_Controls"));
         actionShow_Controls->setCheckable(true);
         actionShow_Controls->setChecked(true);
+        actionAdd_Space_At_Bottom = new QAction(EyeTrackingSuiteClass);
+        actionAdd_Space_At_Bottom->setObjectName(QStringLiteral("actionAdd_Space_At_Bottom"));
+        actionAdd_Space_At_Bottom->setCheckable(true);
         centralWidget = new QWidget(EyeTrackingSuiteClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setLayoutDirection(Qt::LeftToRight);
-        horizontalLayout_2 = new QHBoxLayout(centralWidget);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        verticalLayout_3 = new QVBoxLayout(centralWidget);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(0);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         mainDrawArea = new ETSDrawArea(centralWidget);
         mainDrawArea->setObjectName(QStringLiteral("mainDrawArea"));
         QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
@@ -142,7 +151,7 @@ public:
         mainDrawArea->setScaledContents(false);
         mainDrawArea->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_2->addWidget(mainDrawArea);
+        horizontalLayout->addWidget(mainDrawArea);
 
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
@@ -182,10 +191,6 @@ public:
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         groupBox_6->setGeometry(QRect(10, 420, 211, 71));
         imageComboBox = new QComboBox(groupBox_6);
-        imageComboBox->addItem(QString());
-        imageComboBox->addItem(QString());
-        imageComboBox->addItem(QString());
-        imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->addItem(QString());
         imageComboBox->setObjectName(QStringLiteral("imageComboBox"));
@@ -427,7 +432,21 @@ public:
         halfFieldBlockRight->setGeometry(QRect(20, 90, 171, 17));
         tabWidget->addTab(tab, QString());
 
-        horizontalLayout_2->addWidget(tabWidget);
+        horizontalLayout->addWidget(tabWidget);
+
+
+        verticalLayout_3->addLayout(horizontalLayout);
+
+        spaceAtBottom = new QWidget(centralWidget);
+        spaceAtBottom->setObjectName(QStringLiteral("spaceAtBottom"));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(spaceAtBottom->sizePolicy().hasHeightForWidth());
+        spaceAtBottom->setSizePolicy(sizePolicy3);
+        spaceAtBottom->setMinimumSize(QSize(0, 64));
+
+        verticalLayout_3->addWidget(spaceAtBottom);
 
         EyeTrackingSuiteClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(EyeTrackingSuiteClass);
@@ -448,6 +467,7 @@ public:
         menuWindow->addAction(actionFull_Screen);
         menuWindow->addSeparator();
         menuWindow->addAction(actionShow_Controls);
+        menuWindow->addAction(actionAdd_Space_At_Bottom);
 
         retranslateUi(EyeTrackingSuiteClass);
         QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
@@ -478,6 +498,7 @@ public:
         QObject::connect(visTextNumber, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onVisTextNumberChanged(int)));
         QObject::connect(visTextCapital, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextCapitalChanged(bool)));
         QObject::connect(visFontBold, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisFontBoldChanged(bool)));
+        QObject::connect(actionAdd_Space_At_Bottom, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionSpaceBottom(bool)));
 
         tabWidget->setCurrentIndex(0);
 
@@ -492,14 +513,11 @@ public:
         actionAbout->setText(QApplication::translate("EyeTrackingSuiteClass", "About", nullptr));
         actionFull_Screen->setText(QApplication::translate("EyeTrackingSuiteClass", "Full Screen", nullptr));
         actionShow_Controls->setText(QApplication::translate("EyeTrackingSuiteClass", "Show Controls", nullptr));
+        actionAdd_Space_At_Bottom->setText(QApplication::translate("EyeTrackingSuiteClass", "Add Space At Bottom", nullptr));
         mainDrawArea->setText(QApplication::translate("EyeTrackingSuiteClass", "TextLabel", nullptr));
         groupBox_6->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Image", nullptr));
         imageComboBox->setItemText(0, QApplication::translate("EyeTrackingSuiteClass", "Vision Chart", nullptr));
         imageComboBox->setItemText(1, QApplication::translate("EyeTrackingSuiteClass", "One Square Inch", nullptr));
-        imageComboBox->setItemText(2, QApplication::translate("EyeTrackingSuiteClass", "Old Reading Test", nullptr));
-        imageComboBox->setItemText(3, QApplication::translate("EyeTrackingSuiteClass", "Oregon Sunset", nullptr));
-        imageComboBox->setItemText(4, QApplication::translate("EyeTrackingSuiteClass", "Desert Mustang", nullptr));
-        imageComboBox->setItemText(5, QApplication::translate("EyeTrackingSuiteClass", "Nelson Mandela", nullptr));
 
         groupBox_9->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Physical Setup", nullptr));
         label_9->setText(QApplication::translate("EyeTrackingSuiteClass", "Eye-To-Screen Distance (in):", nullptr));

@@ -60,6 +60,8 @@ public:
 
 protected:
 
+	void populateImageDropdown();
+
 	void loadNewBaseImage();
 
 	virtual void timerEvent(QTimerEvent *event) override;
@@ -116,5 +118,6 @@ public slots:
 	// Menu actions.
 	void onActionFullscreen(bool newValue);
 	void onActionShowControls(bool newValue);
+	void onActionSpaceBottom(bool newValue);
 	void onActionAbout();
 };

@@ -10,8 +10,9 @@
 #include "ETSBaseImage_OneInch.h"
 #include <cstdio>
 #include <QCloseEvent>
+#include <QDirIterator>
 
-const unsigned int EyeTrackingSuite::optionsFileVersion = 4;
+const unsigned int EyeTrackingSuite::optionsFileVersion = 6;
 
 EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	: QMainWindow(parent)
@@ -26,6 +27,7 @@ EyeTrackingSuite::EyeTrackingSuite(QWidget *parent)
 	, visChartShowing(false)
 {
 	ui.setupUi(this);
+	ui.spaceAtBottom->setHidden(true);
 	drawArea = (ETSDrawArea *)ui.mainDrawArea;
 	drawArea->attachETS(this);
 
@@ -83,6 +85,10 @@ may not be accurate until this is done.", "OK");
 
 	physUnits->registerForUpdates(this);
 
+	// Load names of image files from the images directory.
+	populateImageDropdown();
+
+	// Set proper scotoma and prosthesis sizes.
 	autoResizeScotoma();
 	autoResizeProsthesisPixels();
 
@@ -117,6 +123,17 @@ void EyeTrackingSuite::onPhysicalUnitSystemUpdate()
 	autoResizeProsthesisPixels();
 }
 
+void EyeTrackingSuite::populateImageDropdown()
+{
+	QDirIterator dir ("Images", QStringList("*.jpg"));
+
+	while (dir.hasNext())
+	{
+		QFileInfo info (dir.next());
+		ui.imageComboBox->addItem(info.baseName());
+	}
+}
+
 void EyeTrackingSuite::loadNewBaseImage()
 {
 	// Kill the old base image.
@@ -144,7 +161,7 @@ void EyeTrackingSuite::loadNewBaseImage()
 	else
 	{
 		ETSBaseImage_File * bi = new ETSBaseImage_File();
-		bi->loadFromFile(ui.imageComboBox->currentText() + QString(".jpg"));
+		bi->loadFromFile(QString("Images/") + ui.imageComboBox->currentText() + QString(".jpg"));
 		baseImage = bi;
 	}
 
@@ -225,6 +242,7 @@ void EyeTrackingSuite::readOptionsFile()
 
 	bool fullscreen = false;
 	bool hidecontrols = false;
+	bool spacebottom = false;
 	int viewdist = 0;
 
 	// Abort if options file version is different.
@@ -243,6 +261,7 @@ void EyeTrackingSuite::readOptionsFile()
 	fread(&optVisionChart, sizeof(ETSVisionChartOptions), 1, fp);
 	fread(&fullscreen, sizeof(bool), 1, fp);
 	fread(&hidecontrols, sizeof(bool), 1, fp);
+	fread(&spacebottom, sizeof(bool), 1, fp);
 	fread(&viewdist, sizeof(int), 1, fp);
 	fread(&optPhysDPICalib, sizeof(int), 1, fp);
 
@@ -277,6 +296,8 @@ void EyeTrackingSuite::readOptionsFile()
 	ui.actionFull_Screen->setChecked(fullscreen);
 	ui.tabWidget->setHidden(hidecontrols);
 	ui.actionShow_Controls->setChecked(!hidecontrols);
+	ui.spaceAtBottom->setHidden(!spacebottom);
+	ui.actionAdd_Space_At_Bottom->setChecked(spacebottom);
 
 	physUnits->setViewDist(viewdist);
 	ui.physViewDist->setValue(viewdist);
@@ -293,6 +314,7 @@ void EyeTrackingSuite::writeOptionsFile()
 
 	bool fullscreen = isFullScreen();
 	bool hidecontrols = ui.tabWidget->isHidden();
+	bool spacebottom = !ui.spaceAtBottom->isHidden();
 	int viewdist = physUnits->getViewDist();
 
 	// Write file version.
@@ -305,6 +327,7 @@ void EyeTrackingSuite::writeOptionsFile()
 	fwrite(&optVisionChart, sizeof(ETSVisionChartOptions), 1, fp);
 	fwrite(&fullscreen, sizeof(bool), 1, fp);
 	fwrite(&hidecontrols, sizeof(bool), 1, fp);
+	fwrite(&spacebottom, sizeof(bool), 1, fp);
 	fwrite(&viewdist, sizeof(int), 1, fp);
 	fwrite(&optPhysDPICalib, sizeof(int), 1, fp);
 
@@ -552,6 +575,11 @@ void EyeTrackingSuite::onActionFullscreen(bool newValue)
 void EyeTrackingSuite::onActionShowControls(bool newValue)
 {
 	ui.tabWidget->setHidden(!newValue);
+}
+
+void EyeTrackingSuite::onActionSpaceBottom(bool newValue)
+{
+	ui.spaceAtBottom->setHidden(!newValue);
 }
 
 
