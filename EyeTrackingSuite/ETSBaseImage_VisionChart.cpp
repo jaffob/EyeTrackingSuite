@@ -49,13 +49,13 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 
 	// Use one 20/100 height as padding, and start tracking the baseline of the text.
 	double padding = phys->calcDegreesToPixels(degrees2020 * 5.);
-	double textBase = drawAreaSize.height() - padding;
+	double textBase = 0;
 	QRect acNumberRect = QRect(0, 0, acNumberWidth, acNumberHeight);
 	double textZoneWidth = drawAreaSize.width() - (padding * 3.) - acNumberWidth;
 
 	acNumberX = drawAreaSize.width() - padding - acNumberWidth;
 
-	for (unsigned int i = 0; i < nAcuities; i++)
+	for (int i = (signed)(nAcuities - 1); i >= 0; i--)
 	{
 		painter.setPen(Qt::black);
 
@@ -64,8 +64,11 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 		double degs = (acuity / 20.) * degrees2020;
 		double pixs = phys->calcDegreesToPixels(degs);
 
-		// Stop drawing if this line of text will be hitting the ceiling.
-		if (textBase - pixs < 0.)
+		// Move down the text baseline.
+		textBase += pixs + padding;
+
+		// Stop drawing if this line of text will be outside the image.
+		if (textBase >= drawAreaSize.height())
 		{
 			break;
 		}
@@ -88,16 +91,16 @@ bool ETSBaseImage_VisionChart::regenerateForSize(QSize drawAreaSize)
 		painter.setFont(fontAcuity);
 		painter.drawText(acNumberRect, Qt::AlignRight | Qt::AlignVCenter | Qt::TextDontClip, acNumberString);
 
-		// Move up the text base.
-		textBase -= pixs + padding * 2;
+		// Add a little more padding.
+		textBase += padding;
 	}
 
 	// Put in a top black border then crop the image.
-	textBase = qMax(textBase, 0.);
+	textBase = qMin<double>(textBase, drawAreaSize.height());
 	painter.setPen(Qt::black);
-	painter.drawLine(0, textBase, drawAreaSize.width(), textBase);
+	painter.drawLine(0, textBase - 1, drawAreaSize.width(), textBase - 1);
 	painter.end();
-	img = img.copy(0, textBase, drawAreaSize.width(), drawAreaSize.height() - textBase + 1);
+	img = img.copy(0, 0, drawAreaSize.width(), textBase);
 
 	painter.end();
 	return true;
