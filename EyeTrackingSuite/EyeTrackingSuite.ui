@@ -915,66 +915,6 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
-         <attribute name="title">
-          <string>Visual Field</string>
-         </attribute>
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>20</y>
-            <width>211</width>
-            <height>131</height>
-           </rect>
-          </property>
-          <property name="title">
-           <string>Homonymous Hemianopsia</string>
-          </property>
-          <widget class="QRadioButton" name="halfFieldBlockNone">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>30</y>
-             <width>171</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Do not block visual fields</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QRadioButton" name="halfFieldBlockLeft">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>60</y>
-             <width>171</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Block left visual field</string>
-           </property>
-          </widget>
-          <widget class="QRadioButton" name="halfFieldBlockRight">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>90</y>
-             <width>171</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Block right visual field</string>
-           </property>
-          </widget>
-         </widget>
-        </widget>
        </widget>
       </item>
      </layout>
@@ -1076,230 +1016,6 @@
  </resources>
  <connections>
   <connection>
-   <sender>tobiiReconnect</sender>
-   <signal>clicked()</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onTobiiReconnectClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>836</x>
-     <y>108</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>scotomaEnabled</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onScotomaEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>781</x>
-     <y>201</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>calibrationHoriz</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onCalibrationHorizChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>781</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>calibrationVert</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onCalibrationVertChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>781</x>
-     <y>293</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prosthesisEnabled</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>781</x>
-     <y>501</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>halfFieldBlockNone</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onHalfFieldBlockNone(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>782</x>
-     <y>122</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>halfFieldBlockLeft</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onHalfFieldBlockLeft(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>782</x>
-     <y>152</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>halfFieldBlockRight</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onHalfFieldBlockRight(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>782</x>
-     <y>182</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prosthesisGrayLevel</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisGrayLevelChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>777</x>
-     <y>304</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gradientEnabled</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onGradientEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>392</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gradientOutside</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onGradientOutsideChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>817</x>
-     <y>454</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>imageComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onImageComboBoxChanged(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>782</x>
-     <y>404</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prosthesisPixelSize</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisPixelSizeChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>334</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prosthesisSize</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisSizeChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>787</x>
-     <y>424</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionAbout</sender>
    <signal>triggered()</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
@@ -1308,70 +1024,6 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>physViewDist</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onPhysViewDistChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>854</x>
-     <y>392</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>scotomaSizeDegrees</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onScotomaSizeDegreesChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>817</x>
-     <y>202</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prosthesisFullWhite</sender>
-   <signal>sliderReleased()</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisFullWhiteChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>812</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>prosthesisFullBlack</sender>
-   <signal>sliderReleased()</signal>
-   <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onProsthesisFullBlackChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>812</x>
-     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>456</x>
@@ -1412,30 +1064,238 @@
    </hints>
   </connection>
   <connection>
-   <sender>physDPICalib</sender>
-   <signal>valueChanged(int)</signal>
+   <sender>actionAdd_Space_At_Bottom</sender>
+   <signal>toggled(bool)</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onPhysDPICalibChanged(int)</slot>
+   <slot>onActionSpaceBottom(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1039</x>
-     <y>422</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>577</x>
-     <y>384</y>
+     <y>424</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>physDPICalibHelp</sender>
-   <signal>clicked()</signal>
+   <sender>prosthesisEnabled</sender>
+   <signal>toggled(bool)</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onPhysDPICalibHelp()</slot>
+   <slot>onProsthesisEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1084</x>
-     <y>423</y>
+     <x>781</x>
+     <y>501</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tobiiReconnect</sender>
+   <signal>clicked()</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onTobiiReconnectClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>836</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scotomaEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onScotomaEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>781</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gradientEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onGradientEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>787</x>
+     <y>392</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gradientOutside</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onGradientOutsideChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>817</x>
+     <y>454</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisSize</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisSizeChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>787</x>
+     <y>424</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>imageComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onImageComboBoxChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>782</x>
+     <y>404</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>physViewDist</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onPhysViewDistChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>854</x>
+     <y>392</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>calibrationHoriz</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onCalibrationHorizChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>781</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scotomaSizeDegrees</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onScotomaSizeDegreesChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>817</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisPixelSize</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisPixelSizeChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>787</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisGrayLevel</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisGrayLevelChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>777</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>calibrationVert</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onCalibrationVertChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>781</x>
+     <y>293</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visTextCapital</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisTextCapitalChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1004</x>
+     <y>700</y>
     </hint>
     <hint type="destinationlabel">
      <x>577</x>
@@ -1460,14 +1320,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>visTextDifferent</sender>
-   <signal>toggled(bool)</signal>
+   <sender>physDPICalib</sender>
+   <signal>valueChanged(int)</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onVisTextDifferentChanged(bool)</slot>
+   <slot>onPhysDPICalibChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>999</x>
-     <y>674</y>
+     <x>1039</x>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>577</x>
@@ -1492,18 +1352,50 @@
    </hints>
   </connection>
   <connection>
-   <sender>visTextCapital</sender>
-   <signal>toggled(bool)</signal>
+   <sender>physDPICalibHelp</sender>
+   <signal>clicked()</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onVisTextCapitalChanged(bool)</slot>
+   <slot>onPhysDPICalibHelp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1004</x>
-     <y>700</y>
+     <x>1084</x>
+     <y>423</y>
     </hint>
     <hint type="destinationlabel">
      <x>577</x>
      <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visTextDifferent</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onVisTextDifferentChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>999</x>
+     <y>674</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prosthesisFullWhite</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>EyeTrackingSuiteClass</receiver>
+   <slot>onProsthesisFullWhiteChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>452</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>361</y>
     </hint>
    </hints>
   </connection>
@@ -1524,18 +1416,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionAdd_Space_At_Bottom</sender>
-   <signal>toggled(bool)</signal>
+   <sender>prosthesisFullBlack</sender>
+   <signal>sliderReleased()</signal>
    <receiver>EyeTrackingSuiteClass</receiver>
-   <slot>onActionSpaceBottom(bool)</slot>
+   <slot>onProsthesisFullBlackChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
+     <x>812</x>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
-     <x>577</x>
-     <y>424</y>
+     <x>456</x>
+     <y>361</y>
     </hint>
    </hints>
   </connection>

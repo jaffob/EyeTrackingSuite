@@ -23,7 +23,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
@@ -100,11 +99,6 @@ public:
     QLabel *label_12;
     QSlider *prosthesisFullBlack;
     QSlider *prosthesisFullWhite;
-    QWidget *tab;
-    QGroupBox *groupBox_5;
-    QRadioButton *halfFieldBlockNone;
-    QRadioButton *halfFieldBlockLeft;
-    QRadioButton *halfFieldBlockRight;
     QWidget *spaceAtBottom;
     QMenuBar *menuBar;
     QMenu *menuHelp;
@@ -415,22 +409,6 @@ public:
         verticalLayout->addWidget(scrollArea_2);
 
         tabWidget->addTab(tab_4, QString());
-        tab = new QWidget();
-        tab->setObjectName(QStringLiteral("tab"));
-        groupBox_5 = new QGroupBox(tab);
-        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
-        groupBox_5->setGeometry(QRect(20, 20, 211, 131));
-        halfFieldBlockNone = new QRadioButton(groupBox_5);
-        halfFieldBlockNone->setObjectName(QStringLiteral("halfFieldBlockNone"));
-        halfFieldBlockNone->setGeometry(QRect(20, 30, 171, 17));
-        halfFieldBlockNone->setChecked(true);
-        halfFieldBlockLeft = new QRadioButton(groupBox_5);
-        halfFieldBlockLeft->setObjectName(QStringLiteral("halfFieldBlockLeft"));
-        halfFieldBlockLeft->setGeometry(QRect(20, 60, 171, 17));
-        halfFieldBlockRight = new QRadioButton(groupBox_5);
-        halfFieldBlockRight->setObjectName(QStringLiteral("halfFieldBlockRight"));
-        halfFieldBlockRight->setGeometry(QRect(20, 90, 171, 17));
-        tabWidget->addTab(tab, QString());
 
         horizontalLayout->addWidget(tabWidget);
 
@@ -470,35 +448,32 @@ public:
         menuWindow->addAction(actionAdd_Space_At_Bottom);
 
         retranslateUi(EyeTrackingSuiteClass);
-        QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
-        QObject::connect(scotomaEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaEnabled(bool)));
-        QObject::connect(calibrationHoriz, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationHorizChanged(int)));
-        QObject::connect(calibrationVert, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationVertChanged(int)));
-        QObject::connect(prosthesisEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onProsthesisEnabled(bool)));
-        QObject::connect(halfFieldBlockNone, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockNone(bool)));
-        QObject::connect(halfFieldBlockLeft, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockLeft(bool)));
-        QObject::connect(halfFieldBlockRight, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onHalfFieldBlockRight(bool)));
-        QObject::connect(prosthesisGrayLevel, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisGrayLevelChanged(int)));
-        QObject::connect(gradientEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onGradientEnabled(bool)));
-        QObject::connect(gradientOutside, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onGradientOutsideChanged(int)));
-        QObject::connect(imageComboBox, SIGNAL(currentIndexChanged(QString)), EyeTrackingSuiteClass, SLOT(onImageComboBoxChanged(QString)));
-        QObject::connect(prosthesisPixelSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisPixelSizeChanged(int)));
-        QObject::connect(prosthesisSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisSizeChanged(int)));
         QObject::connect(actionAbout, SIGNAL(triggered()), EyeTrackingSuiteClass, SLOT(onActionAbout()));
-        QObject::connect(physViewDist, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysViewDistChanged(int)));
-        QObject::connect(scotomaSizeDegrees, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaSizeDegreesChanged(int)));
-        QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
-        QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
         QObject::connect(actionFull_Screen, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionFullscreen(bool)));
         QObject::connect(actionShow_Controls, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionShowControls(bool)));
-        QObject::connect(physDPICalib, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysDPICalibChanged(int)));
-        QObject::connect(physDPICalibHelp, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onPhysDPICalibHelp()));
-        QObject::connect(visFont, SIGNAL(currentIndexChanged(int)), EyeTrackingSuiteClass, SLOT(onVisFontChanged(int)));
-        QObject::connect(visTextDifferent, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextDifferentChanged(bool)));
-        QObject::connect(visTextNumber, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onVisTextNumberChanged(int)));
-        QObject::connect(visTextCapital, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextCapitalChanged(bool)));
-        QObject::connect(visFontBold, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisFontBoldChanged(bool)));
         QObject::connect(actionAdd_Space_At_Bottom, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onActionSpaceBottom(bool)));
+        QObject::connect(prosthesisEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onProsthesisEnabled(bool)));
+        QObject::connect(tobiiReconnect, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onTobiiReconnectClicked()));
+        QObject::connect(scotomaEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onScotomaEnabled(bool)));
+        QObject::connect(gradientEnabled, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onGradientEnabled(bool)));
+        QObject::connect(gradientOutside, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onGradientOutsideChanged(int)));
+        QObject::connect(prosthesisSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisSizeChanged(int)));
+        QObject::connect(imageComboBox, SIGNAL(currentIndexChanged(QString)), EyeTrackingSuiteClass, SLOT(onImageComboBoxChanged(QString)));
+        QObject::connect(physViewDist, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysViewDistChanged(int)));
+        QObject::connect(calibrationHoriz, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationHorizChanged(int)));
+        QObject::connect(scotomaSizeDegrees, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onScotomaSizeDegreesChanged(int)));
+        QObject::connect(prosthesisPixelSize, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisPixelSizeChanged(int)));
+        QObject::connect(prosthesisGrayLevel, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onProsthesisGrayLevelChanged(int)));
+        QObject::connect(calibrationVert, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onCalibrationVertChanged(int)));
+        QObject::connect(visTextCapital, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextCapitalChanged(bool)));
+        QObject::connect(visFont, SIGNAL(currentIndexChanged(int)), EyeTrackingSuiteClass, SLOT(onVisFontChanged(int)));
+        QObject::connect(physDPICalib, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onPhysDPICalibChanged(int)));
+        QObject::connect(visTextNumber, SIGNAL(valueChanged(int)), EyeTrackingSuiteClass, SLOT(onVisTextNumberChanged(int)));
+        QObject::connect(physDPICalibHelp, SIGNAL(clicked()), EyeTrackingSuiteClass, SLOT(onPhysDPICalibHelp()));
+        QObject::connect(visTextDifferent, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisTextDifferentChanged(bool)));
+        QObject::connect(prosthesisFullWhite, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullWhiteChanged()));
+        QObject::connect(visFontBold, SIGNAL(toggled(bool)), EyeTrackingSuiteClass, SLOT(onVisFontBoldChanged(bool)));
+        QObject::connect(prosthesisFullBlack, SIGNAL(sliderReleased()), EyeTrackingSuiteClass, SLOT(onProsthesisFullBlackChanged()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -556,11 +531,6 @@ public:
         label_11->setText(QApplication::translate("EyeTrackingSuiteClass", "Full Black:", nullptr));
         label_12->setText(QApplication::translate("EyeTrackingSuiteClass", "Full White:", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("EyeTrackingSuiteClass", "Central Vision", nullptr));
-        groupBox_5->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Homonymous Hemianopsia", nullptr));
-        halfFieldBlockNone->setText(QApplication::translate("EyeTrackingSuiteClass", "Do not block visual fields", nullptr));
-        halfFieldBlockLeft->setText(QApplication::translate("EyeTrackingSuiteClass", "Block left visual field", nullptr));
-        halfFieldBlockRight->setText(QApplication::translate("EyeTrackingSuiteClass", "Block right visual field", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("EyeTrackingSuiteClass", "Visual Field", nullptr));
         menuHelp->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Help", nullptr));
         menuWindow->setTitle(QApplication::translate("EyeTrackingSuiteClass", "Window", nullptr));
     } // retranslateUi
