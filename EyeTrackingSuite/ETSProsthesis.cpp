@@ -29,7 +29,7 @@ void ETSProsthesis::makeProsthesis(ETSBaseImage * baseImage)
 
 	// Reduce image resolution by downscaling then upscaling the image.
 	img = source.scaled(source.size() / options->pixelSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	img = img.scaled(source.size(), Qt::IgnoreAspectRatio, Qt::FastTransformation);
+	img = img.scaled(source.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
 	// Iterate over pixels in the prosthesis area.
 	for (int i = 0; i < img.width(); i++)
